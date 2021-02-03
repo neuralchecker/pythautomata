@@ -1,0 +1,2 @@
+class PythonAutomataException(Exception):
+  pass
