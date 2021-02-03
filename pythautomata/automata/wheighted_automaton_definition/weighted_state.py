@@ -1,4 +1,4 @@
-from .weighted_transition import WeightedTransition
+from automata.wheighted_automaton_definition.weighted_transition import WeightedTransition
 from base_types.symbol import Symbol
 from exceptions.none_state_exception import NoneStateException
 from typing import Union
