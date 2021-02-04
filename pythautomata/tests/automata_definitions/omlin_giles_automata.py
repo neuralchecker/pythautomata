@@ -1,12 +1,12 @@
 from base_types.state import State
-from base_types.symbol import Symbol
+from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 abcAlphabet = Alphabet(frozenset(
-    (Symbol('a'), Symbol('b'), Symbol('c'))))
+    (SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 abcdAlphabet = Alphabet(frozenset(
-    (Symbol('a'), Symbol('b'), Symbol('c'), Symbol('d'))))
+    (SymbolStr('a'), SymbolStr('b'), SymbolStr('c'), SymbolStr('d'))))
 
 class OmlinGilesAutomata:
     """
@@ -21,7 +21,7 @@ class OmlinGilesAutomata:
         returns a list containing all automata defined in this class
     
     get_a_automaton: DeterministicFiniteAutomaton
-        returns the automaton A from the paper
+        returns the automaton A from the paper 
     
     get_b_automaton: DeterministicFiniteAutomaton
         returns the automaton B from the paper
@@ -32,6 +32,7 @@ class OmlinGilesAutomata:
     get_bz_automaton: DeterministicFiniteAutomaton
         returns the automaton A from the paper with stuttering symbol (d)
     """
+    
     @staticmethod
     def get_all_automata():
         """
