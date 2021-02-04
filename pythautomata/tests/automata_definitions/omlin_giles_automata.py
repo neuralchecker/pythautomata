@@ -1,21 +1,48 @@
 from base_types.state import State
 from base_types.symbol import SymbolChar
 from base_types.alphabet import Alphabet
-from queryable_models.finite_automaton import FiniteAutomaton
+from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 abcAlphabet = Alphabet(frozenset(
     (SymbolChar('a'), SymbolChar('b'), SymbolChar('c'))))
 abcdAlphabet = Alphabet(frozenset(
     (SymbolChar('a'), SymbolChar('b'), SymbolChar('c'), SymbolChar('d'))))
 
-# Automata taken from Omlin & Giles’
-# "Constructing Deterministic Finite-State Automata in Recurrent Neural Networks".
-
-
 class OmlinGilesAutomata:
+    """
+    Class containing automata from paper:
+    Christian W. Omlin and C. Lee Giles. 1996. 
+    Constructing deterministic finite-state automata in recurrent neural networks. 
+    J. ACM 43, 6 (Nov. 1996), 937–972. DOI:https://doi.org/10.1145/235809.235811
 
+    Methods
+    -------
+    get_all_automata: list(DeterministicFiniteAutomaton)
+        returns a list containing all automata defined in this class
+    
+    get_a_automaton: DeterministicFiniteAutomaton
+        returns the automaton A from the paper
+    
+    get_b_automaton: DeterministicFiniteAutomaton
+        returns the automaton B from the paper
+
+    get_az_automaton: DeterministicFiniteAutomaton
+        returns the automaton A from the paper with stuttering symbol (d)
+    
+    get_bz_automaton: DeterministicFiniteAutomaton
+        returns the automaton A from the paper with stuttering symbol (d)
+    """
     @staticmethod
     def get_all_automata():
+        """
+        method returning a list of all automata of the class
+
+        Returns
+        -------
+        list(DeterministicFiniteAutomaton)
+            all automata defined in the class
+
+        """
         return [
             OmlinGilesAutomata.get_a_automaton(),
             OmlinGilesAutomata.get_az_automaton(),
@@ -25,6 +52,15 @@ class OmlinGilesAutomata:
 
     @staticmethod
     def get_a_automaton():
+        """
+        method with specification of the automaton A from the paper
+
+        Returns
+        -------
+        DeterministicFiniteAutomaton
+            automaton A from the paper
+
+        """
         a = abcAlphabet['a']
         b = abcAlphabet['b']
         c = abcAlphabet['c']
@@ -40,11 +76,19 @@ class OmlinGilesAutomata:
         state2.add_transition(a, state1)
         state2.add_transition(b, state0)
         state2.add_transition(c, state2)
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "a automaton")
 
     @staticmethod
     def get_b_automaton():
+        """
+        method with specification of the automaton B from the paper
+
+        Returns
+        -------
+        DeterministicFiniteAutomaton
+            automaton B from the paper
+        """
         a = abcAlphabet['a']
         b = abcAlphabet['b']
         c = abcAlphabet['c']
@@ -72,12 +116,20 @@ class OmlinGilesAutomata:
         state5.add_transition(a, state0)
         state5.add_transition(b, state0)
         state5.add_transition(c, state2)
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
                                     state4, state5]), "b automaton")
 
     @staticmethod
     def get_az_automaton():
+        """
+        method with specification of the automaton A from the paper, with a stuttering symbol
+
+        Returns
+        -------
+        DeterministicFiniteAutomaton
+            automaton A from the paper, with a stuttering symbol
+        """
         a = abcdAlphabet['a']
         b = abcdAlphabet['b']
         c = abcdAlphabet['c']
@@ -97,11 +149,19 @@ class OmlinGilesAutomata:
         state2.add_transition(b, state0)
         state2.add_transition(c, state2)
         state2.add_transition(d, state2)
-        return FiniteAutomaton(abcdAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "az automaton")
 
     @staticmethod
     def get_bz_automaton():
+        """
+        method with specification of the automaton B from the paper, with a stuttering symbol
+
+        Returns
+        -------
+        DeterministicFiniteAutomaton
+            automaton B from the paper, with a stuttering symbol
+        """
         a = abcdAlphabet['a']
         b = abcdAlphabet['b']
         c = abcdAlphabet['c']
@@ -136,6 +196,6 @@ class OmlinGilesAutomata:
         state5.add_transition(b, state0)
         state5.add_transition(c, state2)
         state5.add_transition(d, state5)
-        return FiniteAutomaton(abcdAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
                                     state4, state5]), "bz automaton")
