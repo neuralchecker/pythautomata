@@ -1,12 +1,12 @@
 from base_types.state import State
-from base_types.symbol import SymbolChar
+from base_types.symbol import Symbol
 from base_types.alphabet import Alphabet
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 abcAlphabet = Alphabet(frozenset(
-    (SymbolChar('a'), SymbolChar('b'), SymbolChar('c'))))
+    (Symbol('a'), Symbol('b'), Symbol('c'))))
 abcdAlphabet = Alphabet(frozenset(
-    (SymbolChar('a'), SymbolChar('b'), SymbolChar('c'), SymbolChar('d'))))
+    (Symbol('a'), Symbol('b'), Symbol('c'), Symbol('d'))))
 
 class OmlinGilesAutomata:
     """
