@@ -9,10 +9,32 @@ one = binaryAlphabet['1']
 
 
 class TomitasGrammarMods:
+    """
+    Class containing modified versions of automata from paper:    
+    Tomita, M. (1982). 
+    Dynamic Construction of Finite Automata from examples using Hill-climbing. 
+    Proceedings of the Fourth Annual Conference of the Cognitive Science Society 
+    (p./pp. 105--108), Ann Arbor, Michigan.
 
-    # Definition: Recognizes strings that have an even ammount of 01 (and not taking into account 10). It's a sublanguage of Tomita5 
+    Methods
+    -------   
+    get_mod_automaton_5: DeterministicFiniteAutomaton
+        returns a modified version of the automaton 5 from the paper
+    """
+ 
     @staticmethod
     def get_mod_automaton_5():
+        """
+        method with specification of a modified version of the automaton 5 from the paper
+
+        Recognizes strings that have an even ammount of 01 (and not taking into account 10). 
+        It's a sublanguage of the fifth Tomita's grammar.
+
+        Returns
+        -------
+        DeterministicFiniteAutomaton
+            modified version of automaton 5 from the paper
+        """
         stateQ0 = State("State 0", True)
         stateQ1 = State("State 1")
         stateQ2 = State("State 2")
