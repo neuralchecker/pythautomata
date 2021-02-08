@@ -6,11 +6,12 @@ from base_types.symbol import Symbol
 from collections import deque, namedtuple
 from abstract.finite_automaton import FiniteAutomaton
 from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from abstract.finite_automata_comparator import FiniteAutomataComparator
 
 ExecutionState = namedtuple("ExecutionState", ["state", "sequence"])
 
 class NondeterministicFiniteAutomaton(FiniteAutomaton):
-    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], name: str = None,
+    def __init__(self, alphabet: Alphabet, comparator: FiniteAutomataComparator,initial_states: frozenset[State], states: set[State], name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
@@ -22,6 +23,7 @@ class NondeterministicFiniteAutomaton(FiniteAutomaton):
         self.initial_states = initial_states
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
+        super(NondeterministicFiniteAutomaton, self).__init__(comparator)
 
     def accepts(self, sequence: Sequence) -> bool:
         toVisit = deque(ExecutionState(state, sequence) for state in self.initial_states)

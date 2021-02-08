@@ -1,11 +1,11 @@
 from base_types.sequence import Sequence
 from base_types.state import State
 from utilities.automata_convertor import AutomataConvertor
-from abstract.model_comparison_strategy import ModelComparisonStrategy
+from abstract.finite_automata_comparator import FiniteAutomataComparator
 from abstract.finite_automaton import FiniteAutomaton
 from typing import Optional
 
-class DFAConversionComparisonStrategy(ModelComparisonStrategy):
+class DFAConversionComparisonStrategy(FiniteAutomataComparator):
 
     def are_equivalent(self, automaton1: FiniteAutomaton, automaton2: FiniteAutomaton) -> bool:
         return self.get_counterexample_between(automaton1, automaton2) is None

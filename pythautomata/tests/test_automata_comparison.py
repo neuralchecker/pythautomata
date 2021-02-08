@@ -4,6 +4,7 @@ from utilities.automata_comparator import AutomataComparator
 from tests.testing_automata.other_automata import OtherAutomata
 from tests.testing_automata.tomitas_grammar import TomitasGrammars
 from tests.testing_automata.omlin_giles_automata import OmlinGilesAutomata
+from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 
 
 class TestAutomataComparison(TestCase):

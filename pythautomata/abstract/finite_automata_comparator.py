@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from base_types.sequence import Sequence
 from abstract.finite_automaton import FiniteAutomaton
 
-class ModelComparisonStrategy(ABC):
+class FiniteAutomataComparator(ABC):
 
     @abstractmethod
     def are_equivalent(self, model1: FiniteAutomaton, model2: FiniteAutomaton) -> bool:

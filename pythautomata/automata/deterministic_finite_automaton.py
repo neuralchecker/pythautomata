@@ -1,4 +1,5 @@
 import uuid
+
 from base_types.state import State
 from base_types.alphabet import Alphabet
 from base_types.sequence import Sequence
@@ -7,9 +8,10 @@ from abstract.finite_automaton import FiniteAutomaton
 from exceptions.unknown_symbols_exception import UnknownSymbolsException
 from exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from abstract.finite_automata_comparator import FiniteAutomataComparator
 
 class DeterministicFiniteAutomaton(FiniteAutomaton):
-    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], name: str = None,
+    def __init__(self, alphabet: Alphabet, comparator:FiniteAutomataComparator, initial_states: frozenset[State], states: set[State], name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
@@ -21,6 +23,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
         self.initial_states = initial_states
         self._setHole(hole)
         self._exporting_strategies = exportingStrategies
+        super(DeterministicFiniteAutomaton, self).__init__(comparator)
 
     def accepts(self, sequence: Sequence) -> bool:
         actual_state: State
