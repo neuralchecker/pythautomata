@@ -1,14 +1,14 @@
 from collections import deque
 from base_types.state import State
 from base_types.sequence import Sequence
-from abstract.finite_automaton import FiniteAutomaton
+from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
-def are_equivalent(automaton1: FiniteAutomaton, automaton2: FiniteAutomaton):
+def are_equivalent(automaton1: DeterministicFiniteAutomaton, automaton2: FiniteAutomaton):
     result = _inner_are_equivalent(automaton1, automaton2)
     return result
 
 
-def get_counterexample_between(automaton1: FiniteAutomaton, automaton2: FiniteAutomaton):
+def get_counterexample_between(automaton1: DeterministicFiniteAutomaton, automaton2: FiniteAutomaton):
     counterexample = _inner_are_equivalent(automaton1, automaton2, True)
     return counterexample
 

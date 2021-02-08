@@ -2,19 +2,19 @@ from base_types.symbol import Symbol
 from exceptions.none_state_exception import NoneStateException
 
 class State:
-    hole: State
+    hole: 'State'
 
     def __init__(self, name, is_final: bool = False):
         self.name = name
         self.is_final = is_final
-        self.transitions: dict[Symbol, set[State]] = {}
+        self.transitions: dict[Symbol, set['State']] = {}
         self._is_deterministic: bool = True
 
     @property
     def is_deterministic(self) -> bool:
         return self._is_deterministic
 
-    def add_transition(self, symbol: Symbol, next_state: State) -> None:
+    def add_transition(self, symbol: Symbol, next_state: 'State') -> None:
         if next_state is None:
             raise NoneStateException()
         if symbol not in self.transitions:
@@ -23,25 +23,25 @@ class State:
             self._is_deterministic = False
         self.transitions[symbol].add(next_state)
 
-    def add_multiple_transitions(self, symbol: Symbol, next_states: list[State]) -> None:
+    def add_multiple_transitions(self, symbol: Symbol, next_states: list['State']) -> None:
         for next_state in next_states:
             self.add_transition(symbol, next_state)
 
-    def next_states_for(self, symbol: Symbol) -> set[State]:
+    def next_states_for(self, symbol: Symbol) -> set['State']:
         if symbol not in self.transitions:
             return {self.hole}
         return self.transitions[symbol]
 
-    def next_state_for(self, symbol: Symbol) -> State:
+    def next_state_for(self, symbol: Symbol) -> 'State':
         next_states = list(self.next_states_for(symbol))
         assert(len(next_states) == 1)
         return next_states[0]
 
-    def add_hole_transition(self, hole: State) -> None:
+    def add_hole_transition(self, hole: 'State') -> None:
         self.hole = hole
 
     def __eq__(self, other):
-        return isinstance(other, State) and self.name == other.name
+        return isinstance(other, 'State') and self.name == other.name
 
     def __hash__(self):
         return hash(self.name)
