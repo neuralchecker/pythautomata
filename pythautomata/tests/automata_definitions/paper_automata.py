@@ -3,6 +3,7 @@ from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from utilities.automata_convertor import AutomataConvertor
 from queryable_models.finite_automaton import FiniteAutomaton
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))

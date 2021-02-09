@@ -94,10 +94,10 @@ class OtherAutomata:
         state4.add_transition(one, state5)
         state5.add_transition(zero, state5)
         state5.add_transition(one, state5)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
-                                    state4, state5]), "Automaton 1")
+                                    state4, state5]), comparator, "Automaton 1")
 
     @staticmethod
     def get_automaton_1_minimized():
@@ -110,8 +110,9 @@ class OtherAutomata:
         state1.add_transition(one, state2)
         state2.add_transition(zero, state2)
         state2.add_transition(one, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "Automaton 1 minimized")
+                               set([state0, state1, state2]), comparator, "Automaton 1 minimized")
 
     @staticmethod
     def get_automaton_2():
@@ -123,8 +124,9 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(zero, state2)
         state3.add_transition(zero, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2, state3]), "Automaton 2")
+                               set([state0, state1, state2, state3]), comparator, "Automaton 2")
 
     @staticmethod
     def get_automaton_2_minimized():
@@ -134,8 +136,9 @@ class OtherAutomata:
         state0.add_transition(zero, state1_and_state3)
         state0.add_transition(one, state1_and_state3)
         state1_and_state3.add_transition(zero, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1_and_state3, state2]), "Automaton 2 minimized")
+                               set([state0, state1_and_state3, state2]), comparator, "Automaton 2 minimized")
 
     @staticmethod
     def get_automaton_3():
@@ -159,10 +162,10 @@ class OtherAutomata:
         state6.add_transition(one, state3)
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state1}),
                                set([state1, state2, state3, state4, state5,
-                                    state6, state7]), "Automaton 3")
+                                    state6, state7]), comparator, "Automaton 3")
 
     @staticmethod
     def get_automaton_3_minimized():
@@ -183,10 +186,10 @@ class OtherAutomata:
         state6.add_transition(one, state3)
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state1_and_state2}),
                                set([state1_and_state2, state3, state4, state5,
-                                    state6, state7]), "Automaton 3 minimized")
+                                    state6, state7]), comparator, "Automaton 3 minimized")
 
     @staticmethod
     def get_automaton_4():
@@ -218,10 +221,11 @@ class OtherAutomata:
         state_h.add_transition(one, state_g)
         state_f.add_transition(zero, state_c)
         state_f.add_transition(one, state_g)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state_i}),
                                set([state_i, state_d, state_c, state_a, state_b,
-                                    state_g, state_e, state_h, state_f]), "Automaton 4")
+                                    state_g, state_e, state_h, state_f]), comparator, 
+                                    "Automaton 4")
 
     @staticmethod
     def get_automaton_4_minimized():
@@ -250,10 +254,10 @@ class OtherAutomata:
         state_e.add_transition(one, state_h_and_f)
         state_h_and_f.add_transition(zero, state_c)
         state_h_and_f.add_transition(one, state_g)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state_i}),
                                set([state_i, state_d, state_c, state_a, state_b, state_g,
-                                    state_e, state_h_and_f]), "Automaton 4 minimized")
+                                    state_e, state_h_and_f]), comparator, "Automaton 4 minimized")
 
     @staticmethod
     def get_non_minimizable_automaton_1():
@@ -270,9 +274,9 @@ class OtherAutomata:
         state2.add_transition(one, state3)
         state3.add_transition(zero, state0)
         state3.add_transition(one, state1)
-
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2, state3]), "Non-minimizable automaton 1")
+                               set([state0, state1, state2, state3]), comparator, "Non-minimizable automaton 1")
 
     @staticmethod
     def get_non_minimizable_automaton_2():
@@ -282,8 +286,9 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(zero, state0)
         state1.add_transition(one, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1]), "Non-minimizable automaton 2")
+                               set([state0, state1]), comparator, "Non-minimizable automaton 2")
 
     @staticmethod
     def get_non_minimizable_automaton_3():
@@ -295,8 +300,9 @@ class OtherAutomata:
         state1.add_transition(zero, state1)
         state1.add_transition(one, state1)
         state2.add_transition(one, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "Non-minimizable automaton 3")
+                               set([state0, state1, state2]), comparator, "Non-minimizable automaton 3")
 
     @staticmethod
     def get_nfa_1():
@@ -307,8 +313,9 @@ class OtherAutomata:
         state0.add_transition(zero, state1)
         state0.add_transition(one, state0)
         state1.add_transition(one, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "NFA 1")
+                               set([state0, state1, state2]), comparator, "NFA 1")
 
     @staticmethod
     def get_dfa_1():
@@ -321,8 +328,9 @@ class OtherAutomata:
         state0_1.add_transition(one, state0_2)
         state0_2.add_transition(zero, state0_1)
         state0_2.add_transition(one, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state0_1, state0_2]), "DFA 1")
+                               set([state0, state0_1, state0_2]), comparator, "DFA 1")
 
     @staticmethod
     def get_nfa_2():
@@ -337,8 +345,9 @@ class OtherAutomata:
         state2.add_transition(zero, state2)
         state2.add_transition(zero, state1)
         state2.add_transition(one, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "NFA 2")
+                               set([state0, state1, state2]), comparator, "NFA 2")
 
     @staticmethod
     def get_dfa_2():
@@ -351,8 +360,9 @@ class OtherAutomata:
         state1.add_transition(one, state1)
         state1_2.add_transition(zero, state1_2)
         state1_2.add_transition(one, state1_2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state1_2]), "DFA 2")
+                               set([state0, state1, state1_2]), comparator, "DFA 2")
 
     @staticmethod
     def get_nfa_3():
@@ -363,8 +373,9 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(one, state0)
         state1.add_transition(one, state1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1]), "NFA 3")
+                               set([state0, state1]), comparator, "NFA 3")
 
     @staticmethod
     def get_dfa_3():
@@ -376,8 +387,9 @@ class OtherAutomata:
         state1.add_transition(one, state0_1)
         state0_1.add_transition(zero, state0_1)
         state0_1.add_transition(one, state0_1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
-                               set([state0, state1, state0_1]), "DFA 3")
+                               set([state0, state1, state0_1]), comparator, "DFA 3")
 
     @staticmethod
     def get_nfa_4():
@@ -402,9 +414,10 @@ class OtherAutomata:
         state5.add_transition(b, state6)
         state5.add_transition(b, state4)
 
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
-                                    state4, state5, state6]), "NFA 4")
+                                    state4, state5, state6]), comparator, "NFA 4")
 
     @staticmethod
     def get_dfa_4():
@@ -455,11 +468,12 @@ class OtherAutomata:
         state5_3_4_1_0.add_transition(b, state2_4_6_1)
         state5_3_4_1_0.add_transition(c, state2_4)
 
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state1, state4, state2, state4_3,
                                     state0, state4_6, state3_5, state2_1,
                                     state2_4_6_1, state1_0, state4_3_1_0,
-                                    state5_3_4_1_0, state2_4]), "DFA 4")
+                                    state5_3_4_1_0, state2_4]), comparator, "DFA 4")
 
     @staticmethod
     def get_nfa_5():
@@ -475,8 +489,9 @@ class OtherAutomata:
         state1.add_transition(d, state2)
         state1.add_transition(e, state1)
         state2.add_transition(d, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcdeAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "NFA 5")
+                               set([state0, state1, state2]), comparator, "NFA 5")
 
     @staticmethod
     def get_dfa_5():
@@ -496,8 +511,9 @@ class OtherAutomata:
         state1_2.add_transition(c, state2)
         state1_2.add_transition(d, state2)
         state1_2.add_transition(e, state1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcdeAlphabet, frozenset({state0}),
-                               set([state0, state1, state2, state1_2]), "DFA 5")
+                               set([state0, state1, state2, state1_2]), comparator, "DFA 5")
 
     # Definition: Recognizes a program workflow.
     @staticmethod
@@ -508,8 +524,9 @@ class OtherAutomata:
         stateA.add_transition(one, stateB)
         stateB.add_transition(zero, stateA)
         stateB.add_transition(one, stateB)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB]), "Program workflow automaton")
+                               set([stateA, stateB]), comparator, "Program workflow automaton")
 
     # Definition: Recognizes e-commerce(taken from:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
@@ -571,9 +588,10 @@ class OtherAutomata:
         state6.add_transition(g, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
-                                    state6, state7]), "E-commerce automaton")
+                                    state6, state7]), comparator, "E-commerce automaton")
 
     # Definition: Recognizes e-commerce(taken from:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
@@ -633,9 +651,10 @@ class OtherAutomata:
         state6.add_transition(h, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
-                                    state6, state7]), "Modified E-commerce automaton")
+                                    state6, state7]), comparator, "Modified E-commerce automaton")
 
     # Definition: Recognizes e-commerce, reduced version (taken from:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
@@ -677,8 +696,10 @@ class OtherAutomata:
         state4.add_transition(f, state4)
         state4.add_transition(c, state4)
         state4.add_transition(e, state4)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4]),
+                               comparator,
                                "Reduced E-commerce automaton")
 
     # Definition: Recognizes strings not containing 'bbb' (not minimized).
@@ -708,9 +729,11 @@ class OtherAutomata:
         state6.add_transition(b, state7)
         state7.add_transition(a, state6)
         state7.add_transition(b, state5)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
-                                    state6, state7]), "Dolzhenko-Jonoska automaton")
+                                    state6, state7]), comparator,
+                                    "Dolzhenko-Jonoska automaton")
 
     # Definition: (a|b)*
     @staticmethod
@@ -720,7 +743,8 @@ class OtherAutomata:
         stateA = State("State A", True)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
-        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}), set([stateA]), "a or b Automaton")
+        comparator = HopcroftKarpComparisonStrategy()
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}), set([stateA]), comparator, "a or b Automaton")
 
     # Definition: (c*ac*bc*)*
     @staticmethod
@@ -734,8 +758,9 @@ class OtherAutomata:
         state0.add_transition(c, state0)
         state1.add_transition(b, state0)
         state1.add_transition(c, state1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
-                               set([state0, state1]), "ab with cs automaton")
+                               set([state0, state1]), comparator, "ab with cs automaton")
 
     # Definition: (ab)*
     @staticmethod
@@ -746,8 +771,9 @@ class OtherAutomata:
         state1 = State("State 1")
         state0.add_transition(a, state1)
         state1.add_transition(b, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
-                               set([state0, state1]), "ab automaton")
+                               set([state0, state1]), comparator, "ab automaton")
 
     # Definition: (.*0)
     @staticmethod
@@ -761,8 +787,9 @@ class OtherAutomata:
         stateB.add_transition(one, stateC)
         stateC.add_transition(zero, stateA)
         stateC.add_transition(one, stateC)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB, stateC]), "Zero ending automaton")
+                               set([stateA, stateB, stateC]), comparator, "Zero ending automaton")
 
     # Definition: (.*a), with {a, b, c} alphabet.
     @staticmethod
@@ -778,8 +805,9 @@ class OtherAutomata:
         state1.add_transition(a, state0)
         state1.add_transition(b, state1)
         state1.add_transition(c, state1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
-                               set([state0, state1]), "a ending with cs automaton")
+                               set([state0, state1]), comparator, "a ending with cs automaton")
 
     # Definition: (.*a), with {a, b} alphabet.
     @staticmethod
@@ -792,8 +820,9 @@ class OtherAutomata:
         state0.add_transition(b, state1)
         state1.add_transition(a, state0)
         state1.add_transition(b, state1)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
-                               set([state0, state1]), "a ending automaton")
+                               set([state0, state1]), comparator, "a ending automaton")
 
     # Definition: (..*0)
     @staticmethod
@@ -804,8 +833,9 @@ class OtherAutomata:
         stateA.add_transition(one, stateA)
         stateB.add_transition(zero, stateB)
         stateB.add_transition(one, stateA)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB]), "Non-empty zero ending automaton")
+                               set([stateA, stateB]), comparator, "Non-empty zero ending automaton")
 
     # Definition: (..*1)
     @staticmethod
@@ -816,8 +846,9 @@ class OtherAutomata:
         stateA.add_transition(one, stateB)
         stateB.add_transition(zero, stateA)
         stateB.add_transition(one, stateB)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB]), "Non-empty one ending automaton")
+                               set([stateA, stateB]), comparator, "Non-empty one ending automaton")
 
     # Definition: (ab)*a
     @staticmethod
@@ -848,9 +879,10 @@ class OtherAutomata:
         state6.add_transition(b, state4)
         state7.add_transition(a, state6)
         state7.add_transition(b, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
-                                    state6, state7]), "Complex ab prefixed automaton")
+                                    state6, state7]), comparator, "Complex ab prefixed automaton")
 
     # Definition: (ab)*a
     @staticmethod
@@ -861,8 +893,9 @@ class OtherAutomata:
         state1 = State("State 1", True)
         state0.add_transition(a, state1)
         state1.add_transition(b, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
-                               set([state0, state1]), "Simpler ab prefixed automaton")
+                               set([state0, state1]), comparator, "Simpler ab prefixed automaton")
 
     @staticmethod
     def get_alternating_bit_protocol_automaton():
@@ -882,8 +915,10 @@ class OtherAutomata:
         state2.add_transition(c, state3)
         state3.add_transition(c, state3)
         state3.add_transition(a, state0)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]),
+                               comparator,
                                "Alternating bit protocol automaton")
 
     @staticmethod
@@ -911,8 +946,10 @@ class OtherAutomata:
         state3.add_transition(c, state3)
         state3.add_transition(a, state0)
         state3.add_transition(e, state3)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]),
+                               comparator,
                                "Alternating bit protocol z automaton")
 
     # Definition: {}
@@ -923,8 +960,9 @@ class OtherAutomata:
         stateA = State("State A", False)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
-                               set([stateA]), "Empty automaton")
+                               set([stateA]), comparator, "Empty automaton")
 
     # Definition: Σ*
     @staticmethod
@@ -934,8 +972,9 @@ class OtherAutomata:
         stateA = State("State A", True)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
-                               set([stateA]), "Sigma-star automaton")
+                               set([stateA]), comparator, "Sigma-star automaton")
 
     # Definition: uneven number of as
     @staticmethod
@@ -948,8 +987,9 @@ class OtherAutomata:
         stateA.add_transition(b, stateA)
         stateB.add_transition(a, stateA)
         stateB.add_transition(b, stateB)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
-                               set([stateA, stateB]), "Uneven number of as")
+                               set([stateA, stateB]), comparator, "Uneven number of as")
 
     # Definition: uneven number of symbols
     @staticmethod
@@ -962,8 +1002,9 @@ class OtherAutomata:
         stateC.add_transition(b, stateD)
         stateD.add_transition(a, stateC)
         stateD.add_transition(b, stateC)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateC}),
-                               set([stateC, stateD]), "Uneven number of symbols")
+                               set([stateC, stateD]), comparator, "Uneven number of symbols")
 
     # Definition: uneven number of as and symbols
     @staticmethod
@@ -983,8 +1024,10 @@ class OtherAutomata:
         stateBC.add_transition(b, stateBD)
         stateBD.add_transition(a, stateAC)
         stateBD.add_transition(b, stateBC)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateAC}),
                                set([stateAC, stateAD, stateBC, stateBD]),
+                               comparator,
                                "Uneven number of as and symbols")
 
     # Definition: uneven number of as or symbols
@@ -1005,6 +1048,8 @@ class OtherAutomata:
         stateBC.add_transition(b, stateBD)
         stateBD.add_transition(a, stateAC)
         stateBD.add_transition(b, stateBC)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateAC}),
                                set([stateAC, stateAD, stateBC, stateBD]),
+                               comparator,
                                "Uneven number of as or symbols")

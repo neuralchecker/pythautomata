@@ -2,6 +2,7 @@ from base_types.state import State
 from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from queryable_models.finite_automaton import FiniteAutomaton
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
@@ -43,5 +44,7 @@ class TomitasGrammarMods:
         stateQ1.add_transition(zero, stateQ2)        
         stateQ2.add_transition(one, stateQ3)        
         stateQ3.add_transition(zero, stateQ0) 
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return FiniteAutomaton(binaryAlphabet, frozenset({stateQ0}),
-                               set([stateQ1, stateQ2, stateQ3, stateQ0]), "Tomita's grammar 5 sub language automaton")
+                               set([stateQ1, stateQ2, stateQ3, stateQ0]), comparator, "Tomita's grammar 5 sub language automaton")

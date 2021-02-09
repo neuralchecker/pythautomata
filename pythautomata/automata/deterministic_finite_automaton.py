@@ -11,7 +11,7 @@ from model_exporters.encoded_file_exporting_strategy import EncodedFileExporting
 from abstract.finite_automata_comparator import FiniteAutomataComparator
 
 class DeterministicFiniteAutomaton(FiniteAutomaton):
-    def __init__(self, alphabet: Alphabet, comparator:FiniteAutomataComparator, initial_states: frozenset[State], states: set[State], name: str = None,
+    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], comparator:FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:

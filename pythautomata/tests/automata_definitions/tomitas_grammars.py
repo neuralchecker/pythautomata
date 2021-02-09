@@ -2,6 +2,7 @@ from base_types.state import State
 from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
@@ -80,9 +81,11 @@ class TomitasGrammars:
         stateA.add_transition(one, stateA)
         stateA.add_transition(zero, stateB)
         stateB.add_transition(one, stateB)
-        stateB.add_transition(zero, stateB)
+        stateB.add_transition(zero, stateB)    
+
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB]), "Tomita's grammar 1 automaton")
+                               set([stateA, stateB]), comparator, "Tomita's grammar 1 automaton")
 
     @staticmethod
     def get_automaton_2():
@@ -106,10 +109,11 @@ class TomitasGrammars:
         stateB.add_transition(zero, stateA)
         stateC.add_transition(one, stateC)
         stateC.add_transition(zero, stateC)
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
-                               set([stateA, stateB, stateC]), "Tomita's grammar 2 automaton")
+                               set([stateA, stateB, stateC]), comparator, "Tomita's grammar 2 automaton")
 
-    # Definition: Recognizes strings that don't contain (1^(2n+1), 0^(2m+1)) as substring.
     @staticmethod
     def get_automaton_3():
         """
@@ -137,8 +141,11 @@ class TomitasGrammars:
         stateQ4.add_transition(zero, stateQ3)
         stateQ5.add_transition(one, stateQ5)
         stateQ5.add_transition(zero, stateQ5)
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateQ1}),
                                set([stateQ1, stateQ2, stateQ3, stateQ4, stateQ5]),
+                               comparator,
                                "Tomita's grammar 3 automaton")
 
     @staticmethod
@@ -166,8 +173,10 @@ class TomitasGrammars:
         stateQ3.add_transition(zero, stateQ4)
         stateQ4.add_transition(one, stateQ4)
         stateQ4.add_transition(zero, stateQ4)
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateQ1}),
-                               set([stateQ1, stateQ2, stateQ3, stateQ4]), "Tomita's grammar 4 automaton")
+                               set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 4 automaton")
 
     @staticmethod
     def get_automaton_5():
@@ -193,8 +202,10 @@ class TomitasGrammars:
         stateQ3.add_transition(zero, stateQ1)
         stateQ4.add_transition(one, stateQ3)
         stateQ4.add_transition(zero, stateQ2)
+
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateQ1}),
-                               set([stateQ1, stateQ2, stateQ3, stateQ4]), "Tomita's grammar 5 automaton")
+                               set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 5 automaton")
     
     @staticmethod
     def get_automaton_6():
@@ -217,8 +228,10 @@ class TomitasGrammars:
         stateQ2.add_transition(zero, stateQ1)
         stateQ3.add_transition(one, stateQ1)
         stateQ3.add_transition(zero, stateQ2)
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateQ1}),
-                               set([stateQ1, stateQ2, stateQ3]), "Tomita's grammar 6 automaton")
+                               set([stateQ1, stateQ2, stateQ3]), comparator, "Tomita's grammar 6 automaton")
 
     @staticmethod
     def get_automaton_7():
@@ -246,6 +259,8 @@ class TomitasGrammars:
         stateQ4.add_transition(zero, stateQ5)
         stateQ5.add_transition(one, stateQ5)
         stateQ5.add_transition(zero, stateQ5)
+        
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateQ1}),
-                               set([stateQ1, stateQ2, stateQ3, stateQ4, stateQ5]),
+                               set([stateQ1, stateQ2, stateQ3, stateQ4, stateQ5]), comparator,
                                "Tomita's grammar 7 automaton")

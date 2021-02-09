@@ -2,6 +2,7 @@ from base_types.state import State
 from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
 
 abcAlphabet = Alphabet(frozenset(
     (SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
@@ -77,8 +78,9 @@ class OmlinGilesAutomata:
         state2.add_transition(a, state1)
         state2.add_transition(b, state0)
         state2.add_transition(c, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "a automaton")
+                               set([state0, state1, state2]), comparator, "a automaton",)
 
     @staticmethod
     def get_b_automaton():
@@ -117,9 +119,10 @@ class OmlinGilesAutomata:
         state5.add_transition(a, state0)
         state5.add_transition(b, state0)
         state5.add_transition(c, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
-                                    state4, state5]), "b automaton")
+                                    state4, state5]), comparator, "b automaton")
 
     @staticmethod
     def get_az_automaton():
@@ -150,8 +153,9 @@ class OmlinGilesAutomata:
         state2.add_transition(b, state0)
         state2.add_transition(c, state2)
         state2.add_transition(d, state2)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
-                               set([state0, state1, state2]), "az automaton")
+                               set([state0, state1, state2]), comparator, "az automaton")
 
     @staticmethod
     def get_bz_automaton():
@@ -197,6 +201,7 @@ class OmlinGilesAutomata:
         state5.add_transition(b, state0)
         state5.add_transition(c, state2)
         state5.add_transition(d, state5)
+        comparator = HopcroftKarpComparisonStrategy()
         return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
-                                    state4, state5]), "bz automaton")
+                                    state4, state5]), comparator, "bz automaton")
