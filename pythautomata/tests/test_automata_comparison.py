@@ -1,9 +1,9 @@
 from itertools import chain
 from unittest import TestCase
-from utilities.automata_comparator import AutomataComparator
-from tests.testing_automata.other_automata import OtherAutomata
-from tests.testing_automata.tomitas_grammar import TomitasGrammars
-from tests.testing_automata.omlin_giles_automata import OmlinGilesAutomata
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as AutomataComparator
+from tests.automata_definitions.other_automata import OtherAutomata
+from tests.automata_definitions.tomitas_grammars import TomitasGrammars
+from tests.automata_definitions.omlin_giles_automata import OmlinGilesAutomata
 from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 
 

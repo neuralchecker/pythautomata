@@ -1,8 +1,8 @@
 from base_types.state import State
 from unittest import TestCase
-from queryable_models.finite_automaton import FiniteAutomaton
+from abstract.finite_automaton import FiniteAutomaton
 from utilities.automata_convertor import AutomataConvertor
-from tests.testing_automata.other_automata import OtherAutomata
+from tests.automata_definitions.other_automata import OtherAutomata
 
 
 class TestAutomataConvertor(TestCase):

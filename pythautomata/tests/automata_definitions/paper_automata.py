@@ -1,11 +1,11 @@
 from base_types.state import State
-from base_types.symbol import SymbolChar
+from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from utilities.automata_convertor import AutomataConvertor
 from queryable_models.finite_automaton import FiniteAutomaton
 
-abAlphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'))))
-abcAlphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'), SymbolChar('c'))))
+abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
+abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 
 #TODO: REFERENCIAR PAPER
 class PaperAutomata:

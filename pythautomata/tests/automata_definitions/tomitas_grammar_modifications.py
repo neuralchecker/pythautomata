@@ -1,9 +1,9 @@
 from base_types.state import State
-from base_types.symbol import SymbolChar
+from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from queryable_models.finite_automaton import FiniteAutomaton
 
-binaryAlphabet = Alphabet(frozenset((SymbolChar('0'), SymbolChar('1'))))
+binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
 one = binaryAlphabet['1']
 

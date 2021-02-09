@@ -4,7 +4,6 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 from tests.test_minimizer import TestMinimizer
 from tests.test_automata_convertor import TestAutomataConvertor
 from tests.test_automata_generator import TestAutomataGenerator
-from tests.test_sequence_generator import TestSequenceGenerator
 from tests.test_automata_comparison import TestAutomataComparison
 from tests.test_sequence import TestSequence
 

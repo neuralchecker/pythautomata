@@ -1,24 +1,24 @@
 from base_types.state import State
-from base_types.symbol import SymbolChar
+from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
-from abstract.finite_automaton import FiniteAutomaton
+from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
-binaryAlphabet = Alphabet(frozenset((SymbolChar('0'), SymbolChar('1'))))
+binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
 one = binaryAlphabet['1']
 
-abAlphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'))))
+abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
-    frozenset((SymbolChar('a'), SymbolChar('b'), SymbolChar('c'))))
+    frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 a = abcAlphabet['a']
 b = abcAlphabet['b']
 c = abcAlphabet['c']
 
-abcdAlphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'),
-                                   SymbolChar('c'), SymbolChar('d'))))
+abcdAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'),
+                                   SymbolStr('c'), SymbolStr('d'))))
 
 abcdeAlphabet = Alphabet(
-    frozenset((a, b, c, SymbolChar('d'), SymbolChar('e'))))
+    frozenset((a, b, c, SymbolStr('d'), SymbolStr('e'))))
 d = abcdeAlphabet['d']
 e = abcdeAlphabet['e']
 
@@ -95,7 +95,7 @@ class OtherAutomata:
         state5.add_transition(zero, state5)
         state5.add_transition(one, state5)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
                                     state4, state5]), "Automaton 1")
 
@@ -110,7 +110,7 @@ class OtherAutomata:
         state1.add_transition(one, state2)
         state2.add_transition(zero, state2)
         state2.add_transition(one, state2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "Automaton 1 minimized")
 
     @staticmethod
@@ -123,7 +123,7 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(zero, state2)
         state3.add_transition(zero, state2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]), "Automaton 2")
 
     @staticmethod
@@ -134,7 +134,7 @@ class OtherAutomata:
         state0.add_transition(zero, state1_and_state3)
         state0.add_transition(one, state1_and_state3)
         state1_and_state3.add_transition(zero, state2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1_and_state3, state2]), "Automaton 2 minimized")
 
     @staticmethod
@@ -160,7 +160,7 @@ class OtherAutomata:
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state1}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state1}),
                                set([state1, state2, state3, state4, state5,
                                     state6, state7]), "Automaton 3")
 
@@ -184,7 +184,7 @@ class OtherAutomata:
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state1_and_state2}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state1_and_state2}),
                                set([state1_and_state2, state3, state4, state5,
                                     state6, state7]), "Automaton 3 minimized")
 
@@ -219,7 +219,7 @@ class OtherAutomata:
         state_f.add_transition(zero, state_c)
         state_f.add_transition(one, state_g)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state_i}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state_i}),
                                set([state_i, state_d, state_c, state_a, state_b,
                                     state_g, state_e, state_h, state_f]), "Automaton 4")
 
@@ -251,7 +251,7 @@ class OtherAutomata:
         state_h_and_f.add_transition(zero, state_c)
         state_h_and_f.add_transition(one, state_g)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state_i}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state_i}),
                                set([state_i, state_d, state_c, state_a, state_b, state_g,
                                     state_e, state_h_and_f]), "Automaton 4 minimized")
 
@@ -271,7 +271,7 @@ class OtherAutomata:
         state3.add_transition(zero, state0)
         state3.add_transition(one, state1)
 
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]), "Non-minimizable automaton 1")
 
     @staticmethod
@@ -282,7 +282,7 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(zero, state0)
         state1.add_transition(one, state0)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1]), "Non-minimizable automaton 2")
 
     @staticmethod
@@ -295,7 +295,7 @@ class OtherAutomata:
         state1.add_transition(zero, state1)
         state1.add_transition(one, state1)
         state2.add_transition(one, state0)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "Non-minimizable automaton 3")
 
     @staticmethod
@@ -307,7 +307,7 @@ class OtherAutomata:
         state0.add_transition(zero, state1)
         state0.add_transition(one, state0)
         state1.add_transition(one, state2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "NFA 1")
 
     @staticmethod
@@ -321,7 +321,7 @@ class OtherAutomata:
         state0_1.add_transition(one, state0_2)
         state0_2.add_transition(zero, state0_1)
         state0_2.add_transition(one, state0)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state0_1, state0_2]), "DFA 1")
 
     @staticmethod
@@ -337,7 +337,7 @@ class OtherAutomata:
         state2.add_transition(zero, state2)
         state2.add_transition(zero, state1)
         state2.add_transition(one, state2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "NFA 2")
 
     @staticmethod
@@ -351,7 +351,7 @@ class OtherAutomata:
         state1.add_transition(one, state1)
         state1_2.add_transition(zero, state1_2)
         state1_2.add_transition(one, state1_2)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state1_2]), "DFA 2")
 
     @staticmethod
@@ -363,7 +363,7 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(one, state0)
         state1.add_transition(one, state1)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1]), "NFA 3")
 
     @staticmethod
@@ -376,7 +376,7 @@ class OtherAutomata:
         state1.add_transition(one, state0_1)
         state0_1.add_transition(zero, state0_1)
         state0_1.add_transition(one, state0_1)
-        return FiniteAutomaton(binaryAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({state0}),
                                set([state0, state1, state0_1]), "DFA 3")
 
     @staticmethod
@@ -402,7 +402,7 @@ class OtherAutomata:
         state5.add_transition(b, state6)
         state5.add_transition(b, state4)
 
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
                                     state4, state5, state6]), "NFA 4")
 
@@ -455,7 +455,7 @@ class OtherAutomata:
         state5_3_4_1_0.add_transition(b, state2_4_6_1)
         state5_3_4_1_0.add_transition(c, state2_4)
 
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state1, state4, state2, state4_3,
                                     state0, state4_6, state3_5, state2_1,
                                     state2_4_6_1, state1_0, state4_3_1_0,
@@ -475,7 +475,7 @@ class OtherAutomata:
         state1.add_transition(d, state2)
         state1.add_transition(e, state1)
         state2.add_transition(d, state2)
-        return FiniteAutomaton(abcdeAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcdeAlphabet, frozenset({state0}),
                                set([state0, state1, state2]), "NFA 5")
 
     @staticmethod
@@ -496,7 +496,7 @@ class OtherAutomata:
         state1_2.add_transition(c, state2)
         state1_2.add_transition(d, state2)
         state1_2.add_transition(e, state1)
-        return FiniteAutomaton(abcdeAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcdeAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state1_2]), "DFA 5")
 
     # Definition: Recognizes a program workflow.
@@ -508,15 +508,15 @@ class OtherAutomata:
         stateA.add_transition(one, stateB)
         stateB.add_transition(zero, stateA)
         stateB.add_transition(one, stateB)
-        return FiniteAutomaton(binaryAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
                                set([stateA, stateB]), "Program workflow automaton")
 
     # Definition: Recognizes e-commerce(taken from:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
     @staticmethod
     def get_ecommerce_automaton():
-        alphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'), SymbolChar(
-            'c'), SymbolChar('d'), SymbolChar('e'), SymbolChar('f'), SymbolChar('g'), SymbolChar('h'))))
+        alphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr(
+            'c'), SymbolStr('d'), SymbolStr('e'), SymbolStr('f'), SymbolStr('g'), SymbolStr('h'))))
         a = alphabet['a']
         b = alphabet['b']
         c = alphabet['c']
@@ -571,7 +571,7 @@ class OtherAutomata:
         state6.add_transition(g, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
-        return FiniteAutomaton(alphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
                                     state6, state7]), "E-commerce automaton")
 
@@ -579,8 +579,8 @@ class OtherAutomata:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
     @staticmethod
     def get_different_ecommerce_automaton():
-        alphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'), SymbolChar(
-            'c'), SymbolChar('d'), SymbolChar('e'), SymbolChar('f'), SymbolChar('g'), SymbolChar('h'))))
+        alphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr(
+            'c'), SymbolStr('d'), SymbolStr('e'), SymbolStr('f'), SymbolStr('g'), SymbolStr('h'))))
         a = alphabet['a']
         b = alphabet['b']
         c = alphabet['c']
@@ -633,7 +633,7 @@ class OtherAutomata:
         state6.add_transition(h, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
-        return FiniteAutomaton(alphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
                                     state6, state7]), "Modified E-commerce automaton")
 
@@ -641,8 +641,8 @@ class OtherAutomata:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
     @staticmethod
     def get_reduced_ecommerce_automaton():
-        alphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'), SymbolChar(
-            'c'), SymbolChar('d'), SymbolChar('e'), SymbolChar('f'), SymbolChar('h'))))
+        alphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr(
+            'c'), SymbolStr('d'), SymbolStr('e'), SymbolStr('f'), SymbolStr('h'))))
         a = alphabet['a']
         b = alphabet['b']
         c = alphabet['c']
@@ -677,7 +677,7 @@ class OtherAutomata:
         state4.add_transition(f, state4)
         state4.add_transition(c, state4)
         state4.add_transition(e, state4)
-        return FiniteAutomaton(alphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4]),
                                "Reduced E-commerce automaton")
 
@@ -708,7 +708,7 @@ class OtherAutomata:
         state6.add_transition(b, state7)
         state7.add_transition(a, state6)
         state7.add_transition(b, state5)
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
                                     state6, state7]), "Dolzhenko-Jonoska automaton")
 
@@ -720,7 +720,7 @@ class OtherAutomata:
         stateA = State("State A", True)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
-        return FiniteAutomaton(abAlphabet, frozenset({stateA}), set([stateA]), "a or b Automaton")
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}), set([stateA]), "a or b Automaton")
 
     # Definition: (c*ac*bc*)*
     @staticmethod
@@ -734,7 +734,7 @@ class OtherAutomata:
         state0.add_transition(c, state0)
         state1.add_transition(b, state0)
         state1.add_transition(c, state1)
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1]), "ab with cs automaton")
 
     # Definition: (ab)*
@@ -746,7 +746,7 @@ class OtherAutomata:
         state1 = State("State 1")
         state0.add_transition(a, state1)
         state1.add_transition(b, state0)
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1]), "ab automaton")
 
     # Definition: (.*0)
@@ -761,7 +761,7 @@ class OtherAutomata:
         stateB.add_transition(one, stateC)
         stateC.add_transition(zero, stateA)
         stateC.add_transition(one, stateC)
-        return FiniteAutomaton(binaryAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
                                set([stateA, stateB, stateC]), "Zero ending automaton")
 
     # Definition: (.*a), with {a, b, c} alphabet.
@@ -778,7 +778,7 @@ class OtherAutomata:
         state1.add_transition(a, state0)
         state1.add_transition(b, state1)
         state1.add_transition(c, state1)
-        return FiniteAutomaton(abcAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcAlphabet, frozenset({state0}),
                                set([state0, state1]), "a ending with cs automaton")
 
     # Definition: (.*a), with {a, b} alphabet.
@@ -792,7 +792,7 @@ class OtherAutomata:
         state0.add_transition(b, state1)
         state1.add_transition(a, state0)
         state1.add_transition(b, state1)
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1]), "a ending automaton")
 
     # Definition: (..*0)
@@ -804,7 +804,7 @@ class OtherAutomata:
         stateA.add_transition(one, stateA)
         stateB.add_transition(zero, stateB)
         stateB.add_transition(one, stateA)
-        return FiniteAutomaton(binaryAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
                                set([stateA, stateB]), "Non-empty zero ending automaton")
 
     # Definition: (..*1)
@@ -816,7 +816,7 @@ class OtherAutomata:
         stateA.add_transition(one, stateB)
         stateB.add_transition(zero, stateA)
         stateB.add_transition(one, stateB)
-        return FiniteAutomaton(binaryAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, frozenset({stateA}),
                                set([stateA, stateB]), "Non-empty one ending automaton")
 
     # Definition: (ab)*a
@@ -848,7 +848,7 @@ class OtherAutomata:
         state6.add_transition(b, state4)
         state7.add_transition(a, state6)
         state7.add_transition(b, state2)
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
                                     state6, state7]), "Complex ab prefixed automaton")
 
@@ -861,7 +861,7 @@ class OtherAutomata:
         state1 = State("State 1", True)
         state0.add_transition(a, state1)
         state1.add_transition(b, state0)
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({state0}),
                                set([state0, state1]), "Simpler ab prefixed automaton")
 
     @staticmethod
@@ -882,14 +882,14 @@ class OtherAutomata:
         state2.add_transition(c, state3)
         state3.add_transition(c, state3)
         state3.add_transition(a, state0)
-        return FiniteAutomaton(abcdAlphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(abcdAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]),
                                "Alternating bit protocol automaton")
 
     @staticmethod
     def get_alternating_bit_protocol_z_automaton():
-        alphabet = Alphabet(frozenset((SymbolChar('a'), SymbolChar('b'),
-                                       SymbolChar('c'), SymbolChar('d'), SymbolChar('e'))))
+        alphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'),
+                                       SymbolStr('c'), SymbolStr('d'), SymbolStr('e'))))
         a = alphabet['a']
         b = alphabet['b']
         c = alphabet['c']
@@ -911,7 +911,7 @@ class OtherAutomata:
         state3.add_transition(c, state3)
         state3.add_transition(a, state0)
         state3.add_transition(e, state3)
-        return FiniteAutomaton(alphabet, frozenset({state0}),
+        return DeterministicFiniteAutomaton(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3]),
                                "Alternating bit protocol z automaton")
 
@@ -923,7 +923,7 @@ class OtherAutomata:
         stateA = State("State A", False)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
-        return FiniteAutomaton(abAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
                                set([stateA]), "Empty automaton")
 
     # Definition: Σ*
@@ -934,7 +934,7 @@ class OtherAutomata:
         stateA = State("State A", True)
         stateA.add_transition(a, stateA)
         stateA.add_transition(b, stateA)
-        return FiniteAutomaton(abAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
                                set([stateA]), "Sigma-star automaton")
 
     # Definition: uneven number of as
@@ -948,7 +948,7 @@ class OtherAutomata:
         stateA.add_transition(b, stateA)
         stateB.add_transition(a, stateA)
         stateB.add_transition(b, stateB)
-        return FiniteAutomaton(abAlphabet, frozenset({stateA}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateA}),
                                set([stateA, stateB]), "Uneven number of as")
 
     # Definition: uneven number of symbols
@@ -962,7 +962,7 @@ class OtherAutomata:
         stateC.add_transition(b, stateD)
         stateD.add_transition(a, stateC)
         stateD.add_transition(b, stateC)
-        return FiniteAutomaton(abAlphabet, frozenset({stateC}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateC}),
                                set([stateC, stateD]), "Uneven number of symbols")
 
     # Definition: uneven number of as and symbols
@@ -983,7 +983,7 @@ class OtherAutomata:
         stateBC.add_transition(b, stateBD)
         stateBD.add_transition(a, stateAC)
         stateBD.add_transition(b, stateBC)
-        return FiniteAutomaton(abAlphabet, frozenset({stateAC}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateAC}),
                                set([stateAC, stateAD, stateBC, stateBD]),
                                "Uneven number of as and symbols")
 
@@ -1005,6 +1005,6 @@ class OtherAutomata:
         stateBC.add_transition(b, stateBD)
         stateBD.add_transition(a, stateAC)
         stateBD.add_transition(b, stateBC)
-        return FiniteAutomaton(abAlphabet, frozenset({stateAC}),
+        return DeterministicFiniteAutomaton(abAlphabet, frozenset({stateAC}),
                                set([stateAC, stateAD, stateBC, stateBD]),
                                "Uneven number of as or symbols")

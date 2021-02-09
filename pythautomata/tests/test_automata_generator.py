@@ -1,34 +1,31 @@
 from unittest import TestCase
 from utilities.automata_generator import AutomataGenerator
 from base_types.alphabet import Alphabet
-from base_types.symbol import SymbolChar
-from teachers.automaton_teacher import AutomatonTeacher
-from learners.nlstar_learner import NLStarLearner
-
+from base_types.symbol import SymbolStr
 
 class TestAutomataGenerator(TestCase):
 
     def test_generated_correctly_1(self):
         binaryAlphabet = Alphabet(
-            frozenset([SymbolChar('0'), SymbolChar('1')]))
+            frozenset([SymbolStr('0'), SymbolStr('1')]))
         generated_automata = AutomataGenerator.generate_dfa(binaryAlphabet, 80)
         self._assert_correctness(generated_automata)
 
     def test_generated_correctly_2(self):
         binaryAlphabet = Alphabet(
-            frozenset([SymbolChar('0'), SymbolChar('1')]))
+            frozenset([SymbolStr('0'), SymbolStr('1')]))
         generated_automata = AutomataGenerator.generate_dfa(binaryAlphabet, 49)
         self._assert_correctness(generated_automata)
 
     def test_generated_correctly_3(self):
         abcdAlphabet = Alphabet(frozenset(
-            [SymbolChar('a'), SymbolChar('b'), SymbolChar('c'), SymbolChar('d')]))
+            [SymbolStr('a'), SymbolStr('b'), SymbolStr('c'), SymbolStr('d')]))
         generated_automata = AutomataGenerator.generate_dfa(abcdAlphabet, 49)
         self._assert_correctness(generated_automata)
 
     def test_generated_correctly_4(self):
         alphabet012 = Alphabet(
-            frozenset([SymbolChar('0'), SymbolChar('1'), SymbolChar('2')]))
+            frozenset([SymbolStr('0'), SymbolStr('1'), SymbolStr('2')]))
         generated_automata = AutomataGenerator.generate_dfa(alphabet012, 1)
         self._assert_correctness(generated_automata)
 

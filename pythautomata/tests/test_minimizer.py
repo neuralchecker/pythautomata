@@ -2,7 +2,7 @@ from base_types.state import State
 from unittest import TestCase
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 from utilities.dfa_minimizer import DFAMinimizer
-from tests.testing_automata.other_automata import OtherAutomata
+from tests.automata_definitions.other_automata import OtherAutomata
 
 
 class TestMinimizer(TestCase):
