@@ -11,11 +11,11 @@ from abstract.finite_automata_comparator import FiniteAutomataComparator
 ExecutionState = namedtuple("ExecutionState", ["state", "sequence"])
 
 class NondeterministicFiniteAutomaton(FiniteAutomaton):
-    def __init__(self, alphabet: Alphabet, comparator: FiniteAutomataComparator,initial_states: frozenset[State], states: set[State], name: str = None,
+    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], comparator: FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
-            assert all(symbol in self.alphabet for symbol in state.transitions)
+            assert all(symbol in alphabet for symbol in state.transitions)
             state.add_hole_transition(hole)
         
         self._name = 'NFA - ' + str(uuid.uuid4().hex) if name is None else name
@@ -31,7 +31,7 @@ class NondeterministicFiniteAutomaton(FiniteAutomaton):
             executionState = toVisit.pop()
             state = executionState.state
             value = executionState.sequence.value
-            if value != ():
+            if len(value) > 0:
                 suffix = Sequence(value[1:])
                 for destination in state.next_states_for(value[0]):
                     if destination != self.hole:
@@ -40,7 +40,7 @@ class NondeterministicFiniteAutomaton(FiniteAutomaton):
                 return True
         return False
 
-    def _setHole(self, hole: State) -> None:
+    def _set_hole(self, hole: State) -> None:
         self.hole = hole
         #hole's hole is itself
         self.hole.add_hole_transition(self.hole)

@@ -8,13 +8,15 @@ from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 
 class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
+    #TODO: REFACTOR RETURN TUPLE
     def are_equivalent(self, automaton1: FA, automaton2: FA):
-        self._inner_are_equivalent(automaton1, automaton2)
+        return self._inner_are_equivalent(automaton1, automaton2)
 
     def get_counterexample_between(self, automaton1: FA, automaton2: FA):
         counterexample = self._inner_are_equivalent(automaton1, automaton2, True)
         return counterexample
 
+    #TODO: REFACTOR RETURN TUPLE, MAYBE REMOVE "WITH_COUNT"
     def _inner_are_equivalent(self, automaton1: FA, automaton2: FA, with_count: bool = False):
         if automaton1.alphabet != automaton2.alphabet:
             raise ValueError('Alphabets are not equivalent.')
@@ -111,7 +113,7 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
 
     def _generate_initial_table(self, automaton):
         initial_states = list(automaton.initial_states)
-        next_states_after_initial = _get_next_states_from_state(
+        next_states_after_initial = self._get_next_states_from_state(
             automaton, initial_states)
         new_transitions = {
             frozenset(initial_states): next_states_after_initial}

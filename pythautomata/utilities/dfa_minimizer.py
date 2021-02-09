@@ -71,7 +71,7 @@ class DFAMinimizer():
             min(self.dfa.initial_states), eq_class)
         actual_initial_state = new_states[number_of_part_of_init_state]
 
-        return DFA(self.dfa.alphabet, frozenset({actual_initial_state}), set(new_states))
+        return DFA(self.dfa.alphabet, frozenset({actual_initial_state}), set(new_states), comparator = self.dfa.comparator)
 
     def _remove_hole_from_eq_class(self, eq_class):
         for partition in eq_class:

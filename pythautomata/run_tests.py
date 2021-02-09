@@ -8,7 +8,7 @@ from tests.test_automata_comparison import TestAutomataComparison
 from tests.test_sequence import TestSequence
 
 def run():
-    test_classes_to_run = [TestMinimizer]
+    test_classes_to_run = [TestMinimizer, TestAutomataConvertor, TestAutomataGenerator, TestAutomataComparison, TestSequence]
     loader = TestLoader()
     suites_list = []
     for test_class in test_classes_to_run:

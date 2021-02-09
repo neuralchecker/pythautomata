@@ -10,7 +10,7 @@ from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 class TestAutomataComparison(TestCase):
 
     def test_equivalence_reflexiveness(self):
-        mergedAutomata = list(chain(TomitasGrammar.get_all_automata(),
+        mergedAutomata = list(chain(TomitasGrammars.get_all_automata(),
                                     OmlinGilesAutomata.get_all_automata(),
                                     OtherAutomata.get_all_automata()))
         for automaton in mergedAutomata:
@@ -74,28 +74,32 @@ class TestAutomataComparison(TestCase):
     def test_comparator_equivalency_when_different_1(self):
         automaton = OtherAutomata.get_nfa_1()
         nonEquivalentDfa = OtherAutomata.get_dfa_2()
-        areEquivalent = AutomataComparator.are_equivalent(
+        comparator = AutomataComparator()
+        areEquivalent = comparator.are_equivalent(
             automaton, nonEquivalentDfa)
         self.assertFalse(areEquivalent)
 
     def test_comparator_equivalency_when_different_2(self):
         automaton = OtherAutomata.get_nfa_2()
         nonEquivalentDfa = OtherAutomata.get_dfa_1()
-        areEquivalent = AutomataComparator.are_equivalent(
+        comparator = AutomataComparator()
+        areEquivalent = comparator.are_equivalent(
             automaton, nonEquivalentDfa)
         self.assertFalse(areEquivalent)
 
     def test_comparator_equivalency_through_counterexample(self):
         automaton = OtherAutomata.get_nfa_1()
         equivalentDfa = OtherAutomata.get_dfa_1()
-        counterexample = AutomataComparator.get_counterexample_between(
+        comparator = AutomataComparator()
+        counterexample = comparator.get_counterexample_between(
             automaton, equivalentDfa)
         self.assertIsNone(counterexample)
 
     def test_comparator_returns_valid_counterexample(self):
         automaton = OtherAutomata.get_nfa_1()
         nonEquivalentDfa = OtherAutomata.get_dfa_2()
-        counterexample = AutomataComparator.get_counterexample_between(
+        comparator = AutomataComparator()
+        counterexample = comparator.get_counterexample_between(
             automaton, nonEquivalentDfa)
         self.assertIsNotNone(counterexample)
         self.assertTrue(automaton.accepts(counterexample) !=
@@ -104,13 +108,14 @@ class TestAutomataComparison(TestCase):
     def test_comparator_returns_valid_counterexample_2(self):
         ecommerce_automaton = OtherAutomata.get_ecommerce_automaton()
         different_ecommerce_automaton = OtherAutomata.get_different_ecommerce_automaton()
-        counterexample = AutomataComparator.get_counterexample_between(
+        comparator = AutomataComparator()
+        counterexample = comparator.get_counterexample_between(
             ecommerce_automaton, different_ecommerce_automaton)
         self.assertIsNotNone(counterexample)
         self.assertTrue(ecommerce_automaton.accepts(counterexample) !=
                         different_ecommerce_automaton.accepts(counterexample))
 
     def assertAreEquivalent(self, automaton1, automaton2):
-        areEquivalent = AutomataComparator.are_equivalent(
-            automaton1, automaton2)
+        comparator = AutomataComparator()
+        areEquivalent = comparator.are_equivalent(automaton1, automaton2)
         self.assertTrue(areEquivalent)

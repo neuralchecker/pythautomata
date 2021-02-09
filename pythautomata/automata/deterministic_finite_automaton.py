@@ -21,7 +21,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
         self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
         self._alphabet = alphabet
         self.initial_states = initial_states
-        self._setHole(hole)
+        self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
         super(DeterministicFiniteAutomaton, self).__init__(comparator)
 
@@ -34,7 +34,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
                     return True
         return False
 
-    def _setHole(self, hole: State) -> None:
+    def _set_hole(self, hole: State) -> None:
         self.hole = hole
         # hole's hole state is itself
         self.hole.add_hole_transition(self.hole)

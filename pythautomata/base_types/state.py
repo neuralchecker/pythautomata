@@ -41,7 +41,7 @@ class State:
         self.hole = hole
 
     def __eq__(self, other):
-        return isinstance(other, 'State') and self.name == other.name
+        return isinstance(other, State) and self.name == other.name
 
     def __hash__(self):
         return hash(self.name)
