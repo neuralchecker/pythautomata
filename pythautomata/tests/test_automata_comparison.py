@@ -1,10 +1,13 @@
 from itertools import chain
 from unittest import TestCase
-from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as AutomataComparator
+from model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
+from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 from tests.automata_definitions.other_automata import OtherAutomata
 from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 from tests.automata_definitions.omlin_giles_automata import OmlinGilesAutomata
 from tests.automata_definitions.tomitas_grammars import TomitasGrammars
+from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
+from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
 
 
 class TestAutomataComparison(TestCase):
@@ -115,7 +118,12 @@ class TestAutomataComparison(TestCase):
         self.assertTrue(ecommerce_automaton.accepts(counterexample) !=
                         different_ecommerce_automaton.accepts(counterexample))
 
+
     def assertAreEquivalent(self, automaton1, automaton2):
-        comparator = AutomataComparator()
+        isDFA = type(automaton1) == DFA
+        if isDFA:
+            comparator = DFAComparator()
+        else:
+            comparator = NFAComparator()
         areEquivalent = comparator.are_equivalent(automaton1, automaton2)
         self.assertTrue(areEquivalent)

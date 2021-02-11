@@ -3,12 +3,12 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 
 from tests.test_minimizer import TestMinimizer
 from tests.test_automata_convertor import TestAutomataConvertor
-from tests.test_automata_generator import TestAutomataGenerator
+from tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from tests.test_automata_comparison import TestAutomataComparison
 from tests.test_sequence import TestSequence
 
 def run():
-    test_classes_to_run = [TestMinimizer, TestAutomataConvertor, TestAutomataGenerator, TestAutomataComparison, TestSequence]
+    test_classes_to_run = [TestMinimizer, TestAutomataConvertor, TestSimpleDFAGenerator, TestAutomataComparison, TestSequence]
     loader = TestLoader()
     suites_list = []
     for test_class in test_classes_to_run:

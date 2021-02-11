@@ -7,7 +7,7 @@ from base_types.sequence import Sequence
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 
-class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
+class NFAHopcroftKarpComparisonStrategy(FiniteAutomataComparator):
     #TODO: REFACTOR RETURN TUPLE
     def are_equivalent(self, automaton1: FA, automaton2: FA):
         return self._inner_are_equivalent(automaton1, automaton2)
@@ -17,14 +17,14 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         return counterexample
 
     #TODO: REFACTOR RETURN TUPLE, MAYBE REMOVE "WITH_COUNT"
-    def _inner_are_equivalent(self, automaton1: FA, automaton2: FA, with_count: bool = False):
-        if automaton1.alphabet != automaton2.alphabet:
+    def _inner_are_equivalent(self, nfa1: FA, nfa2: FA, with_count: bool = False):
+        if nfa1.alphabet != nfa2.alphabet:
             raise ValueError('Alphabets are not equivalent.')
 
-        symbols = list(automaton1.alphabet.symbols)
-        aut1_new_transitions = self._generate_initial_table(automaton1)
-        aut2_new_transitions = self._generate_initial_table(automaton2)
-        should_be_equivalent_states = {(automaton1.initial_states, automaton2.initial_states): Sequence()}
+        symbols = list(nfa1.alphabet.symbols)
+        aut1_new_transitions = self._generate_initial_table(nfa1)
+        aut2_new_transitions = self._generate_initial_table(nfa2)
+        should_be_equivalent_states = {(nfa1.initial_states, nfa2.initial_states): Sequence()}
 
         checked_equivalence = {}
 
@@ -54,10 +54,10 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
                     aut2_next_states_for_sym = aut2_next_states[sym_index]
 
                     if aut1_next_states_for_sym is None:
-                        aut1_next_states_for_sym = self._fill_transitions_for(list(aut1_states), symbol, automaton1.hole)
+                        aut1_next_states_for_sym = self._fill_transitions_for(list(aut1_states), symbol, nfa1.hole)
 
                     if aut2_next_states_for_sym is None:
-                        aut2_next_states_for_sym = self._fill_transitions_for(list(aut2_states), symbol, automaton2.hole)
+                        aut2_next_states_for_sym = self._fill_transitions_for(list(aut2_states), symbol, nfa2.hole)
 
                     aut1_reaches_final = self._reaches_final_state(aut1_next_states_for_sym)
                     aut2_reaches_final = self._reaches_final_state(aut2_next_states_for_sym)

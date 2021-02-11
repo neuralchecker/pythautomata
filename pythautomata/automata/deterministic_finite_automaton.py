@@ -11,7 +11,7 @@ from model_exporters.encoded_file_exporting_strategy import EncodedFileExporting
 from abstract.finite_automata_comparator import FiniteAutomataComparator
 
 class DeterministicFiniteAutomaton(FiniteAutomaton):
-    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], comparator:FiniteAutomataComparator, name: str = None,
+    def __init__(self, alphabet: Alphabet, initial_state: State, states: set[State], comparator:FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
@@ -20,19 +20,16 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
 
         self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
         self._alphabet = alphabet
-        self.initial_states = initial_states
+        self.initial_state = initial_state
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
         super(DeterministicFiniteAutomaton, self).__init__(comparator)
 
     def accepts(self, sequence: Sequence) -> bool:
-        actual_state: State
-        for actual_state in self.initial_states:
-            for symbol in sequence.value:
-                actual_state = actual_state.next_state_for(symbol)
-                if actual_state.is_final:
-                    return True
-        return False
+        actual_state = self.initial_state
+        for symbol in sequence.value:
+            actual_state = actual_state.next_state_for(symbol)
+        return actual_state.is_final
 
     def _set_hole(self, hole: State) -> None:
         self.hole = hole
@@ -43,7 +40,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
         self._verify_transition_symbols_in_alphabet(state.transitions, alphabet)
         self._verify_state_is_deterministic(state)
 
-    def _verify_transition_symbols_in_alphabet(self, transitions: set[Symbol], alphabet: Alphabet) -> None:
+    def _verify_transition_symbols_in_alphabet(self, transitions: dict[Symbol, set['State']], alphabet: Alphabet) -> None:
         if not all(symbol in alphabet for symbol in transitions):
             raise UnknownSymbolsException()
 
