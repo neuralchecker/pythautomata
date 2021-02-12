@@ -31,7 +31,6 @@ class TestSimpleDFAGenerator(TestCase):
 
     def _assert_correctness(self, automaton):        
         self.assertTrue(self._all_states_are_rechable(automaton))
-        self.assertTrue(self._has_final_state(automaton))
 
     def _all_states_are_rechable(self, automaton):
         unrechable = automaton.states.copy()

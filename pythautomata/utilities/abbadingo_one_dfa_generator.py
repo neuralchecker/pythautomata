@@ -5,7 +5,7 @@ from exceptions.non_deterministic_states_exception import NonDeterministicStates
 from random import seed, getrandbits, choice
 from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
 from model_exporters.image_exporting_strategy import ImageExportingStrategy
-from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as AutomataComparator
+from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 import simple_dfa_generator
 
 def generate_dfa(alphabet, nominal_size, seed = 42):
