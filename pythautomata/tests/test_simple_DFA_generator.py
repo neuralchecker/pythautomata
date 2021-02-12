@@ -38,7 +38,7 @@ class TestSimpleDFAGenerator(TestCase):
         for state in unrechable.copy():
             for destinations in state.transitions.values():
                 unrechable = unrechable - destinations
-        return len(unrechable) == 1  # Hole
+        return len(unrechable) <= 1  # Hole
 
     def _has_final_state(self, automaton):
         return any(state.is_final for state in automaton.states)

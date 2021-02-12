@@ -68,7 +68,7 @@ class DFAMinimizer():
                         symbol, actual_next_state)
 
         number_of_part_of_init_state = self._get_num_of_partition_of_state(
-            min(self.dfa.initial_states), eq_class)
+            self.dfa.initial_state, eq_class)
         actual_initial_state = new_states[number_of_part_of_init_state]
 
         return DFA(self.dfa.alphabet, actual_initial_state, set(new_states), comparator = self.dfa.comparator)

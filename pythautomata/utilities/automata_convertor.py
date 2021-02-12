@@ -1,7 +1,8 @@
 from base_types.state import State
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as AutomataComparator
+from model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
+from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 
 
 class AutomataConvertor():
@@ -51,7 +52,7 @@ class AutomataConvertor():
                     if next_new_state is not None:
                         new_state.add_transition(symbol, next_new_state)
 
-        comparator = AutomataComparator()
+        comparator = DFAComparator()
         return DFA(
             automaton.alphabet,
             new_initial_state,

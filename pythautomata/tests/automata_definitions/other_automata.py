@@ -166,7 +166,7 @@ class OtherAutomata:
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
         comparator = DFAComparator()
-        return DFA(binaryAlphabet, frozenset({state1}),
+        return DFA(binaryAlphabet, state1,
                                set([state1, state2, state3, state4, state5,
                                     state6, state7]), comparator, "Automaton 3")
 
@@ -190,7 +190,7 @@ class OtherAutomata:
         state7.add_transition(zero, state6)
         state7.add_transition(one, state6)
         comparator = DFAComparator()
-        return DFA(binaryAlphabet, frozenset({state1_and_state2}),
+        return DFA(binaryAlphabet, state1_and_state2,
                                set([state1_and_state2, state3, state4, state5,
                                     state6, state7]), comparator, "Automaton 3 minimized")
 
@@ -225,7 +225,7 @@ class OtherAutomata:
         state_f.add_transition(zero, state_c)
         state_f.add_transition(one, state_g)
         comparator = DFAComparator()
-        return DFA(binaryAlphabet, frozenset({state_i}),
+        return DFA(binaryAlphabet, state_i,
                                set([state_i, state_d, state_c, state_a, state_b,
                                     state_g, state_e, state_h, state_f]), comparator, 
                                     "Automaton 4")
@@ -599,7 +599,7 @@ class OtherAutomata:
     # Definition: Recognizes e-commerce(taken from:
     # https://pdfs.semanticscholar.org/9cb9/74b6ece3e3fc2eab4f9cf0843bfc570df4a9.pdf).
     @staticmethod
-    def get_different_ecommerce_automaton():
+    def get_different_ecommerce_automaton_NFA():
         alphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr(
             'c'), SymbolStr('d'), SymbolStr('e'), SymbolStr('f'), SymbolStr('g'), SymbolStr('h'))))
         a = alphabet['a']
@@ -654,8 +654,8 @@ class OtherAutomata:
         state6.add_transition(h, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
-        comparator = DFAComparator()
-        return DFA(alphabet, state0,
+        comparator = NFAComparator()
+        return NFA(alphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4, state5,
                                     state6, state7]), comparator, "Modified E-commerce automaton")
 

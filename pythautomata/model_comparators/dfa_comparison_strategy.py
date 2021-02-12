@@ -1,6 +1,5 @@
 from base_types.sequence import Sequence
 from base_types.state import State
-from utilities.automata_convertor import AutomataConvertor
 from abstract.finite_automata_comparator import FiniteAutomataComparator
 from abstract.finite_automaton import FiniteAutomaton
 from typing import Optional
