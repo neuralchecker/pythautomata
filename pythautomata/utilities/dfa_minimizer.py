@@ -7,7 +7,7 @@ class DFAMinimizer():
     def __init__(self, dfa: DFA):
         self.dfa = dfa
 
-    def minimize(self):
+    def minimize(self) -> DFA:
         final_eq_class, equivalence_class_0 = self._get_final_eq_class()
 
         if self._is_minimizable(final_eq_class):

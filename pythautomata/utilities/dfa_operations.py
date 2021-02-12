@@ -5,6 +5,17 @@ from base_types.state import State
 #TODO: ADD DOCSTRINGS
 
 def join_DFAs(dfa1: DFA, dfa2: DFA) -> DFA:
+    """
+    Function implementing DFA join. 
+    The join between two DFAs is a new DFA that recognizes only words belonging to languages of both DFAs at the same time.
+
+    Args:
+        dfa1 (DFA): A DFA.
+        dfa2 (DFA): Another DFA.
+
+    Returns:
+        DFA: A DFA containing words that are accepted by dfa1 and dfa2 at the same time.
+    """
     _check_alphabets(dfa1, dfa2)  
 
     initial_pair = _get_initial_pair(dfa1, dfa2)
@@ -49,6 +60,17 @@ def join_DFAs(dfa1: DFA, dfa2: DFA) -> DFA:
     return resulting_DFA
 
 def union_DFAs(dfa1: DFA, dfa2: DFA) -> DFA:
+    """
+    Function implementing DFA union. 
+    The union between two DFAs is a new DFA that recognizes words belonging to languages of any of the DFAs.
+
+    Args:
+        dfa1 (DFA): A DFA.
+        dfa2 (DFA): Another DFA.
+
+    Returns:
+        DFA: A DFA containing words that are accepted by dfa1 or dfa2.
+    """
     _check_alphabets(dfa1, dfa2)    
 
     initial_pair = _get_initial_pair(dfa1, dfa2)
@@ -92,19 +114,40 @@ def union_DFAs(dfa1: DFA, dfa2: DFA) -> DFA:
     resulting_DFA = DFA(union_DFA_alphabet,union_DFA_initial_states,union_DFA_states, comparator = comparator)
     return resulting_DFA
 
-def union_DFA_set(dfaSet: set[DFA]) -> DFA:
-    listDFAs = list(dfaSet)
-    result = listDFAs[0]
-    for dfa in listDFAs:
-        result = union_DFAs(result, dfa)
-    return result   
-
 def join_DFA_set(dfaSet: set[DFA]) -> DFA:
+    """
+    Function implementing DFA join of a whole set of DFAs. 
+    The join between DFAs is a new DFA that recognizes words belonging to languages of all of the DFAs at the same time.
+
+    Args:
+        dfaSet (set[DFA]): A set of DFAs.
+
+    Returns:
+        DFA: A DFA containing words that are accepted by all of the DFAs in the set.
+    """
     listDFAs = list(dfaSet)
     result = listDFAs[0]
     for dfa in listDFAs:
         result = join_DFAs(result, dfa)
     return result    
+
+def union_DFA_set(dfaSet: set[DFA]) -> DFA:
+    """
+    Function implementing DFA union of a whole set of DFAs. 
+    The union between DFAs is a new DFA that recognizes words belonging to languages of any of the DFAs.
+
+    Args:
+        dfaSet (set[DFA]): A set of DFAs.
+
+    Returns:
+        DFA: A DFA containing words that are accepted by any of the DFAs in the set.
+    """
+
+    listDFAs = list(dfaSet)
+    result = listDFAs[0]
+    for dfa in listDFAs:
+        result = union_DFAs(result, dfa)
+    return result   
 
 def _get_initial_pair(dfa1: DFA, dfa2:DFA) -> tuple[State, State]:
     initial_state1 = dfa1.initial_state

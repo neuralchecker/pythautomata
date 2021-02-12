@@ -1,4 +1,5 @@
 from base_types.state import State
+from base_types.alphabet import Alphabet
 from functools import reduce
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from exceptions.non_deterministic_states_exception import NonDeterministicStatesException
@@ -7,13 +8,24 @@ from model_exporters.encoded_file_exporting_strategy import EncodedFileExporting
 from model_exporters.image_exporting_strategy import ImageExportingStrategy
 from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 
-def generate_dfa(alphabet, numberOfStates=200, exportingStrategies=[ImageExportingStrategy()]):
-    states = _generate_states(numberOfStates)
+def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
+    """
+    Function returning a randomly generated DFA, with random transitions and equal probability of being a final state or not.
+
+    Args:
+        alphabet (Alphabet): DFA alphabet.
+        number_of_states (int, optional): Number of states the generated DFA.. Defaults to 200.
+        exporting_strategies (list, optional): ExportingStrategy for the generated DFA. Defaults to [ImageExportingStrategy()].
+
+    Returns:
+        DFA: Random DFA with number of states = number_of_states and exporting strategies = exporting_strategies.
+    """
+    states = _generate_states(number_of_states)
     _add_dfa_transitions_to_states(states, alphabet.symbols)
     initial_state = next(iter(states))
     states = _remove_unreachable_states(initial_state, alphabet.symbols)    
     comparator = AutomataComparator()
-    return DFA(alphabet, frozenset([initial_state]), states,comparator = comparator, exportingStrategies=exportingStrategies)
+    return DFA(alphabet, initial_state, states,comparator = comparator, exportingStrategies=exporting_strategies)
 
     
 def _generate_states(number_of_states):
