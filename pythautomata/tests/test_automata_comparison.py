@@ -8,6 +8,7 @@ from tests.automata_definitions.omlin_giles_automata import OmlinGilesAutomata
 from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
+from utilities.automata_convertor import AutomataConvertor
 
 
 class TestAutomataComparison(TestCase):
@@ -120,10 +121,16 @@ class TestAutomataComparison(TestCase):
 
 
     def assertAreEquivalent(self, automaton1, automaton2):
-        isDFA = type(automaton1) == DFA
-        if isDFA:
+        
+        if type(automaton1) == DFA and type(automaton2) == DFA:
             comparator = DFAComparator()
-        else:
+        elif type(automaton1) == NFA and type(automaton2)== NFA:
             comparator = NFAComparator()
+        else:
+            if type(automaton1) == DFA:
+                automaton2 = AutomataConvertor.convert_nfa_to_dfa(automaton2)                
+            else:
+                automaton1 = AutomataConvertor.convert_nfa_to_dfa(automaton1)    
+            comparator = DFAComparator()
         areEquivalent = comparator.are_equivalent(automaton1, automaton2)
         self.assertTrue(areEquivalent)

@@ -54,7 +54,7 @@ class AutomataConvertor():
         comparator = AutomataComparator()
         return DFA(
             automaton.alphabet,
-            frozenset({new_initial_state}),
+            new_initial_state,
             set((new_state for (new_state, dict_key) in new_states_pairs)), 
             comparator = comparator
             )
