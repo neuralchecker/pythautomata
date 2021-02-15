@@ -2,7 +2,8 @@ from abc import ABC, abstractproperty
 from typing import Any
 
 class Symbol(ABC):
-
+    """Abstract class representing symbols.
+    """
     @abstractproperty
     def value(self) -> Any:
         raise NotImplementedError
@@ -27,7 +28,8 @@ class Symbol(ABC):
 
 
 class SymbolStr(Symbol):
-
+    """Symbol specification using string as a representation.
+    """
     def __init__(self, value: str):
         self._value = value
 

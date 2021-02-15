@@ -11,6 +11,16 @@ from abstract.finite_automata_comparator import FiniteAutomataComparator
 ExecutionState = namedtuple("ExecutionState", ["state", "sequence"])
 
 class NondeterministicFiniteAutomaton(FiniteAutomaton):
+    """
+    Implementation of NFA.
+
+    Attributes
+    ----------
+    states: set[State]
+        Set containing the DFA's states
+    initial_states: frozenset[State]
+        Set containing all initial states of the NFA. Also included in "states"
+    """
     def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], comparator: FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states

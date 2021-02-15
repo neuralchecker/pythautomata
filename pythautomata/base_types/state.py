@@ -2,9 +2,24 @@ from base_types.symbol import Symbol
 from exceptions.none_state_exception import NoneStateException
 
 class State:
+    """Representation of NFA or DFA states.
+
+    Attributes
+    ----------
+    name: str
+        State name.
+    is_final: bool
+        Determines if the state is final.
+    transitions: dict[Symbol, set['State']]
+        For any given symbol represents the next state (or set of states in the case of NFA).
+    hole:
+        Hole state, state containing all transitions directed to itself. 
+        It is used as default when a symbol is not present as transition key.
+    """
+    
     hole: 'State'
 
-    def __init__(self, name, is_final: bool = False):
+    def __init__(self, name: str, is_final: bool = False):
         self.name = name
         self.is_final = is_final
         self.transitions: dict[Symbol, set['State']] = {}

@@ -8,6 +8,14 @@ class DFAMinimizer():
         self.dfa = dfa
 
     def minimize(self) -> DFA:
+        """
+        Minimizes DFA.
+
+        Returns
+        -------
+        DFA
+            A minimized DFA
+        """
         final_eq_class, equivalence_class_0 = self._get_final_eq_class()
 
         if self._is_minimizable(final_eq_class):

@@ -11,6 +11,16 @@ from model_exporters.encoded_file_exporting_strategy import EncodedFileExporting
 from abstract.finite_automata_comparator import FiniteAutomataComparator
 
 class DeterministicFiniteAutomaton(FiniteAutomaton):
+    """
+    Implementation of DFA.
+
+    Attributes
+    ----------
+    states: sest[State]
+        Set containing the DFA's states
+    initial_state: State
+        Initial state of the DFA. Also included in "states"
+    """
     def __init__(self, alphabet: Alphabet, initial_state: State, states: set[State], comparator:FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states

@@ -10,7 +10,7 @@ from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as A
 
 def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
     """
-    Function returning a randomly generated DFA, with random transitions and equal probability of being a final state or not.
+    Function returning a randomly generated DFA, with random transitions to other states and equal probability of being a final state or not.
 
     Args:
         alphabet (Alphabet): DFA alphabet.
@@ -26,7 +26,6 @@ def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_stra
     states = _remove_unreachable_states(initial_state, alphabet.symbols)    
     comparator = AutomataComparator()
     return DFA(alphabet, initial_state, states,comparator = comparator, exportingStrategies=exporting_strategies)
-
     
 def _generate_states(number_of_states):
     states = []

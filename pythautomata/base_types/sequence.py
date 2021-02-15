@@ -4,7 +4,8 @@ from typing import Union
 from exceptions.unexpected_type_exception import UnexpectedTypeException
 
 class Sequence():
-
+    """Ordered collection of Symbols.
+    """
     def __init__(self, value:list=[]):
         if isinstance(value, abc.Sequence):
             self._value = list(value)
