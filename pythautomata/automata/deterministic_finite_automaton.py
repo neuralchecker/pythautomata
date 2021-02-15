@@ -16,7 +16,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton):
 
     Attributes
     ----------
-    states: sest[State]
+    states: set[State]
         Set containing the DFA's states
     initial_state: State
         Initial state of the DFA. Also included in "states"
