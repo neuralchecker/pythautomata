@@ -2,15 +2,24 @@ from base_types.state import State
 from base_types.symbol import SymbolStr
 from base_types.alphabet import Alphabet
 from utilities.automata_convertor import AutomataConvertor
-from queryable_models.finite_automaton import FiniteAutomaton
-from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
+from automata.non_deterministic_finite_automaton import NonDeterministicFiniteAutomaton as NFA
+from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 
-#TODO: REFERENCIAR PAPER
-class PaperAutomata:
+#TODO: Check if some NFAS are not in the paper and test
+class BolligHabermehlKernLeuckerAutomata:
+    """
+    Class containing automata from paper:
+        Bollig B. and Habermehl P. and Kern C. and Leucker M. 2009. 
+        Angluin-style learning of NFA. 
+        IJCAI International Joint Conference on Artificial Intelligence. 1004-1009. 
 
+    Methods
+    -------
+
+    """
     @staticmethod
     def get_all_automata():
         return [
@@ -22,7 +31,7 @@ class PaperAutomata:
             PaperAutomata.get_algorithm_would_not_terminate_automaton(),
             PaperAutomata.get_evolution_of_the_measure_automaton()
         ]
-
+    
     # Σ*aΣ^n
     @staticmethod
     def get_first_example_automaton():
@@ -54,10 +63,12 @@ class PaperAutomata:
         state6.add_transition(b, state7)
         state7.add_transition(a, state1)
         state7.add_transition(b, state0)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3,
-                                    state4, state5, state6, state7]), "Paper - first example automaton")
+                                    state4, state5, state6, state7]), 
+                                    comparator,
+                                    "Paper - first example automaton")
 
     # Σ*aΣ
     @staticmethod
@@ -81,10 +92,12 @@ class PaperAutomata:
         state3.add_transition(b, state0)
         state4.add_transition(a, state4)
         state4.add_transition(b, state4)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1,
-                                    state2, state3, state4]), "Paper - More membership queries automaton")
+                                    state2, state3, state4]),
+                                    comparator,
+                                    "Paper - More membership queries automaton")
 
     @staticmethod
     def get_more_equivalence_queries_automaton():
@@ -110,10 +123,12 @@ class PaperAutomata:
         state4.add_transition(b, state4)
         state5.add_transition(a, state5)
         state5.add_transition(b, state5)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2,
-                                    state3, state4, state5]), "Paper - More equivalence queries automaton")
+                                    state3, state4, state5]), 
+                                    comparator, 
+                                    "Paper - More equivalence queries automaton")
 
     @staticmethod
     def get_state_count_does_not_increase_automaton():
@@ -142,8 +157,10 @@ class PaperAutomata:
         state3.add_transition(b, state3)
         state3.add_transition(c, state2)
 
-        result = FiniteAutomaton(abcAlphabet, frozenset({state0, state2}),
+        comparator = NFAComparator()
+        result = NFA(abcAlphabet, frozenset({state0, state2}),
                                  set([state0, state1, state2, state3]),
+                                 comparator,
                                  "Paper - State count does not increase automaton")
         result._queryable_self = AutomataConvertor.convert_nfa_to_dfa(result)
         return result
@@ -169,9 +186,10 @@ class PaperAutomata:
         state3.add_transition(b, state2)
         state4.add_transition(a, state4)
         state4.add_transition(b, state4)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4]),
+                               comparator, 
                                "Paper - Intermediate hypothesis automaton")
 
     @staticmethod
@@ -202,10 +220,11 @@ class PaperAutomata:
         state7.add_transition(b, state8)
         state8.add_transition(b, state6)
         state9.add_transition(b, state9)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2, state3, state4,
                                     state5, state6, state7, state8, state9]),
+                                comparator, 
                                "Paper - Algorithm would not terminate automaton")
 
     @staticmethod
@@ -227,8 +246,9 @@ class PaperAutomata:
         state3.add_transition(a, state5)
         state3.add_transition(b, state4)
         state4.add_transition(a, state5)
-
-        return FiniteAutomaton(abAlphabet, frozenset({state0}),
+        comparator = NFAComparator()
+        return NFA(abAlphabet, frozenset({state0}),
                                set([state0, state1, state2,
                                     state3, state4, state5, state6]),
+                                comparator
                                "Paper - Evolution of the measure automaton")

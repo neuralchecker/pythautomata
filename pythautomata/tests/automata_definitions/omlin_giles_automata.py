@@ -12,9 +12,9 @@ abcdAlphabet = Alphabet(frozenset(
 class OmlinGilesAutomata:
     """
     Class containing automata from paper:
-    Christian W. Omlin and C. Lee Giles. 1996. 
-    Constructing deterministic finite-state automata in recurrent neural networks. 
-    J. ACM 43, 6 (Nov. 1996), 937–972. DOI:https://doi.org/10.1145/235809.235811
+        Christian W. Omlin and C. Lee Giles. 1996. 
+        Constructing deterministic finite-state automata in recurrent neural networks. 
+        J. ACM 43, 6 (Nov. 1996), 937–972. DOI:https://doi.org/10.1145/235809.235811
 
     Methods
     -------
