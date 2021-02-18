@@ -1,24 +1,22 @@
 from base_types.sequence import Sequence
 from base_types.state import State
-from utilities.automata_convertor import AutomataConvertor
-from abstract.model_comparison_strategy import ModelComparisonStrategy
+from abstract.finite_automata_comparator import FiniteAutomataComparator
 from abstract.finite_automaton import FiniteAutomaton
 from typing import Optional
 
-class DFAConversionComparisonStrategy(ModelComparisonStrategy):
+class DFAComparisonStrategy(FiniteAutomataComparator):
 
     def are_equivalent(self, automaton1: FiniteAutomaton, automaton2: FiniteAutomaton) -> bool:
         return self.get_counterexample_between(automaton1, automaton2) is None
 
-    def get_counterexample_between(self, automaton1: FiniteAutomaton, automaton2: FiniteAutomaton) -> Optional[Sequence]:
-        if automaton1.alphabet != automaton2.alphabet:
+    #TODO: Change types to DeterministicFiniteAutomaton
+    def get_counterexample_between(self, dfa1: FiniteAutomaton, dfa2: FiniteAutomaton) -> Optional[Sequence]:
+        if dfa1.alphabet != dfa2.alphabet:
             raise ValueError("Alphabets are not equivalent.")
-
-        dfa1 = AutomataConvertor.convert_nfa_to_dfa(automaton1)
-        dfa2 = AutomataConvertor.convert_nfa_to_dfa(automaton2)
-
+        
+        
         #initialPairs is an arbitrary pair of states
-        initialPair: tuple[State, State] = (next(iter(dfa1.initial_states)), next(iter(dfa2.initial_states)))
+        initialPair: tuple[State, State] = (dfa1.initial_state, dfa2.initial_state)
         pairsToVisit = [initialPair]
         sequenceForPairs = {initialPair: Sequence()}
         visitedPairs: set[tuple[State, State]] = set()

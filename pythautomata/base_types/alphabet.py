@@ -2,8 +2,19 @@ from base_types.symbol import Symbol
 from typing import FrozenSet
 
 class Alphabet:
+    """Set of Symbols.
+    """
 
     def __init__(self, symbols: frozenset[Symbol], name: str = None):
+        """Constructor
+
+        Parameters
+        ----------
+        symbols : frozenset[Symbol]
+            Symbols belonging to alphabet
+        name : str, optional
+            An optional name, by default None
+        """
         self.symbols = symbols
         self.name = name
 

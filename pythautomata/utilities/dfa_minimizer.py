@@ -7,7 +7,15 @@ class DFAMinimizer():
     def __init__(self, dfa: DFA):
         self.dfa = dfa
 
-    def minimize(self):
+    def minimize(self) -> DFA:
+        """
+        Minimizes DFA.
+
+        Returns
+        -------
+        DFA
+            A minimized DFA
+        """
         final_eq_class, equivalence_class_0 = self._get_final_eq_class()
 
         if self._is_minimizable(final_eq_class):
@@ -68,10 +76,10 @@ class DFAMinimizer():
                         symbol, actual_next_state)
 
         number_of_part_of_init_state = self._get_num_of_partition_of_state(
-            min(self.dfa.initial_states), eq_class)
+            self.dfa.initial_state, eq_class)
         actual_initial_state = new_states[number_of_part_of_init_state]
 
-        return DFA(self.dfa.alphabet, frozenset({actual_initial_state}), set(new_states))
+        return DFA(self.dfa.alphabet, actual_initial_state, set(new_states), comparator = self.dfa.comparator)
 
     def _remove_hole_from_eq_class(self, eq_class):
         for partition in eq_class:

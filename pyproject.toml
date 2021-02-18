@@ -2,7 +2,7 @@
 name = "pythautomata"
 version = "0.1.0"
 description = "ORT's implementation of various kinds of automata"
-authors = ["Federico <fedevilensky@gmail.com>"]
+authors = ["Federico Vilensky <fedevilensky@gmail.com>", "Franz Mayr", "Ramiro Visca", "Federico Pan", "Sebastián Uriarte", "Pablo Morales", "Kevin Chacon", "Diego Zuluaga"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
