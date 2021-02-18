@@ -47,7 +47,7 @@ class TomitasGrammars:
     @staticmethod
     def get_all_automata():
         """
-        method returning a list of all automata of the class
+        Method returning a list of all automata of the class
 
         Returns
         -------
@@ -67,7 +67,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_1():
         """
-        method with specification of the automaton 1 from the paper
+        Method with specification of the automaton 1 from the paper
 
         The first Tomita's grammar is defined as the regular expresion: 1*
 
@@ -90,7 +90,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_2():
         """
-        method with specification of the automaton 2 from the paper
+        Method with specification of the automaton 2 from the paper
 
         The second Tomita's grammar is defined as the regular expresion: (10)*
 
@@ -117,7 +117,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_3():
         """
-        method with specification of the automaton 3 from the paper
+        Method with specification of the automaton 3 from the paper
 
         The third Tomita's grammar recognizes strings that don't contain the regular expresion (1^(2n+1), 0^(2m+1)) as substring.
 
@@ -151,7 +151,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_4():
         """
-        method with specification of the automaton 4 from the paper
+        Method with specification of the automaton 4 from the paper
 
         The fourth Tomita grammar recognizes strings that don't contain the regular expresion 000 as substring.
 
@@ -181,7 +181,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_5():
         """
-        method with specification of the automaton 5 from the paper
+        Method with specification of the automaton 5 from the paper
 
         The fifth Tomita's grammar recognizes strings that have an even ammount of 01 and 10
 
@@ -210,7 +210,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_6():
         """
-        method with specification of the automaton 6 from the paper
+        Method with specification of the automaton 6 from the paper
 
         The sixth Tomita's grammar recognizes strings where (ammount of 0) - (amount of 1) = multiple of 3.
 
@@ -236,7 +236,7 @@ class TomitasGrammars:
     @staticmethod
     def get_automaton_7():
         """
-        method with specification of the automaton 7 from the paper
+        Method with specification of the automaton 7 from the paper
 
         The seventh Tomita's grammargrammar is defined as the regular expresion: 0*1*0*1*
         Returns

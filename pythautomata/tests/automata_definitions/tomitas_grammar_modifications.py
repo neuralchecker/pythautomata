@@ -12,10 +12,10 @@ one = binaryAlphabet['1']
 class TomitasGrammarMods:
     """
     Class containing modified versions of automata from paper:    
-    Tomita, M. (1982). 
-    Dynamic Construction of Finite Automata from examples using Hill-climbing. 
-    Proceedings of the Fourth Annual Conference of the Cognitive Science Society 
-    (p./pp. 105--108), Ann Arbor, Michigan.
+        Tomita, M. (1982). 
+        Dynamic Construction of Finite Automata from examples using Hill-climbing. 
+        Proceedings of the Fourth Annual Conference of the Cognitive Science Society 
+        (p./pp. 105--108), Ann Arbor, Michigan.
 
     Methods
     -------   

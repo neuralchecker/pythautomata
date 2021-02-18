@@ -25,7 +25,7 @@ abcdeAlphabet = Alphabet(
 d = abcdeAlphabet['d']
 e = abcdeAlphabet['e']
 
-
+#TODO: DOCUMENT
 class OtherAutomata:
 
     @staticmethod

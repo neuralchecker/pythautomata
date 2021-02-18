@@ -5,7 +5,7 @@ from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as D
 from tests.automata_definitions.other_automata import OtherAutomata
 from tests.automata_definitions.tomitas_grammars import TomitasGrammars
 from tests.automata_definitions.omlin_giles_automata import OmlinGilesAutomata
-from tests.automata_definitions.tomitas_grammars import TomitasGrammars
+from tests.automata_definitions.bollig_habermehl_kern_leucker_automata import BolligHabermehlKernLeuckerAutomata
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
 from utilities.automata_convertor import AutomataConvertor
@@ -115,6 +115,11 @@ class TestAutomataComparison(TestCase):
         self.assertTrue(ecommerce_automaton.accepts(counterexample) !=
                         different_ecommerce_automaton.accepts(counterexample))
 
+    def test_nfa_learning_FAs(self):
+        dfa = BolligHabermehlKernLeuckerAutomata.get_first_example_DFA()
+        nfa = BolligHabermehlKernLeuckerAutomata.get_first_example_NFA()
+        self.assertAreEquivalentFAs(dfa, nfa)
+        self.assertAreEquivalentFAs(nfa, dfa)
 
     def _areEquivalentFAs(self, automaton1, automaton2):        
         if type(automaton1) == DFA and type(automaton2) == DFA:

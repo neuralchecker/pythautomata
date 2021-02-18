@@ -4,8 +4,8 @@ from base_types.sequence import Sequence
 from base_types.alphabet import Alphabet
 from base_types.symbol import Symbol
 
-
-class WFAQueryableModel(ABC):
+#TODO: MOVE TO THE OTHER REPO
+class WeightedQueryableModel(ABC):
 
     @property
     @abstractmethod
