@@ -1,15 +1,26 @@
 from base_types.state import State
 from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
+from model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
+from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 
 
 class AutomataConvertor():
 
     @staticmethod
-    def convert_nfa_to_dfa(automaton: NFA) -> DFA:
-        initial_states = list(automaton.initial_states)
-        symbols = list(automaton.alphabet.symbols)
-        next_states_after_initial = AutomataConvertor._get_next_states_from_state(automaton, initial_states)
+    def convert_nfa_to_dfa(non_deterministic_finite_automaton: NFA) -> DFA:
+        """
+        Converts a given non deterministic finite automaton into a deterministic finite automaton.
+
+        Args:
+            non_deterministic_finite_automaton (NFA): Input non deterministic finite automaton.
+
+        Returns:
+            DFA: DFA equivalent to the inputted NFA.
+        """
+        initial_states = list(non_deterministic_finite_automaton.initial_states)
+        symbols = list(non_deterministic_finite_automaton.alphabet.symbols)
+        next_states_after_initial = AutomataConvertor._get_next_states_from_state(non_deterministic_finite_automaton, initial_states)
         new_transitions: dict[frozenset[State], list[list[State]]] = {frozenset(initial_states): next_states_after_initial}
 
         #TODO extract func
@@ -18,7 +29,7 @@ class AutomataConvertor():
             for states in new_transitions.copy().keys():
                 for next_states in new_transitions[states]:
                     if len(next_states) > 0 and not frozenset(next_states) in new_transitions:
-                        next_states_after_this = AutomataConvertor._get_next_states_from_state(automaton, next_states)
+                        next_states_after_this = AutomataConvertor._get_next_states_from_state(non_deterministic_finite_automaton, next_states)
                         new_transitions[frozenset(next_states)] = next_states_after_this
             completed = True
 
@@ -50,10 +61,12 @@ class AutomataConvertor():
                     if next_new_state is not None:
                         new_state.add_transition(symbol, next_new_state)
 
+        comparator = DFAComparator()
         return DFA(
-            automaton.alphabet,
-            frozenset({new_initial_state}),
-            set((new_state for (new_state, dict_key) in new_states_pairs))
+            non_deterministic_finite_automaton.alphabet,
+            new_initial_state,
+            set((new_state for (new_state, dict_key) in new_states_pairs)), 
+            comparator = comparator
             )
 
     @staticmethod
