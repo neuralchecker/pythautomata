@@ -2,7 +2,7 @@ from base_types.state import State
 from unittest import TestCase
 from abstract.finite_automaton import FiniteAutomaton
 from utilities.automata_convertor import AutomataConvertor
-from tests.automata_definitions.other_automata import OtherAutomata
+from automata_definitions.other_automata import OtherAutomata
 
 
 class TestAutomataConvertor(TestCase):

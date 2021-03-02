@@ -1,6 +1,6 @@
 {
   "python.linting.mypyEnabled": true,
   "python.linting.enabled": true,
-  "python.pythonPath": "c:\\Users\\franz\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\pythautomata-otRuqu3H-py3.9\\Scripts\\python.exe",
+  "python.pythonPath": "/home/franz/.cache/pypoetry/virtualenvs/pythautomata-Xh7MYa7a-py3.9/bin/python",
   "python.linting.pylintEnabled": false
 }
