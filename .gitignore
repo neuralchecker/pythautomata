@@ -138,6 +138,7 @@ dmypy.json
 
 # Documentation
 documentation/*
+documentation/source/*
 !documentation/source/conf.py
 !documentation/source/index.rst
 !documentation/make.bat
