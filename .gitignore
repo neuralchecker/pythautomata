@@ -137,7 +137,7 @@ dmypy.json
 !.vscode/extensions.json
 
 # Documentation
-documentation/*
+documentation/build/
 documentation/source/*
 !documentation/source/conf.py
 !documentation/source/index.rst
