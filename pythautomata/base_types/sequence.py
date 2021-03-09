@@ -16,16 +16,16 @@ class Sequence():
     def value(self) -> list[Symbol]:
         return self._value
 
-    def get_prefixes(self) -> set['Sequence']:
-        result = set()
+    def get_prefixes(self) -> list['Sequence']:
+        result = list()
         for i in range(1, len(self.value) + 1):
-            result.add(Sequence(self.value[:i]))
+            result.append(Sequence(self.value[:i]))
         return result
 
-    def get_suffixes(self) -> set['Sequence']:
-        result = set()
+    def get_suffixes(self) -> list['Sequence']:
+        result = list()
         for i in range(0, len(self.value)):
-            result.add(Sequence(self.value[i:]))
+            result.append(Sequence(self.value[i:]))
         return result
 
     def append(self, symbol_to_append: Symbol):

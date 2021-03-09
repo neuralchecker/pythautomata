@@ -3,7 +3,7 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 
 from tests.test_minimizer import TestMinimizer
 from tests.test_automata_convertor import TestAutomataConvertor
-from tests.test_simple_dfa_generator import TestSimpleDFAGenerator
+from tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from tests.test_automata_comparison import TestAutomataComparison
 from tests.test_sequence import TestSequence
 from tests.test_dfa_operations import TestDFAOperations

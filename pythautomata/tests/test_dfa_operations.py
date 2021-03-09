@@ -1,6 +1,6 @@
 import unittest
 from utilities import dfa_operations
-from tests.automata_definitions.other_automata import OtherAutomata
+from automata_definitions.other_automata import OtherAutomata
 
 class TestDFAOperations(unittest.TestCase):
 

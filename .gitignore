@@ -135,3 +135,11 @@ dmypy.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Documentation
+documentation/build/
+documentation/source/*
+!documentation/source/conf.py
+!documentation/source/index.rst
+!documentation/make.bat
+!documentation/Makefile
