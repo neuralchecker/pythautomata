@@ -1,15 +1,8 @@
-# Readme Pythautomata
-
----
-
 # Pythautomata
 
 Pythautomata is a Python library for modeling finite state systems.
 
----
-
 ## A**bout**
-
 Pythautomata is developed at the [](http://www.cs.tu-dortmund.de/)Department of Artificial Intelligence and Big Data of the Universidad ORT Uruguay. Its main goal is to provide implementations for the structures needed for working in the Model Extraction Framework.
 
 Models present in the framework are:
@@ -25,7 +18,6 @@ All of these can be exported in different manners, like pickle or to visual repr
 - FSA comparison using Hopcroft Karp equivalence
 - FSA intersection (and other boolean operations)
 
----
 
 ## **Installation**
 
@@ -33,13 +25,12 @@ All of these can be exported in different manners, like pickle or to visual repr
 pip install pythautomata
 ```
 
----
+
 
 ## **Documentation**
 
 - [**API Documentation:**](https://neuralchecker.github.io/pythautomata/index.html)
 
----
 
 ## **Maintainers**
 
@@ -49,6 +40,5 @@ Franz Mayr
 
 Federico Pan
 
----
 
 ## Colaborators
