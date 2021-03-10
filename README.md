@@ -37,7 +37,7 @@ pip install pythautomata
 
 ## **Documentation**
 
-- **API Documentation:** [l](http://learnlib.github.io/automatalib/maven-site/latest/apidocs/)atest release | older versions
+- [**API Documentation:**](https://neuralchecker.github.io/pythautomata/index.html)
 
 ---
 
