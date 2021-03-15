@@ -1,7 +1,7 @@
 from collections import abc
-from base_types.symbol import Symbol
+from .symbol import Symbol
 from typing import Union
-from exceptions.unexpected_type_exception import UnexpectedTypeException
+from pythautomata.exceptions.unexpected_type_exception import UnexpectedTypeException
 
 class Sequence():
     """Ordered collection of Symbols.

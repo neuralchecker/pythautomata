@@ -1,7 +1,7 @@
 from unittest import TestCase
-from utilities.simple_dfa_generator import generate_dfa
-from base_types.alphabet import Alphabet
-from base_types.symbol import SymbolStr
+from pythautomata.utilities.simple_dfa_generator import generate_dfa
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.symbol import SymbolStr
 
 class TestSimpleDFAGenerator(TestCase):
 

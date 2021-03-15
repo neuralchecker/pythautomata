@@ -1,5 +1,5 @@
-from base_types.symbol import Symbol
-from exceptions.none_state_exception import NoneStateException
+from .symbol import Symbol
+from pythautomata.exceptions.none_state_exception import NoneStateException
 
 class State:
     """Representation of NFA or DFA states.

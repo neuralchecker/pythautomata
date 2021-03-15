@@ -1,12 +1,12 @@
-from base_types.state import State
-from base_types.alphabet import Alphabet
+from pythautomata.base_types.state import State
+from pythautomata.base_types.alphabet import Alphabet
 from functools import reduce
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from exceptions.non_deterministic_states_exception import NonDeterministicStatesException
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
+from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from random import seed, getrandbits, choice
-from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
-from model_exporters.image_exporting_strategy import ImageExportingStrategy
-from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
+from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
+from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 
 def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
     """

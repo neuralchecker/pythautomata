@@ -1,10 +1,10 @@
 from collections import deque
 
-from abstract.finite_automata_comparator import FiniteAutomataComparator
-from abstract.finite_automaton import FiniteAutomaton as FA
-from base_types.state import State
-from base_types.sequence import Sequence
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
+from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomaton as FA
+from pythautomata.base_types.state import State
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 
 
 class NFAHopcroftKarpComparisonStrategy(FiniteAutomataComparator):

@@ -1,9 +1,9 @@
-from base_types.state import State
-from base_types.symbol import SymbolStr
-from base_types.alphabet import Alphabet
-from utilities.automata_convertor import AutomataConvertor
-from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.base_types.state import State
+from pythautomata.base_types.symbol import SymbolStr
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.utilities.automata_convertor import AutomataConvertor
+from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
+from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))

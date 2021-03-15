@@ -1,5 +1,5 @@
-from abstract.model_exporting_strategy import ModelExportingStrategy
-from model_exporters.image_exporting_strategy import ImageExportingStrategy
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
+from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
 
 class DotExportingStrategy(ModelExportingStrategy):
     

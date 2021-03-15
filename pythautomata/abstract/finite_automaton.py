@@ -2,13 +2,13 @@ import uuid
 from itertools import product
 from collections import namedtuple, deque
 
-from base_types.state import State
-from base_types.alphabet import Alphabet
-from base_types.sequence import Sequence
+from pythautomata.base_types.state import State
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.sequence import Sequence
 
 from typing import Any
 
-from abstract.finite_automata_comparator import FiniteAutomataComparator as FAComparator
+from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator as FAComparator
 import sys
 
 

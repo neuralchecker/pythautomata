@@ -1,8 +1,8 @@
-from base_types.state import State
-from base_types.symbol import SymbolStr
-from base_types.alphabet import Alphabet
-from queryable_models.finite_automaton import FiniteAutomaton
-from model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
+from pythautomata.base_types.state import State
+from pythautomata.base_types.symbol import SymbolStr
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as HopcroftKarpComparisonStrategy
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
