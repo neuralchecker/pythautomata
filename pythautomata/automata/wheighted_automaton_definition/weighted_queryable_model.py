@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
-from base_types.sequence import Sequence
-from base_types.alphabet import Alphabet
-from base_types.symbol import Symbol
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.symbol import Symbol
 
 #TODO: MOVE TO THE OTHER REPO
 class WeightedQueryableModel(ABC):

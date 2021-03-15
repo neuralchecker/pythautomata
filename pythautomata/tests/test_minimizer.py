@@ -1,8 +1,8 @@
-from base_types.state import State
+from pythautomata.base_types.state import State
 from unittest import TestCase
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
-from utilities.dfa_minimizer import DFAMinimizer
-from automata_definitions.other_automata import OtherAutomata
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
+from pythautomata.utilities.dfa_minimizer import DFAMinimizer
+from pythautomata.automata_definitions.other_automata import OtherAutomata
 
 
 class TestMinimizer(TestCase):

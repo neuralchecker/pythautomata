@@ -1,4 +1,4 @@
-from base_types.symbol import Symbol
+from .symbol import Symbol
 from typing import FrozenSet
 
 class Alphabet:

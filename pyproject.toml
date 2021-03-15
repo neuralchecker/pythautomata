@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "pythautomata"
-version = "0.1.0"
+version = "0.2.1"
 description = "ORT's implementation of various kinds of automata"
 authors = ["Federico Vilensky <fedevilensky@gmail.com>", "Franz Mayr", "Ramiro Visca", "Federico Pan", "Sebastián Uriarte", "Pablo Morales", "Kevin Chacon", "Diego Zuluaga"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"

@@ -1,4 +1,4 @@
-from abstract.model_exporting_strategy import ModelExportingStrategy
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 
 
 class EncodedFileExportingStrategy(ModelExportingStrategy):

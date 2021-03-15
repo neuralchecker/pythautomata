@@ -1,6 +1,6 @@
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
-from base_types.state import State
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
+from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
+from pythautomata.base_types.state import State
 
 #TODO: ADD DOCSTRINGS
 

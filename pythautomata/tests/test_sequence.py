@@ -1,7 +1,7 @@
 from unittest import TestCase
-from base_types.symbol import SymbolStr
-from base_types.alphabet import Alphabet
-from base_types.sequence import Sequence
+from pythautomata.base_types.symbol import SymbolStr
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.sequence import Sequence
 
 abcAlphabet = Alphabet(frozenset(
     [SymbolStr('a'), SymbolStr('b'), SymbolStr('c')]))

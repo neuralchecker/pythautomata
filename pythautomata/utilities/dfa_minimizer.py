@@ -1,5 +1,5 @@
-from base_types.state import State
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
+from pythautomata.base_types.state import State
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 
 
 class DFAMinimizer():

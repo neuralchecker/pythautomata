@@ -1,14 +1,14 @@
 import uuid
 
-from base_types.state import State
-from base_types.alphabet import Alphabet
-from base_types.sequence import Sequence
-from base_types.symbol import Symbol
-from abstract.finite_automaton import FiniteAutomaton
-from exceptions.unknown_symbols_exception import UnknownSymbolsException
-from exceptions.non_deterministic_states_exception import NonDeterministicStatesException
-from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
-from abstract.finite_automata_comparator import FiniteAutomataComparator
+from pythautomata.base_types.state import State
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.symbol import Symbol
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
+from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
+from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator
 
 class DeterministicFiniteAutomaton(FiniteAutomaton):
     """

@@ -1,7 +1,7 @@
-from base_types.sequence import Sequence
-from base_types.state import State
-from abstract.finite_automata_comparator import FiniteAutomataComparator
-from abstract.finite_automaton import FiniteAutomaton
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.state import State
+from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from typing import Optional
 
 class DFAComparisonStrategy(FiniteAutomataComparator):

@@ -1,4 +1,4 @@
-from exceptions.python_automata_exception import PythonAutomataException
+from .python_automata_exception import PythonAutomataException
 
 class NonDeterministicStatesException(PythonAutomataException):
     def __init__(self):

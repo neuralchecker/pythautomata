@@ -1,12 +1,12 @@
 import uuid
-from base_types.state import State
-from base_types.alphabet import Alphabet
-from base_types.sequence import Sequence
-from base_types.symbol import Symbol
+from pythautomata.base_types.state import State
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.symbol import Symbol
 from collections import deque, namedtuple
-from abstract.finite_automaton import FiniteAutomaton
-from model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
-from abstract.finite_automata_comparator import FiniteAutomataComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator
 
 ExecutionState = namedtuple("ExecutionState", ["state", "sequence"])
 

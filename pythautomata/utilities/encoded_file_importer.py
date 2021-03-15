@@ -1,10 +1,10 @@
 from glob import iglob
-from base_types.state import State
+from pythautomata.base_types.state import State
 from re import findall, match, search
-from base_types.symbol import SymbolStr
-from base_types.alphabet import Alphabet
-from abstract.finite_automaton import FiniteAutomaton
-from exceptions.model_importing_error import ModelImportingError
+from pythautomata.base_types.symbol import SymbolStr
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.exceptions.model_importing_error import ModelImportingError
 from typing import Any
 
 

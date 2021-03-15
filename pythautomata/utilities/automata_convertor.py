@@ -1,8 +1,8 @@
-from base_types.state import State
-from automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
-from model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
+from pythautomata.base_types.state import State
+from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
+from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
+from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 
 
 class AutomataConvertor():

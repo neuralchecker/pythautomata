@@ -6,12 +6,12 @@ import numpy as np
 #from sequence_generators.sequence_generator import SequenceGenerator
 from .weighted_state import WeightedState
 from itertools import chain
-from base_types.alphabet import Alphabet
-from base_types.sequence import Sequence
-from model_exporters.wfa_image_exporter import WFAImageExporter
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from decimal import Decimal
 
-from .wfa_queryable_model import WFAQueryableModel
+from .weighted_queryable_model import WFAQueryableModel
 
 epsilon = Sequence()
 
