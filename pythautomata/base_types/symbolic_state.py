@@ -1,3 +1,4 @@
+from pythautomata.base_types.guard import Guard
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
 from typing import Tuple, Callable
@@ -13,7 +14,7 @@ class SymbolicState:
             State name.
         is_final: bool
             Determines if the state is final.
-        transitions: list[Tuple[Callable[[Symbol], bool],SymbolicState]]
+        transitions: list[Tuple[Guard,SymbolicState]]
             A list containing guards associated with the next state
         hole:
             Hole state, state containing all transitions directed to itself. 
@@ -22,13 +23,13 @@ class SymbolicState:
     def __init__(self, name: str, is_final: bool = False):
         self.name = name
         self.is_final = is_final
-        self.transitions: list[Tuple[Callable[[Symbol], bool],SymbolicState]] = []
+        self.transitions: list[Tuple[Guard,SymbolicState]] = []
 
-    def add_transition(self, guard: Callable[[Symbol], bool], next_state: SymbolicState) -> None:
+    def add_transition(self, guard: Guard, next_state: SymbolicState) -> None:
         """Adds a transition consisting of a guard and the next state
 
         Args:
-            guard (Callable[[Symbol], bool]): A guard is a predicate that receives a symbol
+            guard (Guard): A guard contains a predicate that receives a symbol
             next_state (SymbolicState): The state to go to when the guard is true
 
         Raises:
@@ -40,7 +41,7 @@ class SymbolicState:
 
     def next_state_for(self, symbol: Symbol) -> SymbolicState:
         for guard, state in self.transitions:
-            if guard(symbol):
+            if guard.matches(symbol):
                 return state
         return self.hole
 
