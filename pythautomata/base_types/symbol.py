@@ -25,6 +25,12 @@ class Symbol(ABC):
 
     def __gt__(self, other):
         return self.value > other.value
+    
+    def __le__(self, other):
+        return self < other or self == other
+
+    def __ge__(self, other):
+        return self > other or self == other
 
 
 class SymbolStr(Symbol):
@@ -39,3 +45,48 @@ class SymbolStr(Symbol):
 
     def __repr__(self):
         return str(self.value)
+
+class SymbolInfinity(Symbol):
+    """Symbol that represents infinity, not part of any alphabet. Used on interval guards
+    """
+    @property
+    def value(self):
+        return self
+
+    def __str__(self):
+        return self.__repr__()
+    
+    def __repr__(self):
+        return u"\u221E"
+
+    def __eq__(self, other):
+        return False
+
+    def __lt__(self, other):
+        return False
+
+    def __gt__(self, other):
+        return True
+
+
+class SymbolNegativeInfinity(Symbol):
+    """Symbol that represents negative infinity, not part of any alphabet. Used on interval guards
+    """
+    @property
+    def value(self):
+        return self
+
+    def __str__(self):
+        return self.__repr__()
+    
+    def __repr__(self):
+        return u"-\u221E"
+
+    def __eq__(self, other):
+        return False
+
+    def __lt__(self, other):
+        return True
+
+    def __gt__(self, other):
+        return False

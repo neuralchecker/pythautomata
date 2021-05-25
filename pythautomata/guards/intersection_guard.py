@@ -6,10 +6,11 @@ class IntersectionGuard(Guard):
         self.guards = list(guards)
 
     def matches(self, s:Symbol):
+        #TODO add concurrency
         return all(map(lambda g: g.matches(s), self.guards))
 
     def __str__(self):
         return repr(self)
 
     def __repr__(self):
-        return print(*self.guards, sep=u" \u2229 ")
+        return (u" \u2229 ").join(map(str,self.guards))

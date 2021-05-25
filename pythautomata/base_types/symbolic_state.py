@@ -4,7 +4,7 @@ from pythautomata.exceptions.none_state_exception import NoneStateException
 from typing import Tuple, Callable
 
 class SymbolicState:
-    hole:SymbolicState
+    hole:'SymbolicState'
 
     """Representation of SFA states.
 
@@ -25,7 +25,7 @@ class SymbolicState:
         self.is_final = is_final
         self.transitions: list[Tuple[Guard,SymbolicState]] = []
 
-    def add_transition(self, guard: Guard, next_state: SymbolicState) -> None:
+    def add_transition(self, guard: Guard, next_state: 'SymbolicState') -> None:
         """Adds a transition consisting of a guard and the next state
 
         Args:
@@ -39,13 +39,13 @@ class SymbolicState:
             raise NoneStateException()
         self.transitions.append((guard, next_state))
 
-    def next_state_for(self, symbol: Symbol) -> SymbolicState:
+    def next_state_for(self, symbol: Symbol) -> 'SymbolicState':
         for guard, state in self.transitions:
             if guard.matches(symbol):
                 return state
         return self.hole
 
-    def add_hole_transition(self, hole: SymbolicState) -> None:
+    def add_hole_transition(self, hole: 'SymbolicState') -> None:
         self.hole = hole
 
     def __eq__(self, other):

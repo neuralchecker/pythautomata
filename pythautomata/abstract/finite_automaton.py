@@ -55,5 +55,5 @@ class FiniteAutomaton(ABC):
             try:
                 strategy.export(self, path)
             except:
-                print("Unexpected excption when exporting " + str(self._name) + ": " + str(sys.exc_info()[0]))
+                print("Unexpected exception when exporting " + str(self._name) + ": " + str(sys.exc_info()[0]))
 

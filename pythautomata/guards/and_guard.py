@@ -13,4 +13,4 @@ class AndGuard(Guard):
         return repr(self)
 
     def __repr__(self):
-        return print("(" + str(self.guard1) + u") \u2227 (" + str(self.guard2) + ")")
+        return "(" + str(self.guard1) + u") \u2227 (" + str(self.guard2) + ")"

@@ -6,10 +6,11 @@ class UnionGuard(Guard):
         self.guards = list(guards)
 
     def matches(self, s:Symbol):
+        #TODO add concurrency
         return any(map(lambda g: g.matches(s), self.guards))
 
     def __str__(self):
         return repr(self)
 
     def __repr__(self):
-        return print(*self.guards, sep=u" \u222A ")
+        return (u" \u222A ").join(map(str,self.guards))

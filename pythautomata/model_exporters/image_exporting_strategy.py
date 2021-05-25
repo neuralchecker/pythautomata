@@ -1,3 +1,5 @@
+from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton
+from pythautomata.base_types.symbolic_state import SymbolicState
 from graphviz import Digraph
 from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 
@@ -21,21 +23,32 @@ class ImageExportingStrategy(ModelExportingStrategy):
         graph.attr('node', shape='circle')
         for state in model.states:
             transitions = dict()
-            for symbol, destinationStates in state.transitions.items():
-                for destinationState in destinationStates:
+            if type(state) == SymbolicState:
+                for symbol, destinationState in state.transitions:
                     transitions.setdefault((state.name, destinationState.name), set())
                     transitions[(state.name, destinationState.name)].add(str(symbol))
+            else:
+                for symbol, destinationStates in state.transitions.items():
+                    for destinationState in destinationStates:
+                        transitions.setdefault((state.name, destinationState.name), set())
+                        transitions[(state.name, destinationState.name)].add(str(symbol))
+
             for key, symbols in transitions.items():
                 state_from, state_to = key
                 label = self.get_label_for(symbols, model.alphabet)
                 graph.edge(state_from, state_to, label)
 
         graph.attr('node', shape='point')
-        for index, initialState in enumerate(model.initial_states):
-            nodeName = 'start' + str(index)
+        if type(model) == NondeterministicFiniteAutomaton:
+            for index, initialState in enumerate(model.initial_states):
+                nodeName = 'start' + str(index)
+                graph.node(nodeName)
+                graph.edge(nodeName, initialState.name)
+        else:
+            initialState = model.initial_state
+            nodeName = 'start'
             graph.node(nodeName)
             graph.edge(nodeName, initialState.name)
-        
         return graph    
 
     def get_label_for(self, symbols: list, alphabet):

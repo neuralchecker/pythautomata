@@ -1,0 +1,14 @@
+digraph finite_state_machine {
+	rankdir=LR size="8,5"
+	node [shape=doublecircle]
+	"State A"
+	node [shape=circle]
+	"State B" -> "State C" [label="[1 , ∞]"]
+	"State B" -> "State A" [label="[-∞ , 0]"]
+	"State C" -> "State C" [label="[-∞ , ∞]"]
+	"State A" -> "State B" [label="[1 , ∞]"]
+	"State A" -> "State C" [label="[-∞ , 0]"]
+	node [shape=point]
+	start
+	start -> "State A"
+}

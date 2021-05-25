@@ -1,0 +1,15 @@
+digraph finite_state_machine {
+	rankdir=LR size="8,5"
+	node [shape=doublecircle]
+	"State 0"
+	node [shape=circle]
+	"State 0" -> "State 1" [label="[1 , ∞]"]
+	"State 0" -> "State 2" [label="[-∞ , 0]"]
+	"State 1" -> "State 2" [label="[1 , ∞]"]
+	"State 1" -> "State 0" [label="[-∞ , 0]"]
+	"State 2" -> "State 0" [label="[1 , ∞]"]
+	"State 2" -> "State 1" [label="[-∞ , 0]"]
+	node [shape=point]
+	start
+	start -> "State 0"
+}

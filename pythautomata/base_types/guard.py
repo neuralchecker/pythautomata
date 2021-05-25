@@ -1,7 +1,7 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 from pythautomata.base_types.symbol import Symbol
 
-class Guard(ABCMeta):
+class Guard(ABC):
 
     
     @abstractmethod

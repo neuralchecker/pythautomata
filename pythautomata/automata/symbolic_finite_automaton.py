@@ -1,11 +1,12 @@
 from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 from pythautomata.base_types.symbolic_state import SymbolicState
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.alphabet import Alphabet
 import uuid
 
 
-class SymbolicFiniteAutomaton():
+class SymbolicFiniteAutomaton(FiniteAutomaton):
     """Implementation of a Symbolic Automaton
 
     Attributes
@@ -16,7 +17,7 @@ class SymbolicFiniteAutomaton():
         Initial state of the SFA. Also included in "states"
     """
     def __init__(self, alphabet: Alphabet, initial_state: SymbolicState, states: set[SymbolicState], name: str = None,
-                 exportingStrategies: list = [], hole: SymbolicState = SymbolicState("Hole")):
+                 exportingStrategies: list[ModelExportingStrategy] = [], hole: SymbolicState = SymbolicState("Hole")):
         self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
         self._alphabet = alphabet
         self.initial_state = initial_state

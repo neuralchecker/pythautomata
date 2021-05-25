@@ -1,3 +1,9 @@
+from pythautomata.boolean_algebra_learner.boolean_algebra_learner import BooleanAlgebraLearner as BAL
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
+from pythautomata.base_types.guard import Guard
+from pythautomata.base_types.symbol import Symbol
+from pythautomata.base_types.symbolic_state import SymbolicState
+from pythautomata.automata.symbolic_finite_automaton import SymbolicFiniteAutomaton as SFA
 from pythautomata.base_types.state import State
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
@@ -5,7 +11,7 @@ from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 
 
-class AutomataConvertor():
+class AutomataConvertor():\
 
     @staticmethod
     def convert_nfa_to_dfa(non_deterministic_finite_automaton: NFA) -> DFA:
@@ -88,3 +94,39 @@ class AutomataConvertor():
                                              if next_state not in result[sym_index])
 
         return result
+
+    @staticmethod
+    def convert_dfa_to_sfa(dfa:DFA, b_a_learner: BAL, exportingStrategies:list[ModelExportingStrategy] = []) -> SFA:
+        """
+        Converts a given deterministic finite automaton into a symbolic finite automaton.
+
+        Args:
+            automaton (DFA): Input deterministic finite automaton.
+
+        Returns:
+            DFA: DFA equivalent to the inputted NFA.
+        """
+        initial_state:SymbolicState
+        states:dict[str, SymbolicState] = {}
+        #get all states and convert them to symbolic state
+        for state in dfa.states:
+            new_state:SymbolicState = SymbolicState(state.name, state.is_final)
+            if new_state.name == dfa.initial_state.name:
+                initial_state = new_state
+            states[new_state.name] = new_state
+
+        for state in dfa.states:
+            #for each state, get the multimap that has the next state as key, and a list of symbols as value
+            multidict:dict[SymbolicState, list[Symbol]] = {}
+            for symbol,state_set in state.transitions.items():
+                transition_state = list(state_set).pop() #it's okay to pop because dfa's have only one state per transition
+                if transition_state in multidict: 
+                    multidict[transition_state].append(symbol)
+                else:
+                    multidict[transition_state] = [symbol]
+            guard_state_list:list[tuple[Guard, SymbolicState]] = b_a_learner.learn(multidict)
+            for guard, s in guard_state_list:
+                states[state.name].add_transition(guard, s) 
+            
+        name = None if dfa.name == None else "SFA_"+dfa.name
+        return SFA(dfa.alphabet, initial_state, set(states.values()), name, exportingStrategies)

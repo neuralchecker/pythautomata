@@ -6,10 +6,10 @@ class NegationGuard(Guard):
         self.guard = guard
 
     def matches(self, s:Symbol):
-        return any(map(lambda g: g.matches(s), self.guards))
+        return not self.guard.matches(s)
 
     def __str__(self):
         return repr(self)
 
     def __repr__(self):
-        return print(u"\u00AC(" + str(self.guard) + ")")
+        return (u"\u00AC(") + str(self.guard) + ")"
