@@ -1,4 +1,4 @@
-from abc import ABC, abstractproperty
+from abc import ABC, abstractmethod, abstractproperty
 from typing import Any
 
 class Symbol(ABC):
@@ -6,6 +6,14 @@ class Symbol(ABC):
     """
     @abstractproperty
     def value(self) -> Any:
+        raise NotImplementedError
+
+    @abstractmethod
+    def copy(self) -> 'Symbol':
+        raise NotImplementedError
+
+    @abstractmethod
+    def add_to_value(self, to_add:int) -> None:
         raise NotImplementedError
 
     def __hash__(self):
@@ -39,6 +47,12 @@ class SymbolStr(Symbol):
     def __init__(self, value: str):
         self._value = value
 
+    def copy(self) -> 'SymbolStr':
+        return SymbolStr(self._value)
+
+    def add_to_value(self, to_add:int)->None:
+        self._value = chr(ord(self.value)+to_add)
+
     @property
     def value(self):
         return self._value
@@ -52,6 +66,12 @@ class SymbolInfinity(Symbol):
     @property
     def value(self):
         return self
+
+    def copy(self):
+        return SymbolInfinity()
+
+    def add_to_value(self, to_add:int) -> None:
+        return
 
     def __str__(self):
         return self.__repr__()
@@ -75,6 +95,12 @@ class SymbolNegativeInfinity(Symbol):
     @property
     def value(self):
         return self
+
+    def copy(self):
+        return SymbolNegativeInfinity()
+
+    def add_to_value(self, to_add:int) -> None:
+        return
 
     def __str__(self):
         return self.__repr__()

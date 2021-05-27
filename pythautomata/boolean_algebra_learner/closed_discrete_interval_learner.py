@@ -13,60 +13,90 @@ class ClosedDiscreteIntervalLearner(BooleanAlgebraLearner):
     def learn(self, multidict: dict[SymbolicState, list[Symbol]]) -> list[tuple[Guard, SymbolicState]]:
         if(len(multidict) == 0):
             return []
-        aux:dict[SymbolicState, list[list[Symbol]]] = {}
         ret:list[tuple[Guard, SymbolicState]] = []
+        dict_state_to_symbol_intervals = self._init_dict_state_symbol_intervals(multidict)
+        state_intervals:dict[SymbolicState,list[list[Symbol]]] = {}
+        #TODO repensarlo para intervalos abierto-cerrado o vice versa
+        intervals:list[list[Symbol]]
+        for state, intrs in dict_state_to_symbol_intervals.items():
+            intervals = [intr.copy() for intr in intrs]
+            others:list[Symbol] = []
+            for st, syms_l in dict_state_to_symbol_intervals.items():
+                if st.name != state.name:
+                    for l in syms_l:
+                        others.extend(l)
+            others.sort()
+            
+            new_intervals:list[list[Symbol]] = []
+            init_len = len(intervals)
+            is_fixed_point = False
+            while len(intervals):
+                if len(others) == 0:
+                    break
+                if is_fixed_point:
+                    break
+                is_fixed_point = True
+                right = intervals[0]
+                #right because I will split the interval in left of other and right of other
+                for other in others:
+                    if right[0] > other:
+                        # then @other is smaller than every symbol in right
+                        continue 
+                    if right[-1] < other:
+                        # then @other and the rest of the symbols in @others are bigger than those in the right interval
+                        break
+                    is_fixed_point = False
+                    left = []
+                    while True:
+                        s=right[0]
+                        #if @s is bigger than @other then i've found the symbol in which i should break the interval
+                        if s > other:
+                            #the interval will be between the first element of left and the symbol that comes before @other
+                            other_copy = other.copy()
+                            other_copy.add_to_value(-1)
+                            left.append(other_copy)
+                            new_intervals.append(left)
+                            break
+                        #if not, should remove s form right and add it to right
+                        left.append(right.pop(0))
+            new_intervals.extend(intervals)
+            assert(len(new_intervals)>=init_len)
+            state_intervals[state]=new_intervals
+
+            
+        
+        self._add_infinities_to_state_intervals(state_intervals)
+        for state, intervals in state_intervals.items():
+            interval_guards = []
+            for interval in intervals:
+                assert(len(interval))
+                interval_guards.append(ClosedIntervalGuard(interval[0],interval[-1]))
+            guard = UnionGuard(*interval_guards)
+            ret.append((guard, state))
+        
+        return ret
+
+    def _add_infinities_to_state_intervals(self, state_intervals: dict[SymbolicState, list[list[Symbol]]]):
         min_state:SymbolicState
         min = inf
         max_state:SymbolicState
         max = ninf
+        for state, intervals in state_intervals.items():
+            assert(len(intervals))
+            if min > intervals[0][0]:
+                min = intervals[0][0]
+                min_state = state
+            if max < intervals[-1][-1]:
+                max = intervals[-1][-1]
+                max_state = state
+        state_intervals[min_state][0].insert(0, ninf)
+        state_intervals[max_state][-1].append(inf)
+
+
+    def _init_dict_state_symbol_intervals(self, multidict: dict[SymbolicState, list[Symbol]]):
+        dict_state_to_symbol_intervals:dict[SymbolicState, list[list[Symbol]]] = {}
+
         for state, symbols in multidict.items():
             symbols.sort()
-            aux[state] = [symbols]
-            if min > symbols[0]:
-                min_state = state
-                min = symbols[0]
-            if max < symbols[-1]:
-                max_state = state
-                max = symbols[0]
-        aux[min_state][0].insert(0,ninf)
-        aux[max_state][0].append(inf)
-
-        #TODO repensarlo para intervalos abierto-cerrado o vice versa
-        sym_list:list[list[Symbol]]
-        for state, sym_list in aux.items():
-            others:list[Symbol] = []
-            for st, syms_l in aux.items():
-                if st.name != state.name:
-                    for l in syms_l:
-                        others.extend(l)
-            #TODO if others is not ordered, should repeat until we find a fix point. need benchmark in order to tell which is better
-            others.sort()
-            new_list = []
-            while len(others) > 0 and len(sym_list) > 0:
-                symbols = sym_list.pop(0)
-                should_add_symbols_to_new = True
-                for symbol in others:
-                    if symbols[0] <= symbol and symbols[-1] > symbol:
-                        should_add_symbols_to_new = False
-                        left = []
-                        s = symbols.pop(0)
-                        while s < symbol:
-                            left.append(s)
-                            s = symbols.pop(0)
-                        left.append(symbol)
-                        new_list.append(left)
-                        symbols.insert(0,s)
-                        sym_list.insert(0, symbols)
-                if should_add_symbols_to_new:
-                    new_list.append(symbols)
-            if len(new_list):
-                sym_list = new_list
-            #end while not fix
-            intervalGuards = []
-            for symbols in sym_list:
-                if len(symbols):
-                    intervalGuards.append(ClosedIntervalGuard(symbols[0],symbols[-1]))
-            guard = UnionGuard(*intervalGuards)
-            ret.append((guard, state))
-
-        return ret
+            dict_state_to_symbol_intervals[state] = [symbols]
+        return dict_state_to_symbol_intervals
