@@ -1,8 +1,10 @@
+from pythautomata.automata.deterministic_finite_automaton import \
+    DeterministicFiniteAutomaton
+from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
-from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
-from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.dfa_comparison_strategy import \
+    DFAComparisonStrategy as DFAComparator
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
@@ -21,16 +23,16 @@ class TomitasGrammars:
     -------
     get_all_automata: list(DeterministicFiniteAutomaton)
         returns a list containing all automata defined in this class
-    
+
     get_automaton_1: DeterministicFiniteAutomaton
         returns the automaton 1 from the paper 
-    
+
     get_automaton_2: DeterministicFiniteAutomaton
         returns the automaton 2 from the paper
 
     get_automaton_3: DeterministicFiniteAutomaton
         returns the automaton 3 from the paper
-    
+
     get_automaton_4: DeterministicFiniteAutomaton
         returns the automaton 4 from the paper
 
@@ -39,7 +41,7 @@ class TomitasGrammars:
 
     get_automaton_6: DeterministicFiniteAutomaton
         returns the automaton 6 from the paper
-    
+
     get_automaton_7: DeterministicFiniteAutomaton
         returns the automaton 7 from the paper
     """
@@ -81,11 +83,11 @@ class TomitasGrammars:
         stateA.add_transition(one, stateA)
         stateA.add_transition(zero, stateB)
         stateB.add_transition(one, stateB)
-        stateB.add_transition(zero, stateB)    
+        stateB.add_transition(zero, stateB)
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateA,
-                               set([stateA, stateB]), comparator, "Tomita's grammar 1 automaton")
+                                            set([stateA, stateB]), comparator, "Tomita's grammar 1 automaton")
 
     @staticmethod
     def get_automaton_2():
@@ -109,10 +111,10 @@ class TomitasGrammars:
         stateB.add_transition(zero, stateA)
         stateC.add_transition(one, stateC)
         stateC.add_transition(zero, stateC)
-        
+
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateA,
-                               set([stateA, stateB, stateC]), comparator, "Tomita's grammar 2 automaton")
+                                            set([stateA, stateB, stateC]), comparator, "Tomita's grammar 2 automaton")
 
     @staticmethod
     def get_automaton_3():
@@ -141,12 +143,13 @@ class TomitasGrammars:
         stateQ4.add_transition(zero, stateQ3)
         stateQ5.add_transition(one, stateQ5)
         stateQ5.add_transition(zero, stateQ5)
-        
+
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                               set([stateQ1, stateQ2, stateQ3, stateQ4, stateQ5]),
-                               comparator,
-                               "Tomita's grammar 3 automaton")
+                                            set([stateQ1, stateQ2,
+                                                stateQ3, stateQ4, stateQ5]),
+                                            comparator,
+                                            "Tomita's grammar 3 automaton")
 
     @staticmethod
     def get_automaton_4():
@@ -173,10 +176,10 @@ class TomitasGrammars:
         stateQ3.add_transition(zero, stateQ4)
         stateQ4.add_transition(one, stateQ4)
         stateQ4.add_transition(zero, stateQ4)
-        
+
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                               set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 4 automaton")
+                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 4 automaton")
 
     @staticmethod
     def get_automaton_5():
@@ -205,8 +208,8 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                               set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 5 automaton")
-    
+                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 5 automaton")
+
     @staticmethod
     def get_automaton_6():
         """
@@ -228,10 +231,10 @@ class TomitasGrammars:
         stateQ2.add_transition(zero, stateQ1)
         stateQ3.add_transition(one, stateQ1)
         stateQ3.add_transition(zero, stateQ2)
-        
+
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                               set([stateQ1, stateQ2, stateQ3]), comparator, "Tomita's grammar 6 automaton")
+                                            set([stateQ1, stateQ2, stateQ3]), comparator, "Tomita's grammar 6 automaton")
 
     @staticmethod
     def get_automaton_7():
@@ -259,8 +262,9 @@ class TomitasGrammars:
         stateQ4.add_transition(zero, stateQ5)
         stateQ5.add_transition(one, stateQ5)
         stateQ5.add_transition(zero, stateQ5)
-        
+
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                               set([stateQ1, stateQ2, stateQ3, stateQ4, stateQ5]), comparator,
-                               "Tomita's grammar 7 automaton")
+                                            set([stateQ1, stateQ2, stateQ3,
+                                                stateQ4, stateQ5]), comparator,
+                                            "Tomita's grammar 7 automaton")

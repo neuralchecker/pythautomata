@@ -1,18 +1,20 @@
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.utilities.automata_convertor import AutomataConvertor
 from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
-abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
+abcAlphabet = Alphabet(
+    frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 
-#TODO: DOCUMENT AND TEST
+# TODO: DOCUMENT AND TEST
+
+
 class SampleNFAs:
     """
     Class containing sample NFAs
-        
+
     Methods
     -------
 
@@ -26,7 +28,7 @@ class SampleNFAs:
             PaperAutomata.get_intermediate_hypothesis_automaton(),
             PaperAutomata.get_algorithm_would_not_terminate_automaton(),
             PaperAutomata.get_evolution_of_the_measure_automaton()
-        ]    
+        ]
 
     # Σ*aΣ
     @staticmethod
@@ -52,10 +54,10 @@ class SampleNFAs:
         state4.add_transition(b, state4)
         comparator = NFAComparator()
         return NFA(abAlphabet, frozenset({state0}),
-                               set([state0, state1,
-                                    state2, state3, state4]),
-                                    comparator,
-                                    "Paper - More membership queries automaton")
+                   set([state0, state1,
+                        state2, state3, state4]),
+                   comparator,
+                   "Paper - More membership queries automaton")
 
     @staticmethod
     def get_more_equivalence_queries_automaton():
@@ -83,10 +85,10 @@ class SampleNFAs:
         state5.add_transition(b, state5)
         comparator = NFAComparator()
         return NFA(abAlphabet, frozenset({state0}),
-                               set([state0, state1, state2,
-                                    state3, state4, state5]), 
-                                    comparator, 
-                                    "Paper - More equivalence queries automaton")
+                   set([state0, state1, state2,
+                        state3, state4, state5]),
+                   comparator,
+                   "Paper - More equivalence queries automaton")
 
     @staticmethod
     def get_state_count_does_not_increase_automaton():
@@ -117,9 +119,9 @@ class SampleNFAs:
 
         comparator = NFAComparator()
         result = NFA(abcAlphabet, frozenset({state0, state2}),
-                                 set([state0, state1, state2, state3]),
-                                 comparator,
-                                 "Paper - State count does not increase automaton")
+                     set([state0, state1, state2, state3]),
+                     comparator,
+                     "Paper - State count does not increase automaton")
         result._queryable_self = AutomataConvertor.convert_nfa_to_dfa(result)
         return result
 
@@ -146,9 +148,9 @@ class SampleNFAs:
         state4.add_transition(b, state4)
         comparator = NFAComparator()
         return NFA(abAlphabet, frozenset({state0}),
-                               set([state0, state1, state2, state3, state4]),
-                               comparator, 
-                               "Paper - Intermediate hypothesis automaton")
+                   set([state0, state1, state2, state3, state4]),
+                   comparator,
+                   "Paper - Intermediate hypothesis automaton")
 
     @staticmethod
     def get_algorithm_would_not_terminate_automaton():
@@ -180,10 +182,10 @@ class SampleNFAs:
         state9.add_transition(b, state9)
         comparator = NFAComparator()
         return NFA(abAlphabet, frozenset({state0}),
-                               set([state0, state1, state2, state3, state4,
-                                    state5, state6, state7, state8, state9]),
-                                comparator, 
-                               "Paper - Algorithm would not terminate automaton")
+                   set([state0, state1, state2, state3, state4,
+                        state5, state6, state7, state8, state9]),
+                   comparator,
+                   "Paper - Algorithm would not terminate automaton")
 
     @staticmethod
     def get_evolution_of_the_measure_automaton():
@@ -206,7 +208,7 @@ class SampleNFAs:
         state4.add_transition(a, state5)
         comparator = NFAComparator()
         return NFA(abAlphabet, frozenset({state0}),
-                               set([state0, state1, state2,
-                                    state3, state4, state5, state6]),
-                                comparator,
-                               "Paper - Evolution of the measure automaton")
+                   set([state0, state1, state2,
+                        state3, state4, state5, state6]),
+                   comparator,
+                   "Paper - Evolution of the measure automaton")

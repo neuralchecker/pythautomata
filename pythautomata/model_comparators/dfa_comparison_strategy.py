@@ -1,22 +1,23 @@
+from typing import Optional
+
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
-from pythautomata.abstract.finite_automata_comparator import FiniteAutomataComparator
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
-from typing import Optional
+
 
 class DFAComparisonStrategy(FiniteAutomataComparator):
 
-    def are_equivalent(self, automaton1: FiniteAutomaton, automaton2: FiniteAutomaton) -> bool:
+    def are_equivalent(self, automaton1, automaton2) -> bool:
         return self.get_counterexample_between(automaton1, automaton2) is None
 
-    #TODO: Change types to DeterministicFiniteAutomaton
-    def get_counterexample_between(self, dfa1: FiniteAutomaton, dfa2: FiniteAutomaton) -> Optional[Sequence]:
+    # TODO: Change types to DeterministicFiniteAutomaton
+    def get_counterexample_between(self, dfa1, dfa2) -> Optional[Sequence]:
         if dfa1.alphabet != dfa2.alphabet:
             raise ValueError("Alphabets are not equivalent.")
-        
-        
-        #initialPairs is an arbitrary pair of states
-        initialPair: tuple[State, State] = (dfa1.initial_state, dfa2.initial_state)
+
+        # initialPairs is an arbitrary pair of states
+        initialPair: tuple[State, State] = (
+            dfa1.initial_state, dfa2.initial_state)
         pairsToVisit = [initialPair]
         sequenceForPairs = {initialPair: Sequence()}
         visitedPairs: set[tuple[State, State]] = set()
@@ -27,7 +28,7 @@ class DFAComparisonStrategy(FiniteAutomataComparator):
                 return sequenceForPairs[pair]
             for symbol in dfa1.alphabet.symbols:
                 self._process_equivalence_iteration_with(symbol, pairsToVisit,
-                                                          visitedPairs, sequenceForPairs)
+                                                         visitedPairs, sequenceForPairs)
             pairsToVisit.remove(pair)
             visitedPairs.add(pair)
         return None

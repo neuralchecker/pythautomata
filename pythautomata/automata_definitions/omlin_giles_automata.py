@@ -1,13 +1,16 @@
+from pythautomata.automata.deterministic_finite_automaton import \
+    DeterministicFiniteAutomaton
+from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
-from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
-from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.dfa_comparison_strategy import \
+    DFAComparisonStrategy as DFAComparator
 
 abcAlphabet = Alphabet(frozenset(
     (SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 abcdAlphabet = Alphabet(frozenset(
     (SymbolStr('a'), SymbolStr('b'), SymbolStr('c'), SymbolStr('d'))))
+
 
 class OmlinGilesAutomata:
     """
@@ -20,20 +23,20 @@ class OmlinGilesAutomata:
     -------
     get_all_automata: list(DeterministicFiniteAutomaton)
         returns a list containing all automata defined in this class
-    
+
     get_a_automaton: DeterministicFiniteAutomaton
         returns the automaton A from the paper 
-    
+
     get_b_automaton: DeterministicFiniteAutomaton
         returns the automaton B from the paper
 
     get_az_automaton: DeterministicFiniteAutomaton
         returns the automaton A from the paper with stuttering symbol (d)
-    
+
     get_bz_automaton: DeterministicFiniteAutomaton
         returns the automaton A from the paper with stuttering symbol (d)
     """
-    
+
     @staticmethod
     def get_all_automata():
         """
@@ -80,7 +83,7 @@ class OmlinGilesAutomata:
         state2.add_transition(c, state2)
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(abcAlphabet, state0,
-                               set([state0, state1, state2]), comparator, "a automaton",)
+                                            set([state0, state1, state2]), comparator, "a automaton",)
 
     @staticmethod
     def get_b_automaton():
@@ -121,8 +124,8 @@ class OmlinGilesAutomata:
         state5.add_transition(c, state2)
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(abcAlphabet, state0,
-                               set([state0, state1, state2, state3,
-                                    state4, state5]), comparator, "b automaton")
+                                            set([state0, state1, state2, state3,
+                                                 state4, state5]), comparator, "b automaton")
 
     @staticmethod
     def get_az_automaton():
@@ -155,7 +158,7 @@ class OmlinGilesAutomata:
         state2.add_transition(d, state2)
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(abcdAlphabet, state0,
-                               set([state0, state1, state2]), comparator, "az automaton")
+                                            set([state0, state1, state2]), comparator, "az automaton")
 
     @staticmethod
     def get_bz_automaton():
@@ -203,5 +206,5 @@ class OmlinGilesAutomata:
         state5.add_transition(d, state5)
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(abcdAlphabet, state0,
-                               set([state0, state1, state2, state3,
-                                    state4, state5]), comparator, "bz automaton")
+                                            set([state0, state1, state2, state3,
+                                                 state4, state5]), comparator, "bz automaton")

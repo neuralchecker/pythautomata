@@ -1,8 +1,10 @@
-from pythautomata.base_types.state import State
 from unittest import TestCase
-from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
-from pythautomata.utilities.dfa_minimizer import DFAMinimizer
+
+from pythautomata.automata.deterministic_finite_automaton import \
+    DeterministicFiniteAutomaton
 from pythautomata.automata_definitions.other_automata import OtherAutomata
+from pythautomata.base_types.state import State
+from pythautomata.utilities.dfa_minimizer import DFAMinimizer
 
 
 class TestMinimizer(TestCase):

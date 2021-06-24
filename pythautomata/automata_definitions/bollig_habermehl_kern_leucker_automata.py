@@ -1,16 +1,22 @@
+from pythautomata.automata.deterministic_finite_automaton import \
+    DeterministicFiniteAutomaton as DFA
+from pythautomata.automata.non_deterministic_finite_automaton import \
+    NondeterministicFiniteAutomaton as NFA
+from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
-from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.utilities.automata_convertor import AutomataConvertor
-from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from pythautomata.model_comparators.nfa_hopcroft_karp_comparison_strategy import NFAHopcroftKarpComparisonStrategy as NFAComparator
-from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.dfa_comparison_strategy import \
+    DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
+    HopcroftKarpComparisonStrategy as NFAComparator
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
-abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
+abcAlphabet = Alphabet(
+    frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
 
-#TODO: Check if some NFAS are not in the paper and test
+# TODO: Check if some NFAS are not in the paper and test
+
+
 class BolligHabermehlKernLeuckerAutomata:
     """
     Class containing automata from paper:
@@ -24,10 +30,10 @@ class BolligHabermehlKernLeuckerAutomata:
     -------
     get_all_automata: list(FiniteAutomaton)
         returns a list containing all automata defined in this class
-    
+
     get_first_example_DFA: DeterministicFiniteAutomaton
         returns the automaton 1 from the paper 
-    
+
     get_first_example_NFA: NondeterministicFiniteAutomaton
         returns the automaton 2 from the paper
 
@@ -45,8 +51,8 @@ class BolligHabermehlKernLeuckerAutomata:
         return [
             BolligHabermehlKernLeuckerAutomata.get_first_example_DFA(),
             BolligHabermehlKernLeuckerAutomata.get_first_example_NFA()
-            ]
-        
+        ]
+
     @staticmethod
     def get_first_example_DFA() -> DFA:
         """
@@ -85,11 +91,11 @@ class BolligHabermehlKernLeuckerAutomata:
         state7.add_transition(b, state0)
         comparator = DFAComparator()
         return DFA(abAlphabet, state0,
-                               set([state0, state1, state2, state3,
-                                    state4, state5, state6, state7]), 
-                                    comparator,
-                                    "Angluin-style learning of NFA - first example DFA")
-        
+                   set([state0, state1, state2, state3,
+                        state4, state5, state6, state7]),
+                   comparator,
+                   "Angluin-style learning of NFA - first example DFA")
+
     @staticmethod
     def get_first_example_NFA() -> DFA:
         """
@@ -104,7 +110,7 @@ class BolligHabermehlKernLeuckerAutomata:
         state0 = State("-+--")
         state1 = State("-++-")
         state2 = State("-+-+")
-        state3 = State("++--", True)        
+        state3 = State("++--", True)
 
         state0.add_transition(a, state1)
         state0.add_transition(a, state0)
@@ -124,7 +130,7 @@ class BolligHabermehlKernLeuckerAutomata:
         state3.add_transition(b, state0)
 
         comparator = NFAComparator()
-        return NFA(abAlphabet,  frozenset({state0}),
-                               set([state0, state1, state2, state3]), 
-                                    comparator,
-                                    "Angluin-style learning of NFA - first example NFA")    
+        return DFA(abAlphabet,  state0,
+                   set([state0, state1, state2, state3]),
+                   comparator,
+                   "Angluin-style learning of NFA - first example NFA")

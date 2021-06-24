@@ -1,10 +1,12 @@
+from typing import Tuple
+
 from pythautomata.base_types.guard import Guard
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
-from typing import Tuple, Callable
+
 
 class SymbolicState:
-    hole:'SymbolicState'
+    hole: 'SymbolicState'
 
     """Representation of SFA states.
 
@@ -20,10 +22,11 @@ class SymbolicState:
             Hole state, state containing all transitions directed to itself. 
             It is used as default when a symbol is not present as transition key.
     """
+
     def __init__(self, name: str, is_final: bool = False):
         self.name = name
         self.is_final = is_final
-        self.transitions: list[Tuple[Guard,SymbolicState]] = []
+        self.transitions: list[Tuple[Guard, SymbolicState]] = []
 
     def add_transition(self, guard: Guard, next_state: 'SymbolicState') -> None:
         """Adds a transition consisting of a guard and the next state
@@ -44,6 +47,9 @@ class SymbolicState:
             if guard.matches(symbol):
                 return state
         return self.hole
+
+    def next_states_for(self, symbol: Symbol) -> list['SymbolicState']:
+        return [self.next_state_for(symbol)]
 
     def add_hole_transition(self, hole: 'SymbolicState') -> None:
         self.hole = hole

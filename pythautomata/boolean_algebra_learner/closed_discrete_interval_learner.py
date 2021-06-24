@@ -1,9 +1,12 @@
+from pythautomata.base_types.guard import Guard
+from pythautomata.base_types.symbol import Symbol
+from pythautomata.base_types.symbol import SymbolInfinity as Inf
+from pythautomata.base_types.symbol import SymbolNegativeInfinity as NInf
+from pythautomata.base_types.symbolic_state import SymbolicState
+from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
+    BooleanAlgebraLearner
 from pythautomata.guards.closed_interval_guard import ClosedIntervalGuard
 from pythautomata.guards.union_guard import UnionGuard
-from pythautomata.base_types.guard import Guard
-from pythautomata.base_types.symbol import Symbol, SymbolInfinity as Inf, SymbolNegativeInfinity as NInf
-from pythautomata.base_types.symbolic_state import SymbolicState
-from pythautomata.boolean_algebra_learner.boolean_algebra_learner import BooleanAlgebraLearner
 
 inf = Inf()
 ninf = NInf()
@@ -78,9 +81,9 @@ class ClosedDiscreteIntervalLearner(BooleanAlgebraLearner):
 
     def _add_infinities_to_state_intervals(self, state_intervals: dict[SymbolicState, list[list[Symbol]]]):
         min_state:SymbolicState
-        min = inf
+        min:Symbol = inf
         max_state:SymbolicState
-        max = ninf
+        max:Symbol = ninf
         for state, intervals in state_intervals.items():
             assert(len(intervals))
             if min > intervals[0][0]:

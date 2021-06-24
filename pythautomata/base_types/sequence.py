@@ -56,3 +56,6 @@ class Sequence():
             return self.__repr__() < other.__repr__()
         else:
             return len(self.value) < len(other.value)
+
+    def __iter__(self):
+        return self.value.__iter__()

@@ -19,7 +19,8 @@ class DFAMinimizer():
         final_eq_class, equivalence_class_0 = self._get_final_eq_class()
 
         if self._is_minimizable(final_eq_class):
-            minimalDfa = self._convert_to_dfa(final_eq_class, equivalence_class_0)
+            minimalDfa = self._convert_to_dfa(
+                final_eq_class, equivalence_class_0)
             minimalDfa._exporting_strategies = self.dfa._exporting_strategies
             return minimalDfa
         else:
@@ -79,7 +80,7 @@ class DFAMinimizer():
             self.dfa.initial_state, eq_class)
         actual_initial_state = new_states[number_of_part_of_init_state]
 
-        return DFA(self.dfa.alphabet, actual_initial_state, set(new_states), comparator = self.dfa.comparator)
+        return DFA(self.dfa.alphabet, actual_initial_state, set(new_states), comparator=self.dfa.comparator)
 
     def _remove_hole_from_eq_class(self, eq_class):
         for partition in eq_class:
@@ -174,7 +175,7 @@ class DFAMinimizer():
             if state in partition:
                 return partition
 
-    def _create_false_filled_square_table(self, dimension: int)-> list[list[bool]]:
+    def _create_false_filled_square_table(self, dimension: int) -> list[list[bool]]:
         return [[False for x in range(dimension)]
                 for x in range(dimension)]
 

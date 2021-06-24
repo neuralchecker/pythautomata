@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from os import makedirs
 from os.path import isdir
-from abc import ABC, abstractmethod
 from pathlib import Path
+
 from pythautomata.abstract.finite_automaton import FiniteAutomaton
 
 
