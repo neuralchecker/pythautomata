@@ -19,9 +19,10 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         return counterexample
 
     def _inner_are_equivalent(self, fa1: FA, fa2: FA) -> Union[Sequence, None]:
-
+        print(f'{type(fa1) = }, {vars(fa1) = }')
         if fa1.has_full_alphabet and fa2.has_full_alphabet:
-            raise ValueError('Alphabets are not equivalent.')
+            if not fa1.alphabet == fa2.alphabet:
+                raise ValueError('Alphabets are not equivalent.')
 
         # symbols is the union of both finite automata's alphabets
         # because one or both of the automata might not hace a full alphabet
@@ -122,14 +123,15 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
             frozenset(initial_states): next_states_after_initial}
         return new_transitions
 
-    def _get_next_states_from_state(self, aut1, aut1_states: list[Union[State, SymbolicState]]):
-        symbols = aut1.alphabet.symbols
+    def _get_next_states_from_state(self, fa, states: list[Union[State, SymbolicState]]) -> list[list[Union[State, SymbolicState]]]:
+        symbols = fa.alphabet.symbols
         aut1_result = list(map(lambda symbol: self._fill_transitions_for(
-            aut1_states, symbol, aut1.hole), symbols))
+            states, symbol, fa.hole), symbols))
         return aut1_result
 
     def _fill_transitions_for(self, states: list[Union[State, SymbolicState]], symbol, hole):
         result: list[Union[State, SymbolicState]] = []
+        print(f'{symbol = }')
         for state in states:
             next_states = state.next_states_for(symbol)
             if not hole in next_states:

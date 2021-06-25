@@ -133,8 +133,7 @@ class AutomataConverter():\
             multidict: dict[SymbolicState, list[Symbol]] = {}
             for symbol, state_set in state.transitions.items():
                 current_state = list(state_set).pop()
-                transition_state = SymbolicState(
-                    current_state.name, current_state.is_final)
+                transition_state = states[current_state.name]
                 if transition_state in multidict:
                     multidict[transition_state].append(symbol)
                 else:

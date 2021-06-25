@@ -3,10 +3,12 @@ from .symbol import Symbol
 from typing import Union
 from pythautomata.exceptions.unexpected_type_exception import UnexpectedTypeException
 
+
 class Sequence():
     """Ordered collection of Symbols.
     """
-    def __init__(self, value:list=[]):
+
+    def __init__(self, value: list = []):
         if isinstance(value, abc.Sequence):
             self._value = list(value)
         else:
@@ -33,7 +35,6 @@ class Sequence():
         value.append(symbol_to_append)
         return Sequence(value)
 
-
     def __add__(self, other: Union['Sequence', Symbol]) -> 'Sequence':
         if isinstance(other, Sequence):
             return Sequence(self.value + other.value)
@@ -59,3 +60,16 @@ class Sequence():
 
     def __iter__(self):
         return self.value.__iter__()
+
+    def __eq__(self, other: 'Sequence') -> bool:
+        if isinstance(other, Sequence):
+            return self.value == other.value
+        return False
+
+    def __hash__(self):
+        result = 0
+        i = 0
+        for v in self._value:
+            result += hash(v) * i
+            i += 1
+        return result

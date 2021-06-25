@@ -6,8 +6,6 @@ from pythautomata.exceptions.none_state_exception import NoneStateException
 
 
 class SymbolicState:
-    hole: 'SymbolicState'
-
     """Representation of SFA states.
 
         Attributes
@@ -28,6 +26,10 @@ class SymbolicState:
         self.is_final = is_final
         self.transitions: list[Tuple[Guard, SymbolicState]] = []
 
+    @property
+    def hole(self) -> 'SymbolicState':
+        return self._hole
+
     def add_transition(self, guard: Guard, next_state: 'SymbolicState') -> None:
         """Adds a transition consisting of a guard and the next state
 
@@ -46,13 +48,15 @@ class SymbolicState:
         for guard, state in self.transitions:
             if guard.matches(symbol):
                 return state
-        return self.hole
+        print(f'{vars(self) = }, {type(self) = }')
+        return self._hole
 
     def next_states_for(self, symbol: Symbol) -> list['SymbolicState']:
         return [self.next_state_for(symbol)]
 
     def add_hole_transition(self, hole: 'SymbolicState') -> None:
-        self.hole = hole
+        self._hole = hole
+        print(f'{self = }, {hole = }, {self._hole = }')
 
     def __eq__(self, other):
         return isinstance(other, SymbolicState) and self.name == other.name
