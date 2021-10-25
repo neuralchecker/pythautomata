@@ -4,6 +4,7 @@ from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.abstract.finite_automaton import FiniteAutomaton as FA
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
+from pythautomata.base_types.symbol import Symbol
 from pythautomata.base_types.symbolic_state import SymbolicState
 
 
@@ -19,7 +20,6 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         return counterexample
 
     def _inner_are_equivalent(self, fa1: FA, fa2: FA) -> Union[Sequence, None]:
-        print(f'{type(fa1) = }, {vars(fa1) = }')
         if fa1.has_full_alphabet and fa2.has_full_alphabet:
             if not fa1.alphabet == fa2.alphabet:
                 raise ValueError('Alphabets are not equivalent.')
@@ -27,12 +27,12 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         # symbols is the union of both finite automata's alphabets
         # because one or both of the automata might not hace a full alphabet
         symbols = list(fa1.alphabet.symbols | fa2.alphabet.symbols)
-        aut1_new_transitions = self._generate_initial_table(fa1)
-        aut2_new_transitions = self._generate_initial_table(fa2)
+        aut1_new_transitions = self._generate_initial_table(fa1, symbols)
+        aut2_new_transitions = self._generate_initial_table(fa2, symbols)
         should_be_equivalent_states = {(
             fa1.initial_states, fa2.initial_states): Sequence()}
 
-        checked_equivalence = {}
+        checked_equivalence = dict()
 
         aut1_completed = False
         aut2_completed = False
@@ -115,26 +115,24 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
     def _reaches_final_state(self, next_states_for_sym):
         return any(True for state in next_states_for_sym if state.is_final)
 
-    def _generate_initial_table(self, automaton):
+    def _generate_initial_table(self, automaton, symbols: list[Symbol]):
         initial_states = list(automaton.initial_states)
         next_states_after_initial = self._get_next_states_from_state(
-            automaton, initial_states)
+            automaton, symbols, initial_states)
         new_transitions = {
             frozenset(initial_states): next_states_after_initial}
         return new_transitions
 
-    def _get_next_states_from_state(self, fa, states: list[Union[State, SymbolicState]]) -> list[list[Union[State, SymbolicState]]]:
-        symbols = fa.alphabet.symbols
-        aut1_result = list(map(lambda symbol: self._fill_transitions_for(
+    def _get_next_states_from_state(self, fa, symbols: list[Symbol], states: list[Union[State, SymbolicState]]) -> list[list[Union[State, SymbolicState]]]:
+        aut_result = list(map(lambda symbol: self._fill_transitions_for(
             states, symbol, fa.hole), symbols))
-        return aut1_result
+        return aut_result
 
     def _fill_transitions_for(self, states: list[Union[State, SymbolicState]], symbol, hole):
         result: list[Union[State, SymbolicState]] = []
-        print(f'{symbol = }')
         for state in states:
             next_states = state.next_states_for(symbol)
             if not hole in next_states:
                 result.extend(next_state for next_state in next_states
                               if next_state not in result)
-        return [hole] if not result else result
+        return [hole] if len(result) == 0 else result
