@@ -11,11 +11,13 @@ from pythautomata.automata_definitions.omlin_giles_automata import \
     OmlinGilesAutomata
 from pythautomata.automata_definitions.other_automata import OtherAutomata
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
+from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as NFAComparator
 from pythautomata.utilities.automata_converter import AutomataConverter
+from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparisonStrategy as WFAComparator
 
 
 class TestAutomataComparison(TestCase):
@@ -149,3 +151,19 @@ class TestAutomataComparison(TestCase):
 
     def assertAreNotEquivalentFAs(self, automaton1, automaton2):
         self.assertFalse(self._areEquivalentFAs(automaton1, automaton2))
+
+    def test_wfa_equivalence_reflexiveness(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        comparator = WFAComparator()
+        for wfa in weightedTomitasAutomata:            
+            assert(comparator.are_equivalent(wfa, wfa))
+
+    def test_wfa_equivalence_false_case(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        comparator = WFAComparator()
+        for i in range(len(weightedTomitasAutomata)):
+            for j in range(len(weightedTomitasAutomata)):
+                if i != j:
+                    wfa1 = weightedTomitasAutomata[i]
+                    wfa2 = weightedTomitasAutomata[j]
+                    assert(not comparator.are_equivalent(wfa1, wfa2))

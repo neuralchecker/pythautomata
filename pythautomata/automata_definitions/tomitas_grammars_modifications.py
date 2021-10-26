@@ -9,7 +9,7 @@ zero = binaryAlphabet['0']
 one = binaryAlphabet['1']
 
 
-class TomitasGrammarMods:
+class TomitasGrammarsMods:
     """
     Class containing modified versions of automata from paper:    
         Tomita, M. (1982). 

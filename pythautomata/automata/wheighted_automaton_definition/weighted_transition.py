@@ -1,4 +1,5 @@
-from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
+from __future__ import annotations
+#from  pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 
 class WeightedTransition:
 
