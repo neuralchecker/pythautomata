@@ -39,7 +39,6 @@ class WeightedState:
             return [(None, 0.)]
         return self.transitions_list[symbol]
     
-    #TODO should probably throw exception instead of returning None
     def next_states_for(self, symbol: Symbol) -> set['WeightedState']:
         if symbol not in self.transitions_list.keys():
             raise NonDeterministicStatesException()
