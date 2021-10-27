@@ -97,12 +97,12 @@ class BolligHabermehlKernLeuckerAutomata:
                    "Angluin-style learning of NFA - first example DFA")
 
     @staticmethod
-    def get_first_example_NFA() -> DFA:
+    def get_first_example_NFA() -> NFA:
         """
         Method returning a NFA that recognizes the regular expresion Σ*aΣ^2 (First example from paper, Fig. 4.)
 
         Returns:
-            DFA: Method returning a DFA that recognizes the regular expresion Σ*aΣ^2
+            NFA: Method returning a NFA that recognizes the regular expresion Σ*aΣ^2
         """
         a = abAlphabet['a']
         b = abAlphabet['b']
@@ -130,7 +130,7 @@ class BolligHabermehlKernLeuckerAutomata:
         state3.add_transition(b, state0)
 
         comparator = NFAComparator()
-        return DFA(abAlphabet,  state0,
+        return NFA(abAlphabet,  frozenset([state0]),
                    set([state0, state1, state2, state3]),
                    comparator,
                    "Angluin-style learning of NFA - first example NFA")
