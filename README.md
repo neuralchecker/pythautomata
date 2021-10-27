@@ -10,7 +10,7 @@ Models present in the framework are:
 - DFA
 - NFA
 - WFA/PDFA
-- SFA (work in progress)
+- SFA
 
 All of these can be exported in different manners, like pickle or to visual representations using Graphviz. Besides the structure representations a number of algorithms of interest are implemented, to name a few:
 
