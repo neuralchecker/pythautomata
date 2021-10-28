@@ -1,6 +1,8 @@
+from __future__ import annotations
 from pythautomata.automata.wheighted_automaton_definition.weighted_transition import WeightedTransition
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
+from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from typing import Union
 
 class WeightedState:
@@ -36,7 +38,12 @@ class WeightedState:
         if symbol not in self.transitions_list.keys():
             return [(None, 0.)]
         return self.transitions_list[symbol]
-
+    
+    def next_states_for(self, symbol: Symbol) -> set['WeightedState']:
+        if symbol not in self.transitions_list.keys():
+            raise NonDeterministicStatesException()
+        return set(t[0] for t in self.transitions_list[symbol])
+    
     def get_all_symbol_weights(self, terminal_symbol) -> tuple[list[Symbol], list[float], list[WeightedState]]:
         symbols = list()
         weights = list()

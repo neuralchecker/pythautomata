@@ -25,7 +25,7 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
                 raise ValueError('Alphabets are not equivalent.')
 
         # symbols is the union of both finite automata's alphabets
-        # because one or both of the automata might not hace a full alphabet
+        # because one or both of the automata might not have a full alphabet
         symbols = list(fa1.alphabet.symbols | fa2.alphabet.symbols)
         aut1_new_transitions = self._generate_initial_table(fa1)
         aut2_new_transitions = self._generate_initial_table(fa2)

@@ -10,13 +10,13 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from decimal import Decimal
-
-from .weighted_queryable_model import WFAQueryableModel
+from abstract.finite_automaton import FiniteAutomaton
+#from .weighted_queryable_model import WFAQueryableModel
 
 epsilon = Sequence()
 
 
-class WeightedAutomaton(WFAQueryableModel):
+class WeightedAutomaton(FiniteAutomaton):
 
     @property
     def name(self):
@@ -59,8 +59,17 @@ class WeightedAutomaton(WFAQueryableModel):
                 transitions_for_symbol = weighted_state.transitions_dict_for(symbol)
                 if len(transitions_for_symbol) > 1:
                     return False
-
+        if len(self.initial_states)>1: return False
         return True
+
+    @property
+    def hole(self):
+        return None
+    
+    @property
+    def initial_states(self) -> frozenset:
+        initial_states = list(filter(lambda state: state.initial_weight != 0, self.weighted_states))
+        return frozenset(initial_states)
 
     def sequence_weight(self, sequence: Sequence):
         return float(sum(map(lambda x: self._sequence_weight_from(sequence.value, x, x.initial_weight),
