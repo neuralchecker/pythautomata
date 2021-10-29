@@ -35,6 +35,9 @@ class Sequence():
         value.append(symbol_to_append)
         return Sequence(value)
 
+    def __getitem__(self, key):
+        return self.value[key]
+
     def __add__(self, other: Union['Sequence', Symbol]) -> 'Sequence':
         if isinstance(other, Sequence):
             return Sequence(self.value + other.value)
