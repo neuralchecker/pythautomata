@@ -1,22 +1,22 @@
 import uuid
-import math
-
 import numpy as np
 
-#from sequence_generators.sequence_generator import SequenceGenerator
+from pythautomata.utilities.sequence_generator import SequenceGenerator
 from .weighted_state import WeightedState
 from itertools import chain
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from decimal import Decimal
-from abstract.finite_automaton import FiniteAutomaton
-#from .weighted_queryable_model import WFAQueryableModel
 
 epsilon = Sequence()
 
 
-class WeightedAutomaton(FiniteAutomaton):
+def _is_positive(x):
+    return x > 0
+
+
+class WeightedAutomaton:
 
     @property
     def name(self):
@@ -43,7 +43,9 @@ class WeightedAutomaton(FiniteAutomaton):
         self._alphabet = value
 
     def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol, name=None,
-                 export_strategies=[WFAImageExporter()]):
+                 export_strategies: WFAImageExporter = None):
+        if export_strategies is None:
+            export_strategies = [WFAImageExporter()]
         if name is None:
             self.name = 'WFA - ' + str(uuid.uuid4().hex)
         else:
@@ -59,13 +61,12 @@ class WeightedAutomaton(FiniteAutomaton):
                 transitions_for_symbol = weighted_state.transitions_dict_for(symbol)
                 if len(transitions_for_symbol) > 1:
                     return False
-        if len(self.initial_states)>1: return False
-        return True
+        return len(self.initial_states) == 1
 
     @property
     def hole(self):
         return None
-    
+
     @property
     def initial_states(self) -> frozenset:
         initial_states = list(filter(lambda state: state.initial_weight != 0, self.weighted_states))
@@ -112,11 +113,11 @@ class WeightedAutomaton(FiniteAutomaton):
                     next_states = transitions_unzipped[0]
                     weights = transitions_unzipped[1]
                     return sum(map(lambda x, y: np.log(weight) +
-                                                self._log_sequence_weight_from(sequence_value[1:], x, y),
+                                   self._log_sequence_weight_from(sequence_value[1:], x, y),
                                    next_states, weights))
 
     def last_token_weight(self, sequence: Sequence):
-        return list(filter(self._is_positive, chain.from_iterable(
+        return list(filter(_is_positive, chain.from_iterable(
             map(lambda x: self._last_token_weight_from(sequence.value, x, x.initial_weight),
                 self.weighted_states))))
 
@@ -148,9 +149,6 @@ class WeightedAutomaton(FiniteAutomaton):
                 weights.append(0)
         return weights
 
-    def _is_positive(self, x):
-        return x > 0
-
     def export(self, path):
         for strategy in self.__exporting_strategies:
             strategy.export(self, path)
@@ -175,7 +173,7 @@ class WeightedAutomaton(FiniteAutomaton):
     #         next_symbol = numpy.random.choice(symbols, p=weights)
     #     return Sequence(word[:-1])
 
-    #TODO: CHECK IF SEQUENCE GENERATOR IS REALLY NECESSARY
+    # TODO: CHECK IF SEQUENCE GENERATOR IS REALLY NECESSARY
     # def get_representative_sample(self, sample_size):
     #     sample = list()
     #     sq = SequenceGenerator(self.alphabet, len(self.weighted_states) + 1)

@@ -136,6 +136,9 @@ dmypy.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# PyCharm
+.idea/
+
 # Documentation
 documentation/build/
 documentation/source/*
