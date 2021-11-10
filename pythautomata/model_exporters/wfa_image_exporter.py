@@ -1,10 +1,14 @@
+from os import makedirs
+from os.path import isdir
+from pathlib import Path
+
 from graphviz import Digraph
-from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
+from pythautomata.automata.wheighted_automaton_definition.weighted_automaton import WeightedAutomaton
 
 
-class WFAImageExporter(ModelExportingStrategy):
+class WFAImageExporter:
 
-    def export(self, model, path=None):
+    def export(self, model: WeightedAutomaton, path=None):
         graph = Digraph('weighted_automaton', format='png')
         graph.attr(rankdir='LR', margin='0', size='15')
 
@@ -30,3 +34,12 @@ class WFAImageExporter(ModelExportingStrategy):
                 graph.edge(s_from, s_to, str(transitions[key]))
 
         graph.render(self.get_path_for(path, model), cleanup=True)
+
+    def get_path_for(self, path: str, model: WeightedAutomaton):
+        if path is None:
+            name = model.name
+            path = "output_models/" + \
+                   ("" if name is None else f"{name}")
+        if not isdir(path):
+            makedirs(path)
+        return Path(path, model.name)
