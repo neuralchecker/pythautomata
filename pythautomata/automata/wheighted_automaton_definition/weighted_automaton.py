@@ -77,7 +77,7 @@ class WeightedAutomaton:
         if weight == 0:
             return Decimal(0)
         else:
-            if sequence_value == ():
+            if not sequence_value:
                 return Decimal(weight)
             else:
                 if sequence_value[0] == self.terminal_symbol[0]:
@@ -99,7 +99,7 @@ class WeightedAutomaton:
         if weight == 0:
             return float('inf')
         else:
-            if sequence_value == ():
+            if not sequence_value:
                 return np.log(weight)
             else:
                 if sequence_value[0] == self.terminal_symbol[0]:
@@ -122,7 +122,7 @@ class WeightedAutomaton:
         if weight == 0:
             return [0]
         else:
-            if sequence_value == ():
+            if not sequence_value:
                 return [weight]
             else:
                 if sequence_value[0] == self.terminal_symbol[0]:
