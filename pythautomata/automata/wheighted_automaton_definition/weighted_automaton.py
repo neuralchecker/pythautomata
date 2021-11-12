@@ -6,14 +6,11 @@ from .weighted_state import WeightedState
 from itertools import chain
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
-from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from decimal import Decimal
 
+from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
+
 epsilon = Sequence()
-
-
-def _is_positive(x):
-    return x > 0
 
 
 class WeightedAutomaton:
@@ -43,9 +40,9 @@ class WeightedAutomaton:
         self._alphabet = value
 
     def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol, name=None,
-                 export_strategies: WFAImageExporter = None):
+                 export_strategies: list[PDFAModelExportingStrategy] = None):
         if export_strategies is None:
-            export_strategies = [WFAImageExporter()]
+            export_strategies = []
         if name is None:
             self.name = 'WFA - ' + str(uuid.uuid4().hex)
         else:
@@ -117,7 +114,7 @@ class WeightedAutomaton:
                                    next_states, weights))
 
     def last_token_weight(self, sequence: Sequence):
-        return list(filter(_is_positive, chain.from_iterable(
+        return list(filter(lambda x: x > 0, chain.from_iterable(
             map(lambda x: self._last_token_weight_from(sequence.value, x, x.initial_weight),
                 self.weighted_states))))
 
