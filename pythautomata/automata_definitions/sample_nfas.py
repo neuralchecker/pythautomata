@@ -3,6 +3,7 @@ from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.utilities.automata_converter import AutomataConverter
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
@@ -22,12 +23,12 @@ class SampleNFAs:
     @staticmethod
     def get_all_automata():
         return [
-            PaperAutomata.get_more_membership_queries_automaton(),
-            PaperAutomata.get_more_equivalence_queries_automaton(),
-            PaperAutomata.get_state_count_does_not_increase_automaton(),
-            PaperAutomata.get_intermediate_hypothesis_automaton(),
-            PaperAutomata.get_algorithm_would_not_terminate_automaton(),
-            PaperAutomata.get_evolution_of_the_measure_automaton()
+            SampleNFAs.get_more_membership_queries_automaton(),
+            SampleNFAs.get_more_equivalence_queries_automaton(),
+            SampleNFAs.get_state_count_does_not_increase_automaton(),
+            SampleNFAs.get_intermediate_hypothesis_automaton(),
+            SampleNFAs.get_algorithm_would_not_terminate_automaton(),
+            SampleNFAs.get_evolution_of_the_measure_automaton()
         ]
 
     # Σ*aΣ
@@ -122,7 +123,7 @@ class SampleNFAs:
                      set([state0, state1, state2, state3]),
                      comparator,
                      "Paper - State count does not increase automaton")
-        result._queryable_self = AutomataConvertor.convert_nfa_to_dfa(result)
+        result._queryable_self = AutomataConverter.convert_nfa_to_dfa(result)
         return result
 
     @staticmethod
