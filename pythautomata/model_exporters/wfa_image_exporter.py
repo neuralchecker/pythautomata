@@ -5,12 +5,11 @@ from pathlib import Path
 from graphviz import Digraph
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
-from pythautomata.automata.wheighted_automaton_definition.weighted_automaton import WeightedAutomaton
 
 
 class WFAImageExporter(PDFAModelExportingStrategy):
 
-    def export(self, model: WeightedAutomaton, path=None):
+    def export(self, model, path=None):
         graph = Digraph('weighted_automaton', format='png')
         graph.attr(rankdir='LR', margin='0', size='15')
 

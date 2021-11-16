@@ -9,6 +9,7 @@ from pythautomata.base_types.sequence import Sequence
 from decimal import Decimal
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
+from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 
 epsilon = Sequence()
 
@@ -42,7 +43,7 @@ class WeightedAutomaton:
     def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
         if export_strategies is None:
-            export_strategies = []
+            export_strategies = [WFAImageExporter()]
         if name is None:
             self.name = 'WFA - ' + str(uuid.uuid4().hex)
         else:
