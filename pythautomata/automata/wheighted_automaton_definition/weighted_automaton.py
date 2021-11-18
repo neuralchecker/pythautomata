@@ -1,7 +1,6 @@
 import uuid
 import numpy as np
 
-from pythautomata.utilities.sequence_generator import SequenceGenerator
 from .weighted_state import WeightedState
 from itertools import chain
 from pythautomata.base_types.alphabet import Alphabet
@@ -10,6 +9,7 @@ from decimal import Decimal
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
+from ...base_types.symbol import Symbol
 
 epsilon = Sequence()
 
@@ -40,7 +40,7 @@ class WeightedAutomaton:
     def alphabet(self, value):
         self._alphabet = value
 
-    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol, name=None,
+    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
@@ -48,18 +48,10 @@ class WeightedAutomaton:
             self.name = 'WFA - ' + str(uuid.uuid4().hex)
         else:
             self.name = name
-        self.terminal_symbol = Sequence() + terminal_symbol
+        self.terminal_symbol = terminal_symbol
         self.alphabet = alphabet
         self.weighted_states = weighted_states
         self.__exporting_strategies = export_strategies
-
-    def is_deterministic(self):
-        for weighted_state in self.weighted_states:
-            for symbol in self.alphabet.symbols:
-                transitions_for_symbol = weighted_state.transitions_dict_for(symbol)
-                if len(transitions_for_symbol) > 1:
-                    return False
-        return len(self.initial_states) == 1
 
     @property
     def hole(self):
@@ -150,50 +142,3 @@ class WeightedAutomaton:
     def export(self, path):
         for strategy in self.__exporting_strategies:
             strategy.export(self, path)
-
-    # Methods assuming PDFA (one initial state, one transition per state per symbol, prob dist for all transitions)
-    # def get_representative_sample(self, sample_size):
-    #     sample = list()
-    #     for i in range(sample_size):
-    #         sample.append(self.__get_representative_word())
-    #     return sample
-    #
-    # def _get_representative_word(self):
-    #     word = Sequence()
-    #     first_state = list(filter(lambda x: x.initial_weight == 1, self.weighted_states))[0]
-    #     symbols, weights, next_states = first_state.get_all_symbol_weights(self.terminal_symbol)
-    #     next_symbol = numpy.random.choice(symbols, p=weights)
-    #     while next_symbol != self.terminal_symbol:
-    #         word += next_symbol
-    #         i = symbols.index(next_symbol)
-    #         next_state = next_states[i]
-    #         symbols, weights, next_states = next_state.get_all_symbol_weights(self.terminal_symbol)
-    #         next_symbol = numpy.random.choice(symbols, p=weights)
-    #     return Sequence(word[:-1])
-
-    # TODO: CHECK IF SEQUENCE GENERATOR IS REALLY NECESSARY
-    # def get_representative_sample(self, sample_size):
-    #     sample = list()
-    #     sq = SequenceGenerator(self.alphabet, len(self.weighted_states) + 1)
-    #     seqs = (sq.generate_all_words_up_to_max_length()),
-    #     seqs2 = seqs[0]
-    #     for seq in seqs2:
-    #         seq2 = seq + self.terminal_symbol
-    #         prob = self.sequence_weight(seq2)
-    #         sample += [seq] * math.floor(sample_size * prob)
-    #     return sample
-
-    def __eq__(self, other):
-        if not isinstance(other, WeightedAutomaton):
-            return False
-        if self.alphabet != other.alphabet:
-            return False
-        else:
-            self_first_state = self.get_first_state()
-            other_first_state = other.get_first_state()
-            return self_first_state == other_first_state
-
-    def get_first_state(self):
-        for state in self.weighted_states:
-            if state.initial_weight == 1:
-                return state
