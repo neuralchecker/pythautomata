@@ -1,12 +1,14 @@
 import random
+from decimal import Decimal
 
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
-from pythautomata.automata.wheighted_automaton_definition.weighted_automaton import WeightedAutomaton
+from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+     ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.base_types.sequence import Sequence
 
 
-def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> WeightedAutomaton:
+def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
 
@@ -16,7 +18,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> WeightedAutomaton:
 
     Returns
     -------
-    WeightedAutomaton
+    ProbabilisticDeterministicFiniteAutomaton
 
     """
     alphabet_length = len(dfa.alphabet)
@@ -25,7 +27,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> WeightedAutomaton:
     for state in dfa.states:
         __add_transitions(alphabet_length, state, wfa_states_dict)
     terminal_symbol = Sequence(['$'])
-    return WeightedAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol)
+    return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol)
 
 
 def __dfa_state_to_pdfa_state(name, initial):
@@ -40,7 +42,7 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[any, Weighte
     probs = []
     total_prob = wfa_state.final_weight
     for i in range(alphabet_length):
-        prob = 1 - total_prob if i == alphabet_length - 1 else __get_prob_not_zero(total_prob)
+        prob = round(1.0 - total_prob, 5) if i == alphabet_length - 1 else __get_prob_not_zero(total_prob)
         probs.append(prob)
         total_prob += prob
     for i, (symbol, next_state) in enumerate(state.transitions.items()):
@@ -52,4 +54,4 @@ def __get_prob_not_zero(total_prob):
     prob = random.triangular(0.0, 1.0 - total_prob)
     while not prob:
         prob = random.triangular(0.0, 1.0 - total_prob)
-    return prob
+    return round(prob, 5)

@@ -2,7 +2,7 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 
 from pythautomata.tests.test_minimizer import TestMinimizer
 from pythautomata.tests.test_automata_convertor import TestAutomataConvertor
-from pythautomata.tests.test_pdfa_from_dfa import TestPDFAGenerator
+from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
