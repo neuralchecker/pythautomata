@@ -135,14 +135,8 @@ class TestAutomataComparison(TestCase):
     def _areEquivalentFAs(self, automaton1, automaton2):
         if type(automaton1) == DFA and type(automaton2) == DFA:
             comparator = DFAComparator()
-        elif type(automaton1) == NFA and type(automaton2) == NFA:
-            comparator = NFAComparator()
         else:
-            if type(automaton1) == DFA:
-                automaton2 = AutomataConverter.convert_nfa_to_dfa(automaton2)
-            else:
-                automaton1 = AutomataConverter.convert_nfa_to_dfa(automaton1)
-            comparator = DFAComparator()
+            comparator = NFAComparator()
         areEquivalent = comparator.are_equivalent(automaton1, automaton2)
         return areEquivalent
 
@@ -155,7 +149,7 @@ class TestAutomataComparison(TestCase):
     def test_wfa_equivalence_reflexiveness(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
         comparator = WFAComparator()
-        for wfa in weightedTomitasAutomata:            
+        for wfa in weightedTomitasAutomata:
             assert(comparator.are_equivalent(wfa, wfa))
 
     def test_wfa_equivalence_false_case(self):
