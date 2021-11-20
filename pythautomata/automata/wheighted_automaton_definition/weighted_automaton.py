@@ -73,7 +73,7 @@ class WeightedAutomaton:
             if not sequence_value:
                 return Decimal(weight)
             else:
-                if sequence_value[0] == self.terminal_symbol[0]:
+                if sequence_value[0] == self.terminal_symbol:
                     return Decimal(weight * weighted_state.final_weight)
                 else:
                     transitions = weighted_state.transitions_list_for(sequence_value[0])
@@ -95,7 +95,7 @@ class WeightedAutomaton:
             if not sequence_value:
                 return np.log(weight)
             else:
-                if sequence_value[0] == self.terminal_symbol[0]:
+                if sequence_value[0] == self.terminal_symbol:
                     return np.log(weight) + np.log(weighted_state.final_weight)
                 else:
                     transitions = weighted_state.transitions_list_for(sequence_value[0])
@@ -118,7 +118,7 @@ class WeightedAutomaton:
             if not sequence_value:
                 return [weight]
             else:
-                if sequence_value[0] == self.terminal_symbol[0]:
+                if sequence_value[0] == self.terminal_symbol:
                     return [state.final_weight]
                 else:
                     transitions = state.transitions_list_for(sequence_value[0])
