@@ -10,7 +10,7 @@ from pythautomata.base_types.symbol import Symbol
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 
 
-def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet):
+def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) -> bool:
     initial_states = list(filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
         return False

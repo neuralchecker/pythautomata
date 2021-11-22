@@ -1,11 +1,10 @@
 import random
-from decimal import Decimal
 
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
      ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
-from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.symbol import SymbolStr
 
 
 def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterministicFiniteAutomaton:
@@ -26,7 +25,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterminist
                        in dfa.states}
     for state in dfa.states:
         __add_transitions(alphabet_length, state, wfa_states_dict)
-    terminal_symbol = Sequence(['$'])
+    terminal_symbol = SymbolStr('$')
     return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol)
 
 
