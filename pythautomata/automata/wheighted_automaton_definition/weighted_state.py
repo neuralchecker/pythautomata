@@ -84,7 +84,7 @@ class WeightedState:
             other_transitions = other.transitions_list[symbol]
             if len(transitions) > 1 or len(other_transitions) > 1:
                 # TODO custom exception
-                raise Exception("Eq method supported only for PDFA")
+                raise Exception("Eq method supported only for Deterministic Weighted FA")
             transition = transitions[0]
             other_transition = other_transitions[0]
             ret = ret and transition[1] == other_transition[1] \

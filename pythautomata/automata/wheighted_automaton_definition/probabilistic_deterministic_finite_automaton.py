@@ -8,6 +8,8 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
+from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from typing import Any
 
 
 def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) -> bool:
@@ -28,14 +30,14 @@ def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) ->
 
 class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, ProbabilisticModel):
 
-    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, name=None,
+    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, comparator: WFAComparator, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
         assert is_probabilistic(weighted_states, alphabet)
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
         if name is None:
             name = 'PDFA - ' + str(uuid.uuid4().hex)
-        super().__init__(alphabet, weighted_states, terminal_symbol, name, export_strategies)
+        super().__init__(alphabet, weighted_states, terminal_symbol, comparator, name, export_strategies)
 
     def log_sequence_probability(self, sequence: Sequence) -> float:
         return self.log_sequence_weight(sequence)
@@ -49,15 +51,18 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
     def sequence_probability(self, sequence: Sequence) -> float:
         return self.sequence_weight(sequence)
 
-    def __eq__(self, other):
-        if not isinstance(other, ProbabilisticDeterministicFiniteAutomaton):
-            return False
-        if self.alphabet != other.alphabet:
-            return False
-        else:
-            self_first_state = self.get_first_state()
-            other_first_state = other.get_first_state()
-            return self_first_state == other_first_state
+    def __eq__(self, other: Any) -> bool:
+        return isinstance(other, ProbabilisticDeterministicFiniteAutomaton) and self._comparator.are_equivalent(self, other)
+
+    # def __eq__(self, other):
+    #     if not isinstance(other, ProbabilisticDeterministicFiniteAutomaton):
+    #         return False
+    #     if self.alphabet != other.alphabet:
+    #         return False
+    #     else:
+    #         self_first_state = self.get_first_state()
+    #         other_first_state = other.get_first_state()
+    #         return self_first_state == other_first_state
 
     def get_first_state(self):
         for state in self.weighted_states:

@@ -13,11 +13,11 @@ from pythautomata.tests.test_automata_definitions import TestAutomataDefinitions
 def get_all_tests():
     return [TestPDFAGenerator, TestMinimizer, TestAutomataConvertor, 
     TestSimpleDFAGenerator, TestAutomataComparison, TestSequence,
-    TestDFAOperations, TestAutomataDefinitions]
+    TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator]
 
 
 def run():
-    test_classes_to_run = [TestPDFAGenerator]
+    test_classes_to_run = get_all_tests()
     loader = TestLoader()
     suites_list = []
     for test_class in test_classes_to_run:
