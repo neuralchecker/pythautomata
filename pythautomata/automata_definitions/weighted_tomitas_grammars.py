@@ -1,9 +1,8 @@
-from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.automata.wheighted_automaton_definition.weighted_automaton import WeightedAutomaton
+from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+     ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
-from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as HopcroftKarpComparisonStrategy
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
@@ -88,8 +87,7 @@ class WeightedTomitasGrammars:
         q1.add_transition(one, q1, 0.665)
 
         states = {q0, q1}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas1")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas1")
 
     @staticmethod
     def get_automaton_2():
@@ -113,8 +111,7 @@ class WeightedTomitasGrammars:
         q2.add_transition(one, q2, 0.665)
 
         states = {q0, q1, q2}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas2")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas2")
 
     @staticmethod
     def get_automaton_3():
@@ -144,8 +141,7 @@ class WeightedTomitasGrammars:
         q4.add_transition(one, q4, 0.665)
 
         states = {q0, q1, q2, q3, q4}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas3")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas3")
 
     @staticmethod
     def get_automaton_4():
@@ -172,8 +168,7 @@ class WeightedTomitasGrammars:
         q3.add_transition(one, q3, 0.665)
 
         states = {q0, q1, q2, q3}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas4")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas4")
 
     @staticmethod
     def get_automaton_5():
@@ -200,8 +195,7 @@ class WeightedTomitasGrammars:
         q3.add_transition(one, q2, 0.665)
 
         states = {q0, q1, q2, q3}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas5")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas5")
 
     @staticmethod
     def get_automaton_6():
@@ -225,8 +219,7 @@ class WeightedTomitasGrammars:
         q2.add_transition(one, q0, 0.665)
 
         states = {q0, q1, q2}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas6")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas6")
 
     @staticmethod
     def get_automaton_7():
@@ -256,5 +249,4 @@ class WeightedTomitasGrammars:
         q4.add_transition(one, q4, 0.665)
 
         states = {q0, q1, q2, q3, q4}
-        #comparator = HopcroftKarpComparisonStrategy()
-        return WeightedAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas7")
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), "WeightedTomitas7")
