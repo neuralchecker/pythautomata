@@ -17,7 +17,7 @@ from pythautomata.model_comparators.dfa_comparison_strategy import \
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as NFAComparator
 from pythautomata.utilities.automata_converter import AutomataConverter
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparisonStrategy as WFAComparator
+from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
 
 
 class TestAutomataComparison(TestCase):

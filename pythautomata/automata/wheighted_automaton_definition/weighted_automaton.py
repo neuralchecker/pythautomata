@@ -10,6 +10,8 @@ from decimal import Decimal
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from pythautomata.base_types.symbol import Symbol
+from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from typing import Any
 
 epsilon = Sequence()
 
@@ -40,7 +42,7 @@ class WeightedAutomaton:
     def alphabet(self, value):
         self._alphabet = value
 
-    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, name=None,
+    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, comparator: WFAComparator, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
@@ -51,6 +53,7 @@ class WeightedAutomaton:
         self.terminal_symbol = terminal_symbol
         self.alphabet = alphabet
         self.weighted_states = weighted_states
+        self._comparator = comparator
         self.__exporting_strategies = export_strategies
 
     @property
@@ -138,6 +141,9 @@ class WeightedAutomaton:
             else:
                 weights.append(0)
         return weights
+    
+    def __eq__(self, other: Any) -> bool:
+        return isinstance(other, WeightedAutomaton) and self._comparator.are_equivalent(self, other)
 
     def export(self, path):
         for strategy in self.__exporting_strategies:

@@ -5,6 +5,8 @@ from pythautomata.automata.wheighted_automaton_definition.probabilistic_determin
      ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.base_types.symbol import SymbolStr
+from model_comparators.wfa_comparison_strategy import WFAComparator
+from typing import Any
 
 
 def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterministicFiniteAutomaton:
@@ -26,7 +28,8 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterminist
     for state in dfa.states:
         __add_transitions(alphabet_length, state, wfa_states_dict)
     terminal_symbol = SymbolStr('$')
-    return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol)
+    comparator = WFAComparator()
+    return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol, comparator)
 
 
 def __dfa_state_to_pdfa_state(name, initial):
@@ -36,7 +39,7 @@ def __dfa_state_to_pdfa_state(name, initial):
     return wfa_state
 
 
-def __add_transitions(alphabet_length, state, wfa_states_dict: dict[any, WeightedState]):
+def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, WeightedState]):
     wfa_state = wfa_states_dict[state.name]
     probs = []
     total_prob = wfa_state.final_weight
