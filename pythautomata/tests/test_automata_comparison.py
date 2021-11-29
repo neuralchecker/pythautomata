@@ -161,3 +161,24 @@ class TestAutomataComparison(TestCase):
                     wfa1 = weightedTomitasAutomata[i]
                     wfa2 = weightedTomitasAutomata[j]
                     assert(not comparator.are_equivalent(wfa1, wfa2))
+
+    def test_tomita4_vs_single_state_pdfa(self):
+        weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
+        comparator = WFAComparator()
+        from pythautomata.base_types.symbol import SymbolStr
+        from pythautomata.base_types.alphabet import Alphabet   
+        from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
+        from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+     ProbabilisticDeterministicFiniteAutomaton
+        q0 = WeightedState("q0", 1, 0.05)      
+        binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        zero = binaryAlphabet['0']
+        one = binaryAlphabet['1']   
+        q0.add_transition(zero, q0, 0.665)
+        q0.add_transition(one, q0, 0.285)       
+
+        states = {q0}
+        comparator = WFAComparator()
+        single_state_wfa = ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas4")
+        counterexample = comparator.get_counterexample_between(weightedTomita4, single_state_wfa)
+        assert(counterexample is not None)

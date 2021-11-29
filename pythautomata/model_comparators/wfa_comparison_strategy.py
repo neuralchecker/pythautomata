@@ -2,8 +2,7 @@ from typing import Optional
 
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.base_types.sequence import Sequence
-from pythautomata.base_types.state import State
-
+from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 
 class WFAComparator(FiniteAutomataComparator):
     """
@@ -24,38 +23,42 @@ class WFAComparator(FiniteAutomataComparator):
         if wfa1.alphabet != wfa2.alphabet:
             raise ValueError("Alphabets are not equivalent.")
         self._alphabet = wfa1.alphabet
-        # initialPairs is an arbitrary pair of states
-        initialPair: tuple[State, State] = (
+        # initialPairs is a pair of initial states
+        initialPair: tuple[WeightedState, WeightedState] = (
             min(wfa1.initial_states), min(wfa2.initial_states))
 
         pairsToVisit = [initialPair]
         sequenceForPairs = {initialPair: Sequence()}
-        visitedPairs: set[tuple[State, State]] = set()
+        visitedPairs: set[tuple[WeightedState, WeightedState]] = set()
 
         while pairsToVisit:
             pair = pairsToVisit[0]
             if not self._states_are_equivalent(pair[0],pair[1], tolerance):
                 return sequenceForPairs[pair]
-            for symbol in wfa1.alphabet.symbols:
+            for symbol in self._alphabet.symbols:
                 self._process_equivalence_iteration_with(symbol, pairsToVisit,
                                                          visitedPairs, sequenceForPairs)
-            pairsToVisit.remove(pair)
+            #pairsToVisit.remove(pair)
+            pairsToVisit = list(filter(lambda x: not self._pair_equivalent_by_name(x, pair), pairsToVisit))
             visitedPairs.add(pair)
         return None
     
-    def _states_are_equivalent(self, state1, state2, tolerance):        
+    def _pair_equivalent_by_name(self,states_pair1, states_pair2):
+        return states_pair1[0].name == states_pair2[0].name and states_pair1[1].name == states_pair2[1].name
+
+    def _states_are_equivalent(self, state1, state2, tolerance, ignore_initial_weight = True):        
         r1 = self._within_tolerance(state1.initial_weight, state2.initial_weight, tolerance)
         r2 = self._within_tolerance(state1.final_weight, state2.final_weight, tolerance)
         r3 = self._check_transitions(state1, state2, tolerance)
-        return r1 and r2 and r3
+        return (r1 or ignore_initial_weight) and r2 and r3
     
     def _within_tolerance(self, value1, value2, tolerance):
         return abs(value1 - value2) <= tolerance
     
     def _check_transitions(self, state1, state2, tolerance):
-        for symbol in self._alphabet:
-            transitions1 = state1.transitions[symbol]
-            transitions2 = state2.transitions[symbol]
+        for symbol in self._alphabet.symbols:            
+            transitions1 = list(state1.transitions_set[symbol])
+            transitions2 = list(state2.transitions_set[symbol])
             if len(transitions1) > 1 or len(transitions2) > 1:
                 # TODO custom exception
                 raise Exception("Eq method supported only for Deterministic Weighted FA")
@@ -70,6 +73,8 @@ class WFAComparator(FiniteAutomataComparator):
         selfNextState = min(pair[0].next_states_for(symbol))
         otherNextState = min(pair[1].next_states_for(symbol))
         nextPair = (selfNextState, otherNextState)
-        if nextPair not in pairs_to_visit and nextPair not in visited_pairs:
+        nextPair_in_pairs_to_visit = any(self._pair_equivalent_by_name(elem, nextPair) for elem in pairs_to_visit)
+        nextPair_in_visited_pairs = any(self._pair_equivalent_by_name(elem, nextPair) for elem in visited_pairs)
+        if not nextPair_in_pairs_to_visit and not nextPair_in_visited_pairs:
             sequence_for_pairs[nextPair] = sequence_for_pairs[pair] + symbol
             pairs_to_visit.append(nextPair)
