@@ -5,7 +5,7 @@ from pythautomata.automata.wheighted_automaton_definition.probabilistic_determin
      ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.base_types.symbol import SymbolStr
-from model_comparators.wfa_comparison_strategy import WFAComparator
+from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
 from typing import Any
 
 
