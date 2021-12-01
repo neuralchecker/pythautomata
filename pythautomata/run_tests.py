@@ -8,12 +8,13 @@ from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
 from pythautomata.tests.test_automata_definitions import TestAutomataDefinitions
-
+from pythautomata.tests.test_regex_generator import TestRegexGenerator
 
 def get_all_tests():
     return [TestPDFAGenerator, TestMinimizer, TestAutomataConvertor, 
     TestSimpleDFAGenerator, TestAutomataComparison, TestSequence,
-    TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator]
+    TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
+    TestRegexGenerator]
 
 
 def run():

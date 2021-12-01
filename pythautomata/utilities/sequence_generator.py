@@ -5,7 +5,7 @@ from random import randint
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.alphabet import Alphabet
-
+from typing import List
 
 class SequenceGenerator:
 
@@ -67,7 +67,7 @@ class SequenceGenerator:
                 raise Exception('Unknown padding type')
         return Sequence(value)
 
-    def pad_sequences(self, words: [Sequence], padding_symbol: Symbol, max_len=None, padding_type='post'):
+    def pad_sequences(self, words: List[Sequence], padding_symbol: Symbol, max_len=None, padding_type='post'):
         padded_sequences = list(map(lambda x: self.pad(x, padding_symbol, max_len, padding_type), words))
         return padded_sequences
 
