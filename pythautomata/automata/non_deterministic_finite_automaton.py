@@ -1,4 +1,5 @@
 import uuid
+from pythautomata.abstract.boolean_model import BooleanModel
 from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
@@ -10,7 +11,7 @@ from pythautomata.model_exporters.encoded_file_exporting_strategy import Encoded
 ExecutionState = namedtuple("ExecutionState", ["state", "sequence"])
 
 
-class NondeterministicFiniteAutomaton(FiniteAutomaton):
+class NondeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     """
     Implementation of NFA.
 

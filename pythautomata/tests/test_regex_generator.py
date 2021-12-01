@@ -28,6 +28,6 @@ class TestRegexGenerator(TestCase):
         sequence_generator = SequenceGenerator(alphabet, 100)
         for i in range(1,100):
             seq = sequence_generator.generate_word(i)
-            regex.match( "".join(map(str, seq.value))) 
+            regex.accepts(seq) 
             self.assertTrue(True)
 

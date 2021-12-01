@@ -3,7 +3,7 @@ from enum import Enum
 from collections import namedtuple
 from base_types.alphabet import Alphabet
 from random import randrange, random, choice, seed
-
+from regular_expressions.regular_expression import RegularExpression
 
 class ProductionRules(Enum):
     CONCATENATION = ""
@@ -39,10 +39,11 @@ class RegularExpressionGenerator():
         for _ in range(iterations):
             expression = self.__add_production_rule_to(expression)
         result = self.__convert_to_string(expression, list(self.alphabet.symbols))
+        pattern = None
         if iterations > 0 and expression.rule == ProductionRules.CHOICE:
-            return compile(f"^(?:{result[0]})$")
-        return compile(f"^{result[0]}$")
-    
+             pattern = compile(f"^(?:{result[0]})$")
+        pattern = compile(f"^{result[0]}$")
+        return RegularExpression(alphabet = self.alphabet, pattern = pattern)
 
     def __add_production_rule_to(self, result, noKleeneStar=False):
         if result is None:

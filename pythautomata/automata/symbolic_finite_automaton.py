@@ -1,3 +1,4 @@
+from pythautomata.abstract.boolean_model import BooleanModel
 from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 from pythautomata.base_types.symbolic_state import SymbolicState
@@ -6,7 +7,7 @@ from pythautomata.base_types.alphabet import Alphabet
 import uuid
 
 
-class SymbolicFiniteAutomaton(FiniteAutomaton):
+class SymbolicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     """Implementation of a Symbolic Automaton
 
     Attributes
