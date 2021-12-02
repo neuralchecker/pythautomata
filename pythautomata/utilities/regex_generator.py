@@ -1,9 +1,9 @@
 from re import match, compile
 from enum import Enum
 from collections import namedtuple
-from base_types.alphabet import Alphabet
+from pythautomata.base_types.alphabet import Alphabet
 from random import randrange, random, choice, seed
-from regular_expressions.regular_expression import RegularExpression
+from pythautomata.regular_expressions.regular_expression import RegularExpression
 
 class ProductionRules(Enum):
     CONCATENATION = ""
