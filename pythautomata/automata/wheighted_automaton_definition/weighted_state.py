@@ -26,13 +26,11 @@ class WeightedState:
             self.transitions_set[symbol].add(WeightedTransition(next_state, weight))
             self.transitions_list[symbol].append((next_state, weight))
 
-    # TODO should probably throw exception instead of returning None
     def transitions_set_for(self, symbol: Symbol) -> set[WeightedTransition]:
         if symbol not in self.transitions_set:
             raise Exception(f'No transition for symbol: {symbol}')
         return self.transitions_set[symbol]
 
-    # TODO should probably throw exception instead of returning None
     def transitions_list_for(self, symbol) -> list[tuple[WeightedState, float]]:
         if symbol not in self.transitions_list.keys():
             raise Exception(f'No transition for symbol: {symbol}')

@@ -49,9 +49,9 @@ class WeightedAutomaton:
         if name is None:
             self.name = 'WFA - ' + str(uuid.uuid4().hex)
         else:
-            self.name = name
-        self.terminal_symbol = terminal_symbol
-        self.alphabet = alphabet
+            self._name = name
+        self._terminal_symbol = terminal_symbol
+        self._alphabet = alphabet
         self.weighted_states = weighted_states
         self._comparator = comparator
         self.__exporting_strategies = export_strategies
