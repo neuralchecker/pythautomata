@@ -13,19 +13,23 @@ import math
 
 def generate_dfa(alphabet: Alphabet, nominal_size: int, seed: int = 42) -> DFA:
     """
-    Function returning a randomly generated DFA in the style of Abbadingo One Competition: 
+    Function returning a randomly generated DFA in the style of Abbadingo One Competition, generated as described in: 
         Kevin J. Lang, Barak A. Pearlmutter, and Rodney A. Price. 1998. 
         Results of the Abbadingo One DFA Learning Competition and a New Evidence-Driven State Merging Algorithm. 
         In Proceedings of the 4th International Colloquium on Grammatical Inference (ICGI '98). Springer-Verlag, Berlin, Heidelberg, 1–12.
     
     Args:
-        alphabet (Alphabet): DFA alphabet.
+        alphabet (Alphabet): DFA alphabet. It must have size exactly 2.
         nominal_size (int): Target nominal size of the generated DFA.
         seed (int, optional): Random seed. Defaults to 42.
 
     Returns:
-        DFA: Random DFA with nominal size = nominal_size.
+        DFA: Random DFA with distribution of sizes centered near nominal_size and depth exactly ceil(2*log(nominal_size,2)-2).
     """
+    # Alphabet Size should be 2 to get the desired nominal size
+    # For bigger alphabets size use nicaud_dfa_generator
+    assert(len(alphabet)==2) 
+
     number_of_states = math.ceil((5*nominal_size)/4)
     dfa = simple_dfa_generator.generate_dfa(alphabet, number_of_states, seed)
     dfa_depth = _compute_depth(dfa)

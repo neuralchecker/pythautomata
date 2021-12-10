@@ -6,9 +6,10 @@ authors = ["Federico Vilensky <fedevilensky@gmail.com>", "Franz Mayr", "Ramiro V
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 graphviz = "*"
 numpy = "*"
+scipy = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 mypy = "*"
