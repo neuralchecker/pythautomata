@@ -15,7 +15,7 @@ from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
-    HopcroftKarpComparisonStrategy as NFAComparator
+    HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 
 
 class AutomataConverter():\
