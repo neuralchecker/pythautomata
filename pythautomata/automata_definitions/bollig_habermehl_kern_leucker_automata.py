@@ -8,7 +8,7 @@ from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
-    HopcroftKarpComparisonStrategy as NFAComparator
+    HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
@@ -129,7 +129,7 @@ class BolligHabermehlKernLeuckerAutomata:
         state3.add_transition(a, state0)
         state3.add_transition(b, state0)
 
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet,  frozenset([state0]),
                    set([state0, state1, state2, state3]),
                    comparator,
