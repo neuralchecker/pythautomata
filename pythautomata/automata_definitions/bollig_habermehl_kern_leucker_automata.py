@@ -8,7 +8,7 @@ from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
-    HopcroftKarpComparisonStrategy as NFAComparator
+    HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
@@ -97,12 +97,12 @@ class BolligHabermehlKernLeuckerAutomata:
                    "Angluin-style learning of NFA - first example DFA")
 
     @staticmethod
-    def get_first_example_NFA() -> DFA:
+    def get_first_example_NFA() -> NFA:
         """
         Method returning a NFA that recognizes the regular expresion Σ*aΣ^2 (First example from paper, Fig. 4.)
 
         Returns:
-            DFA: Method returning a DFA that recognizes the regular expresion Σ*aΣ^2
+            NFA: Method returning a NFA that recognizes the regular expresion Σ*aΣ^2
         """
         a = abAlphabet['a']
         b = abAlphabet['b']
@@ -129,8 +129,8 @@ class BolligHabermehlKernLeuckerAutomata:
         state3.add_transition(a, state0)
         state3.add_transition(b, state0)
 
-        comparator = NFAComparator()
-        return DFA(abAlphabet,  state0,
+        comparator = HopcroftKarpComparison()
+        return NFA(abAlphabet,  frozenset([state0]),
                    set([state0, state1, state2, state3]),
                    comparator,
                    "Angluin-style learning of NFA - first example NFA")

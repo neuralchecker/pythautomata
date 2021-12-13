@@ -1,8 +1,10 @@
-from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
+from __future__ import annotations
+#from  pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
+
 
 class WeightedTransition:
 
-    def __init__(self, next_state: WeightedState, weight: float):
+    def __init__(self, next_state, weight: float):
         self.next_state = next_state
         self.weight = weight
 

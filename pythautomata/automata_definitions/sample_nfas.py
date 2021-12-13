@@ -2,7 +2,8 @@ from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as HopcroftKarpComparison
+from pythautomata.utilities.automata_converter import AutomataConverter
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
@@ -22,12 +23,12 @@ class SampleNFAs:
     @staticmethod
     def get_all_automata():
         return [
-            PaperAutomata.get_more_membership_queries_automaton(),
-            PaperAutomata.get_more_equivalence_queries_automaton(),
-            PaperAutomata.get_state_count_does_not_increase_automaton(),
-            PaperAutomata.get_intermediate_hypothesis_automaton(),
-            PaperAutomata.get_algorithm_would_not_terminate_automaton(),
-            PaperAutomata.get_evolution_of_the_measure_automaton()
+            SampleNFAs.get_more_membership_queries_automaton(),
+            SampleNFAs.get_more_equivalence_queries_automaton(),
+            SampleNFAs.get_state_count_does_not_increase_automaton(),
+            SampleNFAs.get_intermediate_hypothesis_automaton(),
+            SampleNFAs.get_algorithm_would_not_terminate_automaton(),
+            SampleNFAs.get_evolution_of_the_measure_automaton()
         ]
 
     # Σ*aΣ
@@ -52,7 +53,7 @@ class SampleNFAs:
         state3.add_transition(b, state0)
         state4.add_transition(a, state4)
         state4.add_transition(b, state4)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet, frozenset({state0}),
                    set([state0, state1,
                         state2, state3, state4]),
@@ -83,7 +84,7 @@ class SampleNFAs:
         state4.add_transition(b, state4)
         state5.add_transition(a, state5)
         state5.add_transition(b, state5)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet, frozenset({state0}),
                    set([state0, state1, state2,
                         state3, state4, state5]),
@@ -117,12 +118,12 @@ class SampleNFAs:
         state3.add_transition(b, state3)
         state3.add_transition(c, state2)
 
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         result = NFA(abcAlphabet, frozenset({state0, state2}),
                      set([state0, state1, state2, state3]),
                      comparator,
                      "Paper - State count does not increase automaton")
-        result._queryable_self = AutomataConvertor.convert_nfa_to_dfa(result)
+        result._queryable_self = AutomataConverter.convert_nfa_to_dfa(result)
         return result
 
     @staticmethod
@@ -146,7 +147,7 @@ class SampleNFAs:
         state3.add_transition(b, state2)
         state4.add_transition(a, state4)
         state4.add_transition(b, state4)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet, frozenset({state0}),
                    set([state0, state1, state2, state3, state4]),
                    comparator,
@@ -180,7 +181,7 @@ class SampleNFAs:
         state7.add_transition(b, state8)
         state8.add_transition(b, state6)
         state9.add_transition(b, state9)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet, frozenset({state0}),
                    set([state0, state1, state2, state3, state4,
                         state5, state6, state7, state8, state9]),
@@ -206,7 +207,7 @@ class SampleNFAs:
         state3.add_transition(a, state5)
         state3.add_transition(b, state4)
         state4.add_transition(a, state5)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abAlphabet, frozenset({state0}),
                    set([state0, state1, state2,
                         state3, state4, state5, state6]),

@@ -1,7 +1,8 @@
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.automata.deterministic_finite_automaton import \
+    DeterministicFiniteAutomaton
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as HopcroftKarpComparisonStrategy
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
@@ -9,7 +10,7 @@ zero = binaryAlphabet['0']
 one = binaryAlphabet['1']
 
 
-class TomitasGrammarMods:
+class TomitasGrammarsMods:
     """
     Class containing modified versions of automata from paper:    
         Tomita, M. (1982). 
@@ -22,6 +23,10 @@ class TomitasGrammarMods:
     get_mod_automaton_5: DeterministicFiniteAutomaton
         returns a modified version of the automaton 5 from the paper
     """
+
+    @staticmethod
+    def get_all_automata():
+        return [TomitasGrammarsMods.get_mod_automaton_5()]
 
     @staticmethod
     def get_mod_automaton_5():
@@ -46,5 +51,5 @@ class TomitasGrammarMods:
         stateQ3.add_transition(zero, stateQ0)
 
         comparator = HopcroftKarpComparisonStrategy()
-        return FiniteAutomaton(binaryAlphabet, frozenset({stateQ0}),
+        return DeterministicFiniteAutomaton(binaryAlphabet, stateQ0,
                                set([stateQ1, stateQ2, stateQ3, stateQ0]), comparator, "Tomita's grammar 5 sub language automaton")

@@ -1,8 +1,13 @@
+from os import makedirs
+from os.path import isdir
+from pathlib import Path
+
 from graphviz import Digraph
-from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
+
+from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 
 
-class WFAImageExporter(ModelExportingStrategy):
+class WFAImageExporter(PDFAModelExportingStrategy):
 
     def export(self, model, path=None):
         graph = Digraph('weighted_automaton', format='png')

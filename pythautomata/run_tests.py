@@ -1,15 +1,26 @@
 from unittest import TestLoader, TestSuite, TextTestRunner
 
+from pythautomata.tests.test_minimizer import TestMinimizer
+from pythautomata.tests.test_automata_convertor import TestAutomataConvertor
+from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
+from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
+from pythautomata.tests.test_DFA_generators import TestDFAGenerators
+from pythautomata.tests.test_automata_comparison import TestAutomataComparison
+from pythautomata.tests.test_sequence import TestSequence
+from pythautomata.tests.test_dfa_operations import TestDFAOperations
+from pythautomata.tests.test_automata_definitions import TestAutomataDefinitions
+from pythautomata.tests.test_regex_generator import TestRegexGenerator
 
-from tests.test_minimizer import TestMinimizer
-from tests.test_automata_convertor import TestAutomataConvertor
-from tests.test_simple_DFA_generator import TestSimpleDFAGenerator
-from tests.test_automata_comparison import TestAutomataComparison
-from tests.test_sequence import TestSequence
-from tests.test_dfa_operations import TestDFAOperations
+
+def get_all_tests():
+    return [TestPDFAGenerator, TestMinimizer, TestAutomataConvertor,
+            TestDFAGenerators, TestAutomataComparison, TestSequence,
+            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
+            TestRegexGenerator, TestPDFASerialization]
+
 
 def run():
-    test_classes_to_run = [TestMinimizer, TestAutomataConvertor, TestSimpleDFAGenerator, TestAutomataComparison, TestSequence, TestDFAOperations]
+    test_classes_to_run = get_all_tests()
     loader = TestLoader()
     suites_list = []
     for test_class in test_classes_to_run:

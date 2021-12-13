@@ -2,6 +2,7 @@ from typing import Union
 
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.abstract.finite_automaton import FiniteAutomaton as FA
+from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import Symbol
@@ -25,7 +26,7 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
                 raise ValueError('Alphabets are not equivalent.')
 
         # symbols is the union of both finite automata's alphabets
-        # because one or both of the automata might not hace a full alphabet
+        # because one or both of the automata might not have a full alphabet
         symbols = list(fa1.alphabet.symbols | fa2.alphabet.symbols)
         aut1_new_transitions = self._generate_initial_table(fa1, symbols)
         aut2_new_transitions = self._generate_initial_table(fa2, symbols)
@@ -115,15 +116,15 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
     def _reaches_final_state(self, next_states_for_sym):
         return any(True for state in next_states_for_sym if state.is_final)
 
-    def _generate_initial_table(self, automaton, symbols: list[Symbol]):
+    def _generate_initial_table(self, automaton, symbols: list[Symbol]) -> dict[frozenset[list[Union[State, SymbolicState]]], list[Union[State, SymbolicState]]]:
         initial_states = list(automaton.initial_states)
         next_states_after_initial = self._get_next_states_from_state(
-            automaton, symbols, initial_states)
+            automaton, initial_states, symbols)
         new_transitions = {
             frozenset(initial_states): next_states_after_initial}
         return new_transitions
 
-    def _get_next_states_from_state(self, fa, symbols: list[Symbol], states: list[Union[State, SymbolicState]]) -> list[list[Union[State, SymbolicState]]]:
+    def _get_next_states_from_state(self, fa, states: list[Union[State, SymbolicState]], symbols: list[Symbol]) -> list[list[Union[State, SymbolicState]]]:
         aut_result = list(map(lambda symbol: self._fill_transitions_for(
             states, symbol, fa.hole), symbols))
         return aut_result
@@ -132,6 +133,8 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         result: list[Union[State, SymbolicState]] = []
         for state in states:
             next_states = state.next_states_for(symbol)
+            if isinstance(state, SymbolicState):
+                print(next_states)
             if not hole in next_states:
                 result.extend(next_state for next_state in next_states
                               if next_state not in result)

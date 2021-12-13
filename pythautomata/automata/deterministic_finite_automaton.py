@@ -1,4 +1,5 @@
 import uuid
+from pythautomata.abstract.boolean_model import BooleanModel
 
 from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
@@ -10,7 +11,7 @@ from pythautomata.exceptions.non_deterministic_states_exception import NonDeterm
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
 
 
-class DeterministicFiniteAutomaton(FiniteAutomaton):
+class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     """
     Implementation of DFA.
 

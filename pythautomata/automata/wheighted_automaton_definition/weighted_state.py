@@ -1,13 +1,16 @@
+from __future__ import annotations
 from pythautomata.automata.wheighted_automaton_definition.weighted_transition import WeightedTransition
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
+from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from typing import Union
+
 
 class WeightedState:
 
     def __init__(self, name, initial_weight, final_weight):
         self.name = name
-        self.transitions_set: dict[Symbol, WeightedTransition] = dict()
+        self.transitions_set: dict[Symbol, set[WeightedTransition]] = dict()
         self.transitions_list: dict[Symbol, list[tuple[WeightedState, float]]] = dict()
         self.initial_weight: float = initial_weight
         self.final_weight: float = final_weight
@@ -23,19 +26,20 @@ class WeightedState:
             self.transitions_set[symbol].add(WeightedTransition(next_state, weight))
             self.transitions_list[symbol].append((next_state, weight))
 
-    #TODO should probably throw exception instead of returning None
     def transitions_set_for(self, symbol: Symbol) -> set[WeightedTransition]:
-        '''If transition with given symbol does not exist, returns a set containing a WeightedTransition with state:None and weight:0'''
         if symbol not in self.transitions_set:
-            return {WeightedTransition(None, 0)}
+            raise Exception(f'No transition for symbol: {symbol}')
         return self.transitions_set[symbol]
 
-    #TODO should probably throw exception instead of returning None
-    def transitions_list_for(self, symbol) -> Union[list[tuple[WeightedState, float]], list[tuple[None, float]]]:
-        '''If transition with given symbol does not exist, returns the list [(None, 0)]'''
+    def transitions_list_for(self, symbol) -> list[tuple[WeightedState, float]]:
         if symbol not in self.transitions_list.keys():
-            return [(None, 0.)]
+            raise Exception(f'No transition for symbol: {symbol}')
         return self.transitions_list[symbol]
+
+    def next_states_for(self, symbol: Symbol) -> set['WeightedState']:
+        if symbol not in self.transitions_list.keys():
+            raise NonDeterministicStatesException()
+        return set(t[0] for t in self.transitions_list[symbol])
 
     def get_all_symbol_weights(self, terminal_symbol) -> tuple[list[Symbol], list[float], list[WeightedState]]:
         symbols = list()
@@ -69,7 +73,6 @@ class WeightedState:
         r3 = self.check_transitions(other, visited)
         return r1 and r2 and r3
 
-
     def check_transitions(self, other, visited):
         if (self.name, other.name) in visited:
             return True
@@ -78,8 +81,8 @@ class WeightedState:
         for symbol, transitions in self.transitions_list.items():
             other_transitions = other.transitions_list[symbol]
             if len(transitions) > 1 or len(other_transitions) > 1:
-                #TODO custom exception
-                raise Exception("Eq method supported only for PDFA")
+                # TODO custom exception
+                raise Exception("Eq method supported only for Deterministic Weighted FA")
             transition = transitions[0]
             other_transition = other_transitions[0]
             ret = ret and transition[1] == other_transition[1] \
