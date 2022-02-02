@@ -1,9 +1,10 @@
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
-     ProbabilisticDeterministicFiniteAutomaton
+    ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
+from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
@@ -29,7 +30,7 @@ class WeightedTomitasGrammars:
 
     get_automaton_1: ProbabilisticDeterministicFiniteAutomaton
         returns the weighted automaton 1 from the paper
-    
+
     get_automaton_2: ProbabilisticDeterministicFiniteAutomaton
         returns the weighted automaton 2 from the paper
 
@@ -68,7 +69,7 @@ class WeightedTomitasGrammars:
             WeightedTomitasGrammars.get_automaton_6(),
             WeightedTomitasGrammars.get_automaton_7()
         ]
-        
+
     @staticmethod
     def get_automaton_1():
         """
@@ -88,7 +89,7 @@ class WeightedTomitasGrammars:
         q1.add_transition(one, q1, 0.665)
 
         states = {q0, q1}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas1")
 
     @staticmethod
@@ -113,8 +114,8 @@ class WeightedTomitasGrammars:
         q2.add_transition(one, q2, 0.665)
 
         states = {q0, q1, q2}
-        comparator = WFAComparator()
-        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator ,"WeightedTomitas2")
+        comparator = WFAToleranceComparator()
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas2")
 
     @staticmethod
     def get_automaton_3():
@@ -144,8 +145,8 @@ class WeightedTomitasGrammars:
         q4.add_transition(one, q4, 0.665)
 
         states = {q0, q1, q2, q3, q4}
-        comparator = WFAComparator()
-        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator,"WeightedTomitas3")
+        comparator = WFAToleranceComparator()
+        return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas3")
 
     @staticmethod
     def get_automaton_4():
@@ -172,7 +173,7 @@ class WeightedTomitasGrammars:
         q3.add_transition(one, q3, 0.665)
 
         states = {q0, q1, q2, q3}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas4")
 
     @staticmethod
@@ -200,7 +201,7 @@ class WeightedTomitasGrammars:
         q3.add_transition(one, q2, 0.665)
 
         states = {q0, q1, q2, q3}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas5")
 
     @staticmethod
@@ -225,7 +226,7 @@ class WeightedTomitasGrammars:
         q2.add_transition(one, q0, 0.665)
 
         states = {q0, q1, q2}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas6")
 
     @staticmethod
@@ -256,5 +257,5 @@ class WeightedTomitasGrammars:
         q4.add_transition(one, q4, 0.665)
 
         states = {q0, q1, q2, q3, q4}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         return ProbabilisticDeterministicFiniteAutomaton(binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas7")

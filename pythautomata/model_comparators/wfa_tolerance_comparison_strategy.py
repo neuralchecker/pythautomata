@@ -4,22 +4,27 @@ from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 
-class WFAComparator(FiniteAutomataComparator):
+class WFAToleranceComparator(FiniteAutomataComparator):
     """
-    Class containing a WFA Comparator Strategy.
+    Class containing a WFA Comparator Strategy based on next symbol distributions and a tolerance parameter.
 
     Methods
     -------   
     are_equivalent: bool
-        returns true iif wfa1 is equivalent to wfa2
+        returns true iif wfa1 is equivalent to wfa2 according to a given tolerance
     
     get_counterexample_between: Sequence
         returns a Sequence where the next token weights differ (or its difference is greater than the tolerance)
     """
-    def are_equivalent(self, wfa1, wfa2, tolerance = 0) -> bool:
-        return self.get_counterexample_between(wfa1, wfa2, tolerance) is None
+    def __init__(self, tolerance: float = 0) -> None:
+        super().__init__()
+        self.tolerance = tolerance
 
-    def get_counterexample_between(self, wfa1, wfa2, tolerance = 0) -> Optional[Sequence]:
+    def are_equivalent(self, wfa1, wfa2) -> bool:
+        return self.get_counterexample_between(wfa1, wfa2) is None
+
+    def get_counterexample_between(self, wfa1, wfa2) -> Optional[Sequence]:
+        tolerance = self.tolerance
         if wfa1.alphabet != wfa2.alphabet:
             raise ValueError("Alphabets are not equivalent.")
         self._alphabet = wfa1.alphabet

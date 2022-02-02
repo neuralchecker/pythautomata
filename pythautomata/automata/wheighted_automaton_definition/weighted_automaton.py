@@ -10,13 +10,13 @@ from decimal import Decimal
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from pythautomata.base_types.symbol import Symbol
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator, FiniteAutomaton
 from typing import Any
 
 epsilon = Sequence()
 
 
-class WeightedAutomaton:
+class WeightedAutomaton(FiniteAutomaton):
 
     @property
     def name(self):
@@ -42,7 +42,7 @@ class WeightedAutomaton:
     def alphabet(self, value):
         self._alphabet = value
 
-    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, comparator: WFAComparator, name=None,
+    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, comparator: FiniteAutomataComparator, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
@@ -62,7 +62,8 @@ class WeightedAutomaton:
 
     @property
     def initial_states(self) -> frozenset:
-        initial_states = list(filter(lambda state: state.initial_weight != 0, self.weighted_states))
+        initial_states = list(
+            filter(lambda state: state.initial_weight != 0, self.weighted_states))
         return frozenset(initial_states)
 
     def sequence_weight(self, sequence: Sequence):
@@ -79,7 +80,8 @@ class WeightedAutomaton:
                 if sequence_value[0] == self.terminal_symbol:
                     return Decimal(weight * weighted_state.final_weight)
                 else:
-                    transitions = weighted_state.transitions_list_for(sequence_value[0])
+                    transitions = weighted_state.transitions_list_for(
+                        sequence_value[0])
                     transitions_unzipped = list(zip(*transitions))
                     next_states = transitions_unzipped[0]
                     weights = transitions_unzipped[1]
@@ -101,12 +103,14 @@ class WeightedAutomaton:
                 if sequence_value[0] == self.terminal_symbol:
                     return np.log(weight) + np.log(weighted_state.final_weight)
                 else:
-                    transitions = weighted_state.transitions_list_for(sequence_value[0])
+                    transitions = weighted_state.transitions_list_for(
+                        sequence_value[0])
                     transitions_unzipped = list(zip(*transitions))
                     next_states = transitions_unzipped[0]
                     weights = transitions_unzipped[1]
                     return sum(map(lambda x, y: np.log(weight) +
-                                   self._log_sequence_weight_from(sequence_value[1:], x, y),
+                                   self._log_sequence_weight_from(
+                                       sequence_value[1:], x, y),
                                    next_states, weights))
 
     def last_token_weight(self, sequence: Sequence):
@@ -141,7 +145,7 @@ class WeightedAutomaton:
             else:
                 weights.append(0)
         return weights
-    
+
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, WeightedAutomaton) and self._comparator.are_equivalent(self, other)
 

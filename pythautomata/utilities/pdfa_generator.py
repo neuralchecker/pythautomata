@@ -2,14 +2,15 @@ import random
 
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
-     ProbabilisticDeterministicFiniteAutomaton
+    ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.base_types.symbol import SymbolStr
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
+from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 from typing import Any
 
 
-def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterministicFiniteAutomaton:
+def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator()) -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
 
@@ -28,7 +29,6 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton) -> ProbabilisticDeterminist
     for state in dfa.states:
         __add_transitions(alphabet_length, state, wfa_states_dict)
     terminal_symbol = SymbolStr('$')
-    comparator = WFAComparator()
     return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol, comparator)
 
 
@@ -44,12 +44,14 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, Weighte
     probs = []
     total_prob = wfa_state.final_weight
     for i in range(alphabet_length):
-        prob = round(1.0 - total_prob, 5) if i == alphabet_length - 1 else __get_prob_not_zero(total_prob)
+        prob = round(1.0 - total_prob, 5) if i == alphabet_length - \
+            1 else __get_prob_not_zero(total_prob)
         probs.append(prob)
         total_prob += prob
     for i, (symbol, next_state) in enumerate(state.transitions.items()):
         next_state = next(iter(next_state))
-        wfa_state.add_transition(symbol, wfa_states_dict[next_state.name], probs[i])
+        wfa_state.add_transition(
+            symbol, wfa_states_dict[next_state.name], probs[i])
 
 
 def __get_prob_not_zero(total_prob):
