@@ -3,7 +3,7 @@ from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton as NFA
-from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as NFAComparator
+from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparator
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
@@ -318,7 +318,7 @@ class OtherAutomata:
         state0.add_transition(zero, state1)
         state0.add_transition(one, state0)
         state1.add_transition(one, state2)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(binaryAlphabet, frozenset({state0}),
                    set([state0, state1, state2]), comparator, "NFA 1")
 
@@ -350,7 +350,7 @@ class OtherAutomata:
         state2.add_transition(zero, state2)
         state2.add_transition(zero, state1)
         state2.add_transition(one, state2)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(binaryAlphabet, frozenset({state0}),
                    set([state0, state1, state2]), comparator, "NFA 2")
 
@@ -378,7 +378,7 @@ class OtherAutomata:
         state0.add_transition(one, state1)
         state1.add_transition(one, state0)
         state1.add_transition(one, state1)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(binaryAlphabet, frozenset({state0}),
                    set([state0, state1]), comparator, "NFA 3")
 
@@ -419,7 +419,7 @@ class OtherAutomata:
         state5.add_transition(b, state6)
         state5.add_transition(b, state4)
 
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abcAlphabet, frozenset({state0}),
                    set([state0, state1, state2, state3,
                         state4, state5, state6]), comparator, "NFA 4")
@@ -494,7 +494,7 @@ class OtherAutomata:
         state1.add_transition(d, state2)
         state1.add_transition(e, state1)
         state2.add_transition(d, state2)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(abcdeAlphabet, frozenset({state0}),
                    set([state0, state1, state2]), comparator, "NFA 5")
 
@@ -656,7 +656,7 @@ class OtherAutomata:
         state6.add_transition(h, state5)
         state7.add_transition(c, state7)
         state7.add_transition(a, state6)
-        comparator = NFAComparator()
+        comparator = HopcroftKarpComparison()
         return NFA(alphabet, frozenset({state0}),
                    set([state0, state1, state2, state3, state4, state5,
                         state6, state7]), comparator, "Modified E-commerce automaton")

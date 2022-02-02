@@ -1,10 +1,12 @@
 from pythautomata.abstract.boolean_model import BooleanModel
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator, FiniteAutomaton
 from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 from pythautomata.base_types.symbolic_state import SymbolicState
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.alphabet import Alphabet
 import uuid
+
+from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import HopcroftKarpComparisonStrategy
 
 
 class SymbolicFiniteAutomaton(FiniteAutomaton, BooleanModel):
@@ -19,7 +21,8 @@ class SymbolicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     """
 
     def __init__(self, alphabet: Alphabet, initial_state: SymbolicState, states: set[SymbolicState], name: str = None,
-                 exportingStrategies: list[ModelExportingStrategy] = [], hole: SymbolicState = SymbolicState("Hole")):
+                 exportingStrategies: list[ModelExportingStrategy] = [], hole: SymbolicState = SymbolicState("Hole"),
+                 comparator: FiniteAutomataComparator = HopcroftKarpComparisonStrategy()):
         self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
         self._alphabet = alphabet
         self.initial_state = initial_state
