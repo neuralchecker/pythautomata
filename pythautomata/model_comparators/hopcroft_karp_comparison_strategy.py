@@ -20,6 +20,9 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         counterexample = self._inner_are_equivalent(automaton1, automaton2)
         return counterexample
 
+    def equivalent_output(self, observation1, observation2) -> bool:
+        return observation1 == observation2
+
     def _inner_are_equivalent(self, fa1: FA, fa2: FA) -> Union[Sequence, None]:
         if fa1.has_full_alphabet and fa2.has_full_alphabet:
             if not fa1.alphabet == fa2.alphabet:
