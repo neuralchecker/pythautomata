@@ -21,9 +21,9 @@ def get_partition(value, partitions):
     mid_element = int(len(limits)/2)
     while len(positions) > 1:
         if value >= limits[mid_element]:
-            positions = positions[mid_element:]
+            positions = positions[int(len(positions)/2):]
         else:
-            positions = positions[:mid_element]
+            positions = positions[:int(len(positions)/2)]
         mid_element = positions[int(len(positions)/2)]
     assert(len(positions) == 1)
     return positions[0]
