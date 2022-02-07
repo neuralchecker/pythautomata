@@ -1,7 +1,7 @@
 import uuid
 import numpy as np
 
-from .weighted_state import WeightedState
+from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from itertools import chain
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
