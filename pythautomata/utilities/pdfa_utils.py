@@ -35,8 +35,8 @@ def get_partitions(observation, partitions):
 
 def are_in_same_partition(obs1, obs2, partitions):
     assert(len(obs1) == len(obs2))
-    are_same_partition(get_partitions(obs1, partitions),
-                       get_partitions(obs2, partitions))
+    return are_same_partition(get_partitions(obs1, partitions),
+                              get_partitions(obs2, partitions))
 
 
 def are_same_partition(partition1, partition2):
