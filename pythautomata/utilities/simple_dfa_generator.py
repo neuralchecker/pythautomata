@@ -48,18 +48,19 @@ def _add_dfa_transitions_to_states(states, symbols):
 
 
 def _remove_unreachable_states(initial_state, symbols):
-    reachable_states = {initial_state}
-    reachable_states = _get_reachable_states_from(
-        initial_state, symbols, reachable_states)
+    reachable_states = _get_reachable_states_from(initial_state, symbols)
     return reachable_states
 
 
-def _get_reachable_states_from(state, symbols, reachable_states):
-    for symbol in symbols:
-        next_states = state.next_states_for(symbol)
-        for next_state in next_states:
-            if next_state not in reachable_states:
-                reachable_states.add(next_state)
-                reachable_states = _get_reachable_states_from(
-                    next_state, symbols, reachable_states)
-    return reachable_states
+def _get_reachable_states_from(initial_state, symbols):
+    states_to_visit = [initial_state]
+    visited_states = []
+    while len(states_to_visit) > 0:
+        state = states_to_visit.pop()
+        visited_states.append(state)
+        for symbol in symbols:
+            next_states = state.next_states_for(symbol)
+            for next_state in next_states:
+                if next_state not in visited_states:
+                    states_to_visit.append(next_state)
+    return set(visited_states)
