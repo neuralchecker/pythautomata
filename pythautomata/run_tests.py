@@ -12,13 +12,14 @@ from pythautomata.tests.test_automata_definitions import TestAutomataDefinitions
 from pythautomata.tests.test_regex_generator import TestRegexGenerator
 from pythautomata.tests.test_pdfa_metrics import TestPDFAMetrics
 from pythautomata.tests.test_simple_DFA_generator import TestSimpleDFAGenerator
+from pythautomata.tests.test_pdfa_operations import TestPDFAOperations
 
 
 def get_all_tests():
     return [TestSimpleDFAGenerator, TestPDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
-            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics]
+            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations]
 
 
 def run():
