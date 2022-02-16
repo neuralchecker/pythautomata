@@ -47,10 +47,7 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
         return self.log_sequence_weight(sequence)
 
     def last_token_probability(self, sequence: Sequence) -> float:
-        return self.last_token_weight(sequence)
-
-    def last_token_probabilities(self, sequence: Sequence, required_suffixes: list[Sequence]) -> list[float]:
-        return self.get_last_token_weights(sequence, required_suffixes)
+        return self.last_token_weight(sequence)[0]
 
     def sequence_probability(self, sequence: Sequence) -> float:
         return self.sequence_weight(sequence)
