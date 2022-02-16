@@ -34,6 +34,10 @@ class ProbabilisticModel(ABC):
     def last_token_probability(self, sequence: Sequence) -> float:
         raise NotImplementedError
 
-    @abstractmethod
     def last_token_probabilities(self, sequence: Sequence, required_suffixes: list[Sequence]) -> list[float]:
-        raise NotImplementedError
+        probas = list()
+        for suffix in required_suffixes:
+            new_seq = sequence + suffix
+            prob = self.last_token_probability(new_seq)
+            probas.append(prob)
+        return probas
