@@ -12,7 +12,7 @@ from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from typing import Any
 
 
-def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) -> bool:
+def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, round_digits=2) -> bool:
     initial_states = list(
         filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
@@ -24,7 +24,7 @@ def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) ->
             if len(transitions_for_symbol) > 1:
                 return False
             total_weight += transitions_for_symbol[0][1]
-        if round(total_weight, 5) != 1:
+        if round(total_weight, round_digits) != 1:
             return False
     return True
 
@@ -35,7 +35,8 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
                  comparator: FiniteAutomataComparator,
                  name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
-        assert is_probabilistic(weighted_states, alphabet)
+        assert is_probabilistic(
+            weighted_states, alphabet), "Trying to instantiate a non probabilisitic DFA"
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
         if name is None:
