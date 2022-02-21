@@ -12,7 +12,7 @@ from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from typing import Any
 
 
-def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, round_digits=2) -> bool:
+def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, round_digits=1) -> bool:
     initial_states = list(
         filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
