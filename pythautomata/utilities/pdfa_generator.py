@@ -34,7 +34,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
 
 def __dfa_state_to_pdfa_state(name, initial):
     initial_prob = 1 if initial else 0
-    final_prob = __get_prob_not_zero(0)
+    final_prob = __get_prob(0)
     wfa_state = WeightedState(name, initial_prob, final_prob)
     return wfa_state
 
@@ -45,7 +45,7 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, Weighte
     total_prob = wfa_state.final_weight
     for i in range(alphabet_length):
         prob = round(1.0 - total_prob, 5) if i == alphabet_length - \
-            1 else __get_prob_not_zero(total_prob)
+            1 else __get_prob(total_prob)
         probs.append(prob)
         total_prob += prob
     for i, (symbol, next_state) in enumerate(state.transitions.items()):
@@ -54,7 +54,13 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, Weighte
             symbol, wfa_states_dict[next_state.name], probs[i])
 
 
+def __get_prob(total_prob):
+    prob = random.triangular(0.0, 1.0 - total_prob)
+    return round(prob, 5)
+
+
 def __get_prob_not_zero(total_prob):
+    assert False, "Deprecated"
     prob = random.triangular(0.0, 1.0 - total_prob)
     while not prob:
         prob = random.triangular(0.0, 1.0 - total_prob)

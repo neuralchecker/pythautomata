@@ -16,7 +16,7 @@ from pythautomata.tests.test_pdfa_operations import TestPDFAOperations
 
 
 def get_all_tests():
-    return [TestSimpleDFAGenerator, TestPDFAGenerator, TestMinimizer, TestAutomataConvertor,
+    return [TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
             TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations]
