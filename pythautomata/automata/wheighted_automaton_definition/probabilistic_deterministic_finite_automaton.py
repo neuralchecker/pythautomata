@@ -16,15 +16,21 @@ def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, ma
     initial_states = list(
         filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
+        print('Assertion Error: len(initial_states) != 1')
         return False
     for weighted_state in weighted_states:
         total_weight = weighted_state.final_weight
         for symbol in alphabet.symbols:
             transitions_for_symbol = weighted_state.transitions_list[symbol]
             if len(transitions_for_symbol) > 1:
+                print('Assertion Error:len(transitions_for_symbol) > 1')
+                print('weighted_state:', weighted_state.name)
                 return False
             total_weight += transitions_for_symbol[0][1]
         if abs(total_weight-1.0) > max_error:
+            print('Assertion Error: abs(total_weight-1.0) > max_error')
+            print('weighted_state:', weighted_state.name)
+            print('total_weight:', total_weight)
             return False
     return True
 
