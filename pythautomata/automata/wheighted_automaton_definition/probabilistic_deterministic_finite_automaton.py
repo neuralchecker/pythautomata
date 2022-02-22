@@ -1,4 +1,5 @@
 import uuid
+from typing import Any
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 from pythautomata.abstract.probabilistic_model import ProbabilisticModel
@@ -9,10 +10,9 @@ from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol, SymbolStr
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
-from typing import Any
 
 
-def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, round_digits=1) -> bool:
+def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, max_error=0.3) -> bool:
     initial_states = list(
         filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
@@ -24,7 +24,7 @@ def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, ro
             if len(transitions_for_symbol) > 1:
                 return False
             total_weight += transitions_for_symbol[0][1]
-        if round(total_weight, round_digits) != 1:
+        if abs(total_weight-1.0) > max_error:
             return False
     return True
 
