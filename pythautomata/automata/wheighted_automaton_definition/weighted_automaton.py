@@ -119,21 +119,18 @@ class WeightedAutomaton(FiniteAutomaton):
                 self.weighted_states))))
 
     def _last_token_weight_from(self, sequence_value, state: WeightedState, weight):
-        if weight == 0:
-            return [0]
+        if not sequence_value:
+            return [weight]
         else:
-            if not sequence_value:
-                return [weight]
+            if sequence_value[0] == self.terminal_symbol:
+                return [state.final_weight]
             else:
-                if sequence_value[0] == self.terminal_symbol:
-                    return [state.final_weight]
-                else:
-                    transitions = state.transitions_list_for(sequence_value[0])
-                    transitions_unzipped = list(zip(*transitions))
-                    next_states = transitions_unzipped[0]
-                    weights = transitions_unzipped[1]
-                    return chain.from_iterable(map(lambda x, y: self._last_token_weight_from(sequence_value[1:], x, y),
-                                                   next_states, weights))
+                transitions = state.transitions_list_for(sequence_value[0])
+                transitions_unzipped = list(zip(*transitions))
+                next_states = transitions_unzipped[0]
+                weights = transitions_unzipped[1]
+                return chain.from_iterable(map(lambda x, y: self._last_token_weight_from(sequence_value[1:], x, y),
+                                               next_states, weights))
 
     def get_last_token_weights(self, sequence, required_suffixes):
         weights = list()
