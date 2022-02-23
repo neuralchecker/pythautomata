@@ -114,11 +114,20 @@ class WeightedAutomaton(FiniteAutomaton):
                                    next_states, weights))
 
     def last_token_weight(self, sequence: Sequence):
+        # return list(filter(lambda x: x > 0, chain.from_iterable(
+        #    map(lambda x: self._last_token_weight_from(sequence.value, x, x.initial_weight),
+        #        self.weighted_states))))
+        #last_token_weights_list = [self._last_token_weight_from(
+        #    sequence.value, y, y.initial_weight) if y.initial_weight > 0 else [0] for y in self.weighted_states]
+
         return list(filter(lambda x: x > 0, chain.from_iterable(
-            map(lambda x: self._last_token_weight_from(sequence.value, x, x.initial_weight),
-                self.weighted_states))))
+            [self._last_token_weight_from(sequence.value, y, y.initial_weight) if y.initial_weight > 0 else [0] for y in self.weighted_states])))
+        # map(lambda x: self._last_token_weight_from(sequence.value, x, x.initial_weight),
+        #    self.weighted_states))))
 
     def _last_token_weight_from(self, sequence_value, state: WeightedState, weight):
+        # if weight == 0:
+        #    return [0]
         if not sequence_value:
             return [weight]
         else:

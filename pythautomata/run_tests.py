@@ -13,9 +13,11 @@ from pythautomata.tests.test_regex_generator import TestRegexGenerator
 from pythautomata.tests.test_pdfa_metrics import TestPDFAMetrics
 from pythautomata.tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from pythautomata.tests.test_pdfa_operations import TestPDFAOperations
+from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQueries
 
 
 def get_all_tests():
+    # return[TestPDFALastTokenQueries]
     return [TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
