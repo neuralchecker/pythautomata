@@ -143,6 +143,13 @@ class WeightedAutomaton(FiniteAutomaton):
                 weights.append(0)
         return weights
 
+    def get_last_token_weights_batch(self, sequences, required_suffixes):
+        result = []
+        for sequence in sequences:
+            result.append(self.get_last_token_weights(
+                sequence, required_suffixes))
+        return result
+
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, WeightedAutomaton) and self._comparator.are_equivalent(self, other)
 
