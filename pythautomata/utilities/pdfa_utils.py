@@ -1,4 +1,3 @@
-from turtle import pos
 import numpy as np
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
