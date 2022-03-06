@@ -136,8 +136,6 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         result: list[Union[State, SymbolicState]] = []
         for state in states:
             next_states = state.next_states_for(symbol)
-            if isinstance(state, SymbolicState):
-                print(next_states)
             if not hole in next_states:
                 result.extend(next_state for next_state in next_states
                               if next_state not in result)
