@@ -17,11 +17,21 @@ def ndcg_score_avg(target_model: ProbabilisticModel, learned_model: Probabilisti
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    for word in test_sequences:
-        obs1 = np.asarray(
-            [target_model.last_token_probabilities(word, suffixes)])
-        obs2 = np.asarray(
-            [learned_model.last_token_probabilities(word, suffixes)])
+    # for word in test_sequences:
+    #     obs1 = np.asarray(
+    #         [target_model.last_token_probabilities(word, suffixes)])
+    #     obs2 = np.asarray(
+    #         [learned_model.last_token_probabilities(word, suffixes)])
+    #     ndcg_word_score = ndcg_score(obs1, obs2, k=k)
+    #     ndcg.append(ndcg_word_score)
+    all_obs1 = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    all_obs2 = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+
+    for i in range(len(all_obs1)):
+        obs1 = np.asarray([all_obs1[i]])
+        obs2 = np.asarray([all_obs2[i]])
         ndcg_word_score = ndcg_score(obs1, obs2, k=k)
         ndcg.append(ndcg_word_score)
 
@@ -36,11 +46,23 @@ def wer_avg(target_model: ProbabilisticModel, learned_model: ProbabilisticModel,
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    for word in test_sequences:
-        obs1 = np.array(
-            target_model.last_token_probabilities(word, suffixes))
-        obs2 = np.array(
-            learned_model.last_token_probabilities(word, suffixes))
+    # for word in test_sequences:
+    #     obs1 = np.array(
+    #         target_model.last_token_probabilities(word, suffixes))
+    #     obs2 = np.array(
+    #         learned_model.last_token_probabilities(word, suffixes))
+    #     max1 = np.argmax(obs1)
+    #     max2 = np.argmax(obs2)
+    #     if max1 != max2:
+    #         wer += 1
+    all_obs1 = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    all_obs2 = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+
+    for i in range(len(all_obs1)):
+        obs1 = np.asarray(all_obs1[i])
+        obs2 = np.asarray(all_obs2[i])
         max1 = np.argmax(obs1)
         max2 = np.argmax(obs2)
         if max1 != max2:
@@ -64,12 +86,19 @@ def out_of_tolerance_elements(target_model: ProbabilisticModel, learned_model: P
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    for word in test_sequences:
-        obs1 = np.asarray(
-            [target_model.last_token_probabilities(word, suffixes)])
-        obs2 = np.asarray(
-            [learned_model.last_token_probabilities(word, suffixes)])
+    # for word in test_sequences:
+    #     obs1 = np.asarray(
+    #         [target_model.last_token_probabilities(word, suffixes)])
+    #     obs2 = np.asarray(
+    #         [learned_model.last_token_probabilities(word, suffixes)])
+    all_obs1 = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    all_obs2 = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
 
+    for i in range(len(all_obs1)):
+        obs1 = np.asarray(all_obs1[i])
+        obs2 = np.asarray(all_obs2[i])
         if not pdfa_utils.are_within_tolerance_limit(obs1, obs2, tolerance):
             errorCount += 1
 
@@ -83,13 +112,21 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    for word in test_sequences:
-        obs1 = np.asarray(
-            target_model.last_token_probabilities(word, suffixes))
-        obs2 = np.asarray(
-            learned_model.last_token_probabilities(word, suffixes))
+    # for word in test_sequences:
+    #     obs1 = np.asarray(
+    #         target_model.last_token_probabilities(word, suffixes))
+    #     obs2 = np.asarray(
+    #         learned_model.last_token_probabilities(word, suffixes))
+    all_obs1 = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    all_obs2 = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+
+    for i in range(len(all_obs1)):
+        obs1 = np.asarray(all_obs1[i])
+        obs2 = np.asarray(all_obs2[i])
         result = pdfa_utils.are_in_same_partition(obs1, obs2, partitions)
-        if not pdfa_utils.are_in_same_partition(obs1, obs2, partitions):
+        if not result:
             errorCount += 1
 
     return errorCount
