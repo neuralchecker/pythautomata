@@ -18,11 +18,13 @@ class TestPDFAMetrics(unittest.TestCase):
             pdfa1, pdfa2, test_sequences, 10)
         m5 = pdfa_metrics.out_of_tolerance_elements(
             pdfa1, pdfa2, test_sequences, 0.1)
+        m6 = pdfa_metrics.absolute_error_avg(pdfa1, pdfa2, test_sequences)
         self.assertEqual(m1, 0)
         self.assertEqual(m2, 0)
         self.assertEqual(m3, 1)
         self.assertEqual(m4, 0)
         self.assertEqual(m5, 0)
+        self.assertEqual(m6, 0)
 
     def test_different_pdfa(self):
         pdfa1 = WeightedTomitasGrammars.get_automaton_3()
@@ -36,8 +38,11 @@ class TestPDFAMetrics(unittest.TestCase):
             pdfa1, pdfa2, test_sequences, 10)
         m5 = pdfa_metrics.out_of_tolerance_elements(
             pdfa1, pdfa2, test_sequences, 0.1)
+
+        m6 = pdfa_metrics.absolute_error_avg(pdfa1, pdfa2, test_sequences)
         self.assertNotEqual(m1, 0)
         self.assertNotEqual(m2, 0)
         self.assertNotEqual(m3, 1)
         self.assertNotEqual(m4, 0)
         self.assertNotEqual(m5, 0)
+        self.assertNotEqual(m6, 0)

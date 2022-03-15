@@ -130,3 +130,25 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
             errorCount += 1
 
     return errorCount
+
+
+def absolute_error_avg(target_model: ProbabilisticModel, learned_model: ProbabilisticModel, test_sequences: list[Sequence]):
+    suffixes = list()
+    suffixes.append(Sequence() + learned_model.terminal_symbol)
+    wer = 0
+
+    for symbol in learned_model.alphabet.symbols:
+        suffixes.append(Sequence(symbol))
+
+    all_obs1 = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    all_obs2 = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+
+    absolute_error_sum = 0
+    for i in range(len(all_obs1)):
+        obs1 = np.asarray(all_obs1[i])
+        obs2 = np.asarray(all_obs2[i])
+        absolute_error_sum += np.sum(np.abs(obs1-obs2))
+
+    return absolute_error_sum / len(test_sequences)
