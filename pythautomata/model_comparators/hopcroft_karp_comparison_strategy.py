@@ -2,7 +2,6 @@ from typing import Union
 
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.abstract.finite_automaton import FiniteAutomaton as FA
-from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import Symbol
@@ -19,6 +18,9 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
     def get_counterexample_between(self, automaton1: FA, automaton2: FA) -> Union[Sequence, None]:
         counterexample = self._inner_are_equivalent(automaton1, automaton2)
         return counterexample
+
+    def equivalent_output(self, observation1, observation2) -> bool:
+        return observation1 == observation2
 
     def _inner_are_equivalent(self, fa1: FA, fa2: FA) -> Union[Sequence, None]:
         if fa1.has_full_alphabet and fa2.has_full_alphabet:
@@ -133,8 +135,6 @@ class HopcroftKarpComparisonStrategy(FiniteAutomataComparator):
         result: list[Union[State, SymbolicState]] = []
         for state in states:
             next_states = state.next_states_for(symbol)
-            if isinstance(state, SymbolicState):
-                print(next_states)
             if not hole in next_states:
                 result.extend(next_state for next_state in next_states
                               if next_state not in result)

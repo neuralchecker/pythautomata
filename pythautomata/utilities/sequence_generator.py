@@ -7,6 +7,7 @@ from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.alphabet import Alphabet
 from typing import List
 
+
 class SequenceGenerator:
 
     def __init__(self, alphabet: Alphabet, max_seq_length: int, random_seed: int = 21, min_seq_length: int = 0):

@@ -1,4 +1,5 @@
 import uuid
+from typing import Any
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 from pythautomata.abstract.probabilistic_model import ProbabilisticModel
@@ -8,22 +9,28 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol, SymbolStr
 from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
-from typing import Any
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 
 
-def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) -> bool:
-    initial_states = list(filter(lambda state: state.initial_weight != 0, weighted_states))
+def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet, max_error=0.3) -> bool:
+    initial_states = list(
+        filter(lambda state: state.initial_weight != 0, weighted_states))
     if len(initial_states) != 1:
+        print('Assertion Error: len(initial_states) != 1')
         return False
     for weighted_state in weighted_states:
         total_weight = weighted_state.final_weight
         for symbol in alphabet.symbols:
             transitions_for_symbol = weighted_state.transitions_list[symbol]
             if len(transitions_for_symbol) > 1:
+                print('Assertion Error:len(transitions_for_symbol) > 1')
+                print('weighted_state:', weighted_state.name)
                 return False
             total_weight += transitions_for_symbol[0][1]
-        if round(total_weight, 5) != 1:
+        if abs(total_weight-1.0) > max_error:
+            print('Assertion Error: abs(total_weight-1.0) > max_error')
+            print('weighted_state:', weighted_state.name)
+            print('total_weight:', total_weight)
             return False
     return True
 
@@ -31,24 +38,23 @@ def is_probabilistic(weighted_states: set[WeightedState], alphabet: Alphabet) ->
 class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, ProbabilisticModel):
 
     def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol,
-                 comparator: WFAComparator = WFAComparator(),
+                 comparator: FiniteAutomataComparator,
                  name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
-        assert is_probabilistic(weighted_states, alphabet)
+        assert is_probabilistic(
+            weighted_states, alphabet), "Trying to instantiate a non probabilisitic DFA"
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
         if name is None:
             name = 'PDFA - ' + str(uuid.uuid4().hex)
-        super().__init__(alphabet, weighted_states, terminal_symbol, comparator, name, export_strategies)
+        super().__init__(alphabet, weighted_states,
+                         terminal_symbol, comparator, name, export_strategies)
 
     def log_sequence_probability(self, sequence: Sequence) -> float:
         return self.log_sequence_weight(sequence)
 
     def last_token_probability(self, sequence: Sequence) -> float:
-        return self.last_token_weight(sequence)
-
-    def last_token_probabilities(self, sequence: Sequence, required_suffixes: list[Sequence]) -> list[float]:
-        return self.get_last_token_weights(sequence, required_suffixes)
+        return self.last_token_weight(sequence)[0]
 
     def sequence_probability(self, sequence: Sequence) -> float:
         return self.sequence_weight(sequence)
@@ -65,9 +71,12 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
     def __getstate__(self):
         lines = f'Name\n{self.name}\n'
         lines += f'Terminal Symbol\n{self.terminal_symbol}\n'
-        lines += 'Alphabet\n' + ' '.join(map(lambda symbol: f'{str(symbol)}', self.alphabet.symbols)) + '\n'
+        lines += 'Alphabet\n' + \
+            ' '.join(
+                map(lambda symbol: f'{str(symbol)}', self.alphabet.symbols)) + '\n'
         lines += ''.join(map(self.__encode_state, self.weighted_states))
-        lines += ''.join(map(self.__encode_transitions_for_state, self.weighted_states))
+        lines += ''.join(map(self.__encode_transitions_for_state,
+                         self.weighted_states))
         return lines
 
     def __encode_state(self, state):
@@ -120,7 +129,8 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
     def decode_state(self, value, acc):
         state_elements = value.split(' ')
         acc['states'][state_elements[0]] = (WeightedState(state_elements[0],
-                                                          float(state_elements[1]),
+                                                          float(
+                                                              state_elements[1]),
                                                           float(state_elements[2])))
 
     def decode_transition(self, value, acc):

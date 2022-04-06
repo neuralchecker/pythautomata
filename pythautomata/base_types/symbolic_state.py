@@ -48,7 +48,6 @@ class SymbolicState:
         for guard, state in self.transitions:
             if guard.matches(symbol):
                 return state
-        print(f'{vars(self) = }, {type(self) = }')
         return self._hole
 
     def next_states_for(self, symbol: Symbol) -> list['SymbolicState']:
@@ -56,7 +55,6 @@ class SymbolicState:
 
     def add_hole_transition(self, hole: 'SymbolicState') -> None:
         self._hole = hole
-        print(f'{self = }, {hole = }, {self._hole = }')
 
     def __eq__(self, other):
         return isinstance(other, SymbolicState) and self.name == other.name

@@ -41,3 +41,6 @@ class DFAComparisonStrategy(FiniteAutomataComparator):
         if nextPair not in pairs_to_visit and nextPair not in visited_pairs:
             sequence_for_pairs[nextPair] = sequence_for_pairs[pair] + symbol
             pairs_to_visit.append(nextPair)
+
+    def equivalent_output(self, observation1, observation2) -> bool:
+        return observation1 == observation2

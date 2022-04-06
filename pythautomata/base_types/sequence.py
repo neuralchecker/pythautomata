@@ -1,5 +1,5 @@
 from collections import abc
-from .symbol import Symbol
+from pythautomata.base_types.symbol import Symbol
 from typing import Union
 from pythautomata.exceptions.unexpected_type_exception import UnexpectedTypeException
 
@@ -37,7 +37,7 @@ class Sequence():
 
     def __getitem__(self, key):
         return self.value[key]
-    
+
     def __len__(self):
         return len(self.value)
 
@@ -56,7 +56,7 @@ class Sequence():
         raise UnexpectedTypeException()
 
     def __repr__(self):
-        return "ϵ" if self.value == () else "".join(map(lambda x: str(x), self.value))
+        return "ϵ" if self.value == [] else "".join(map(lambda x: str(x), self.value))
 
     def __lt__(self, other: 'Sequence') -> bool:
         if len(self.value) == len(other.value):

@@ -3,9 +3,10 @@ from unittest import TestCase
 
 from pythautomata.automata.deterministic_finite_automaton import \
     DeterministicFiniteAutomaton as DFA
-from pythautomata.automata.non_deterministic_finite_automaton import \
-    NondeterministicFiniteAutomaton as NFA
 from pythautomata.automata.symbolic_finite_automaton import SymbolicFiniteAutomaton
+from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+    ProbabilisticDeterministicFiniteAutomaton
+from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.automata_definitions.bollig_habermehl_kern_leucker_automata import \
     BolligHabermehlKernLeuckerAutomata
 from pythautomata.automata_definitions.omlin_giles_automata import \
@@ -14,13 +15,15 @@ from pythautomata.automata_definitions.other_automata import OtherAutomata
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 from pythautomata.utilities.automata_converter import AutomataConverter
-from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
+from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
+from pythautomata.model_comparators.wfa_quantization_comparison_strategy import WFAQuantizationComparator
 
 
 class TestAutomataComparison(TestCase):
@@ -151,13 +154,13 @@ class TestAutomataComparison(TestCase):
 
     def test_wfa_equivalence_reflexiveness(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         for wfa in weightedTomitasAutomata:
             assert(comparator.are_equivalent(wfa, wfa))
 
     def test_wfa_equivalence_false_case(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         for i in range(len(weightedTomitasAutomata)):
             for j in range(len(weightedTomitasAutomata)):
                 if i != j:
@@ -167,7 +170,6 @@ class TestAutomataComparison(TestCase):
 
     def test_tomita4_vs_single_state_pdfa(self):
         weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
-        comparator = WFAComparator()
         from pythautomata.base_types.symbol import SymbolStr
         from pythautomata.base_types.alphabet import Alphabet
         from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
@@ -181,12 +183,45 @@ class TestAutomataComparison(TestCase):
         q0.add_transition(one, q0, 0.285)
 
         states = {q0}
-        comparator = WFAComparator()
+        comparator = WFAToleranceComparator()
         single_state_wfa = ProbabilisticDeterministicFiniteAutomaton(
             binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas4")
         counterexample = comparator.get_counterexample_between(
             weightedTomita4, single_state_wfa)
         assert(counterexample is not None)
+
+    def test_wfa_quantization_equivalence_reflexiveness(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        comparator = WFAQuantizationComparator(100)
+        for wfa in weightedTomitasAutomata:
+            assert(comparator.are_equivalent(wfa, wfa))
+
+    def test_wfa_quantization_equivalence_false_case(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        comparator = WFAQuantizationComparator(100)
+        for i in range(len(weightedTomitasAutomata)):
+            for j in range(len(weightedTomitasAutomata)):
+                if i != j:
+                    wfa1 = weightedTomitasAutomata[i]
+                    wfa2 = weightedTomitasAutomata[j]
+                    assert(not comparator.are_equivalent(wfa1, wfa2))
+
+    def test_quantization_equivalence_tomita4_vs_single_state_pdfa(self):
+        weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
+        q0 = WeightedState("q0", 1, 0.05)
+        binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        zero = binaryAlphabet['0']
+        one = binaryAlphabet['1']
+        q0.add_transition(zero, q0, 0.665)
+        q0.add_transition(one, q0, 0.285)
+
+        states = {q0}
+        comparator = WFAQuantizationComparator(100)
+        single_state_wfa = ProbabilisticDeterministicFiniteAutomaton(
+            binaryAlphabet, states, SymbolStr("$"), comparator, "Single State PDFA")
+        counterexample = comparator.get_counterexample_between(
+            weightedTomita4, single_state_wfa)
+        assert (counterexample is not None)
 
     def test_tomita1_vs_empty_sfa(self):
         tomita1 = TomitasGrammars.get_automaton_1()

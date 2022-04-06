@@ -1,9 +1,4 @@
-from os import makedirs
-from os.path import isdir
-from pathlib import Path
-
 from graphviz import Digraph
-
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
 
 

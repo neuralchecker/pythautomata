@@ -3,7 +3,6 @@ from pythautomata.automata.wheighted_automaton_definition.weighted_transition im
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
-from typing import Union
 
 
 class WeightedState:

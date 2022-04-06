@@ -1,8 +1,6 @@
 from unittest import TestCase
 
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.automata_definitions.other_automata import OtherAutomata
-from pythautomata.base_types.state import State
 from pythautomata.utilities.automata_converter import AutomataConverter
 
 
