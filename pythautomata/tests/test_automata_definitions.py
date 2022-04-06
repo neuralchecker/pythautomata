@@ -1,6 +1,5 @@
 from unittest import TestCase
 
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.automata_definitions.bollig_habermehl_kern_leucker_automata import BolligHabermehlKernLeuckerAutomata
 from pythautomata.automata_definitions.omlin_giles_automata import OmlinGilesAutomata
 from pythautomata.automata_definitions.other_automata import OtherAutomata

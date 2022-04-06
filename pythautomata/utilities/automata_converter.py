@@ -14,8 +14,6 @@ from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
     BooleanAlgebraLearner as BAL
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
-from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
-    HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 
 
 class AutomataConverter():\
@@ -59,6 +57,7 @@ class AutomataConverter():\
 
         # TODO extract func
         new_states_pairs = []
+        new_initial_state = None
         for states in new_transitions.keys():
             stateName = " and ".join([state.name for state in states])
             is_final = any([state.is_final for state in states])
@@ -121,6 +120,7 @@ class AutomataConverter():\
         initial_state: SymbolicState
         states: dict[str, SymbolicState] = {}
         # get all states and convert them to symbolic state
+        initial_state = None
         for state in dfa.states:
             new_state: SymbolicState = SymbolicState(
                 state.name, state.is_final)

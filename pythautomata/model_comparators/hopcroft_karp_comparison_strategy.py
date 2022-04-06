@@ -2,7 +2,6 @@ from typing import Union
 
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.abstract.finite_automaton import FiniteAutomaton as FA
-from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import Symbol

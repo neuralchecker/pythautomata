@@ -17,11 +17,10 @@ from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQue
 
 
 def get_all_tests():
-    # return[TestPDFALastTokenQueries]
     return [TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
-            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations]
+            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries]
 
 
 def run():

@@ -10,13 +10,15 @@ from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFA
 from typing import Any
 
 
-def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator()) -> ProbabilisticDeterministicFiniteAutomaton:
+def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator()) \
+        -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
 
     Parameters
     ----------
     dfa : DeterministicFiniteAutomaton
+    comparator : FiniteAutomataComparator
 
     Returns
     -------
@@ -29,7 +31,8 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
     for state in dfa.states:
         __add_transitions(alphabet_length, state, wfa_states_dict)
     terminal_symbol = SymbolStr('$')
-    return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol, comparator)
+    return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol,
+                                                     comparator)
 
 
 def __dfa_state_to_pdfa_state(name, initial):
@@ -56,12 +59,4 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, Weighte
 
 def __get_prob(total_prob):
     prob = random.triangular(0.0, 1.0 - total_prob)
-    return round(prob, 5)
-
-
-def __get_prob_not_zero(total_prob):
-    assert False, "Deprecated"
-    prob = random.triangular(0.0, 1.0 - total_prob)
-    while not prob:
-        prob = random.triangular(0.0, 1.0 - total_prob)
     return round(prob, 5)

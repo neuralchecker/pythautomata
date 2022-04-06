@@ -1,5 +1,4 @@
 from pythautomata.abstract.probabilistic_model import ProbabilisticModel
-from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.utilities import pdfa_utils
 import math
@@ -17,13 +16,6 @@ def ndcg_score_avg(target_model: ProbabilisticModel, learned_model: Probabilisti
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    # for word in test_sequences:
-    #     obs1 = np.asarray(
-    #         [target_model.last_token_probabilities(word, suffixes)])
-    #     obs2 = np.asarray(
-    #         [learned_model.last_token_probabilities(word, suffixes)])
-    #     ndcg_word_score = ndcg_score(obs1, obs2, k=k)
-    #     ndcg.append(ndcg_word_score)
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
     all_obs2 = learned_model.last_token_probabilities_batch(
@@ -46,15 +38,6 @@ def wer_avg(target_model: ProbabilisticModel, learned_model: ProbabilisticModel,
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    # for word in test_sequences:
-    #     obs1 = np.array(
-    #         target_model.last_token_probabilities(word, suffixes))
-    #     obs2 = np.array(
-    #         learned_model.last_token_probabilities(word, suffixes))
-    #     max1 = np.argmax(obs1)
-    #     max2 = np.argmax(obs2)
-    #     if max1 != max2:
-    #         wer += 1
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
     all_obs2 = learned_model.last_token_probabilities_batch(
@@ -86,11 +69,6 @@ def out_of_tolerance_elements(target_model: ProbabilisticModel, learned_model: P
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    # for word in test_sequences:
-    #     obs1 = np.asarray(
-    #         [target_model.last_token_probabilities(word, suffixes)])
-    #     obs2 = np.asarray(
-    #         [learned_model.last_token_probabilities(word, suffixes)])
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
     all_obs2 = learned_model.last_token_probabilities_batch(
@@ -112,11 +90,6 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))
 
-    # for word in test_sequences:
-    #     obs1 = np.asarray(
-    #         target_model.last_token_probabilities(word, suffixes))
-    #     obs2 = np.asarray(
-    #         learned_model.last_token_probabilities(word, suffixes))
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
     all_obs2 = learned_model.last_token_probabilities_batch(
@@ -135,7 +108,6 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
 def absolute_error_avg(target_model: ProbabilisticModel, learned_model: ProbabilisticModel, test_sequences: list[Sequence]):
     suffixes = list()
     suffixes.append(Sequence() + learned_model.terminal_symbol)
-    wer = 0
 
     for symbol in learned_model.alphabet.symbols:
         suffixes.append(Sequence(symbol))

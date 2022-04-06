@@ -1,10 +1,7 @@
 from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
-from functools import reduce
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
-from random import seed, getrandbits, choice
-from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from random import getrandbits, choice
 from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 

@@ -1,6 +1,7 @@
 from pythautomata.base_types.guard import Guard
 from pythautomata.base_types.symbol import Symbol
 
+
 class ClosedIntervalGuard(Guard):
     def __init__(self, left, right):
         self.left, self.right = left, right
@@ -12,4 +13,4 @@ class ClosedIntervalGuard(Guard):
         return repr(self)
 
     def __repr__(self):
-        return "[" + str(self.left) + " , " + str(self.right) +"]"
+        return "[" + str(self.left) + " , " + str(self.right) + "]"

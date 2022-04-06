@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
-from utilities.pdfa_operations import get_representative_sample
+from pythautomata.utilities.pdfa_operations import get_representative_sample
 
 
 class TestPDFAOperations(TestCase):

@@ -3,7 +3,6 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
     ProbabilisticDeterministicFiniteAutomaton
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
-from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
