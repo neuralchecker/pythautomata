@@ -23,7 +23,8 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         Initial state of the DFA. Also included in "states"
     """
 
-    def __init__(self, alphabet: Alphabet, initial_state: State, states: set[State], comparator: FiniteAutomataComparator, name: str = None,
+    def __init__(self, alphabet: Alphabet, initial_state: State, states: set[State],
+                 comparator: FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
@@ -61,7 +62,8 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
             state.transitions, alphabet)
         self._verify_state_is_deterministic(state)
 
-    def _verify_transition_symbols_in_alphabet(self, transitions: dict[Symbol, set['State']], alphabet: Alphabet) -> None:
+    def _verify_transition_symbols_in_alphabet(self, transitions: dict[Symbol, set['State']], alphabet: Alphabet) -> \
+            None:
         if not all(symbol in alphabet for symbol in transitions):
             raise UnknownSymbolsException()
 

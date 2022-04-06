@@ -3,7 +3,6 @@ from pythautomata.abstract.boolean_model import BooleanModel
 from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
-from pythautomata.base_types.symbol import Symbol
 from collections import deque, namedtuple
 from pythautomata.abstract.finite_automaton import FiniteAutomaton, FiniteAutomataComparator
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
@@ -23,7 +22,8 @@ class NondeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         Set containing all initial states of the NFA. Also included in "states"
     """
 
-    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State], comparator: FiniteAutomataComparator, name: str = None,
+    def __init__(self, alphabet: Alphabet, initial_states: frozenset[State], states: set[State],
+                 comparator: FiniteAutomataComparator, name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:

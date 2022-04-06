@@ -1,7 +1,6 @@
-import numpy
-
 from pythautomata.base_types.sequence import Sequence
-from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import ProbabilisticDeterministicFiniteAutomaton as PDFA
+from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+    ProbabilisticDeterministicFiniteAutomaton as PDFA
 import numpy as np
 
 

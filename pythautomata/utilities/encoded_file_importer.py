@@ -1,10 +1,6 @@
-from glob import iglob
-from re import findall, match, search
+from re import findall, match
 from typing import Any
 
-from pythautomata.abstract.finite_automaton import FiniteAutomaton
-from pythautomata.automata.deterministic_finite_automaton import \
-    DeterministicFiniteAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr

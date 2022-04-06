@@ -1,5 +1,4 @@
 from .symbol import Symbol
-from typing import FrozenSet
 
 class Alphabet:
     """Set of Symbols.

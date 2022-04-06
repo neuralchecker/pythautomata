@@ -9,7 +9,6 @@ from pythautomata.base_types.sequence import Sequence
 ExecutionState = namedtuple("ExecutionState", "state sequence")
 
 
-# TODO: Define what to do with this class and add docstrings to this and/or subclases
 class FiniteAutomaton(ABC):
     _alphabet: Alphabet
     _exporting_strategies: list

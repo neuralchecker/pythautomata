@@ -3,9 +3,10 @@ from unittest import TestCase
 
 from pythautomata.automata.deterministic_finite_automaton import \
     DeterministicFiniteAutomaton as DFA
-from pythautomata.automata.non_deterministic_finite_automaton import \
-    NondeterministicFiniteAutomaton as NFA
 from pythautomata.automata.symbolic_finite_automaton import SymbolicFiniteAutomaton
+from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
+    ProbabilisticDeterministicFiniteAutomaton
+from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.automata_definitions.bollig_habermehl_kern_leucker_automata import \
     BolligHabermehlKernLeuckerAutomata
 from pythautomata.automata_definitions.omlin_giles_automata import \
@@ -14,6 +15,7 @@ from pythautomata.automata_definitions.other_automata import OtherAutomata
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
@@ -206,11 +208,6 @@ class TestAutomataComparison(TestCase):
 
     def test_quantization_equivalence_tomita4_vs_single_state_pdfa(self):
         weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
-        from pythautomata.base_types.symbol import SymbolStr
-        from pythautomata.base_types.alphabet import Alphabet
-        from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
-        from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
-            ProbabilisticDeterministicFiniteAutomaton
         q0 = WeightedState("q0", 1, 0.05)
         binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
         zero = binaryAlphabet['0']
@@ -220,6 +217,11 @@ class TestAutomataComparison(TestCase):
 
         states = {q0}
         comparator = WFAQuantizationComparator(100)
+        single_state_wfa = ProbabilisticDeterministicFiniteAutomaton(
+            binaryAlphabet, states, SymbolStr("$"), comparator, "Single State PDFA")
+        counterexample = comparator.get_counterexample_between(
+            weightedTomita4, single_state_wfa)
+        assert (counterexample is not None)
 
     def test_tomita1_vs_empty_sfa(self):
         tomita1 = TomitasGrammars.get_automaton_1()

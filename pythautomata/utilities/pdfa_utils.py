@@ -1,6 +1,4 @@
 import numpy as np
-from pythautomata.base_types.alphabet import Alphabet
-from pythautomata.base_types.sequence import Sequence
 
 
 def are_within_tolerance_limit(obs1, obs2, tolerance):
@@ -13,9 +11,6 @@ def get_partition(value, partitions):
     limits = np.linspace(0, 1, partitions+1)
     if value == 1:
         return partitions-1
-    # for i in range(len(limits)-1):
-    #    if limits[i] <= value and limits[i+1] > value:
-    #        return i
     positions = list(range(len(limits)-1))
     mid_element = int(len(limits)/2)
     while len(positions) > 1:

@@ -42,8 +42,10 @@ class WeightedAutomaton(FiniteAutomaton):
     def alphabet(self, value):
         self._alphabet = value
 
-    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol, comparator: FiniteAutomataComparator, name=None,
+    def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol,
+                 comparator: FiniteAutomataComparator, name=None,
                  export_strategies: list[PDFAModelExportingStrategy] = None):
+        super().__init__(comparator)
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
         if name is None:
@@ -53,8 +55,7 @@ class WeightedAutomaton(FiniteAutomaton):
         self._terminal_symbol = terminal_symbol
         self._alphabet = alphabet
         self.weighted_states = weighted_states
-        self._comparator = comparator
-        self.__exporting_strategies = export_strategies
+        self._exporting_strategies = export_strategies
 
     @property
     def hole(self):
@@ -114,7 +115,8 @@ class WeightedAutomaton(FiniteAutomaton):
                                    next_states, weights))
 
     def last_token_weight(self, sequence: Sequence):
-        return list(chain.from_iterable([self._last_token_weight_from(sequence.value, y, y.initial_weight) for y in self.weighted_states if y.initial_weight > 0]))
+        return list(chain.from_iterable([self._last_token_weight_from(sequence.value, y, y.initial_weight)
+                                         for y in self.weighted_states if y.initial_weight > 0]))
 
     def _last_token_weight_from(self, sequence_value, state: WeightedState, weight):
         # if weight == 0:
@@ -153,6 +155,3 @@ class WeightedAutomaton(FiniteAutomaton):
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, WeightedAutomaton) and self._comparator.are_equivalent(self, other)
 
-    def export(self, path):
-        for strategy in self.__exporting_strategies:
-            strategy.export(self, path)

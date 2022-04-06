@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
-from pythautomata.base_types.symbol import Symbol
 
 
 class BooleanModel(ABC):
