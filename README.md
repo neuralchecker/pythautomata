@@ -34,11 +34,7 @@ pip install pythautomata
 
 ## **Maintainers**
 
-Federico Vilensky
 
-Franz Mayr
-
-Federico Pan
 
 
 ## Colaborators
