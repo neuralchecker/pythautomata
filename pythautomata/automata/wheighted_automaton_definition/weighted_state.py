@@ -58,35 +58,7 @@ class WeightedState:
         if not isinstance(other, WeightedState):
             return False
         else:
-            r1 = self.initial_weight == other.initial_weight
-            r2 = self.final_weight == other.final_weight
-            r3 = self.check_transitions(other, set())
-            return r1 and r2 and r3
-
-    def equals(self, other, visited):
-        if (self.name, other.name) in visited:
-            return True
-        visited.add((self.name, other.name))
-        r1 = self.initial_weight == other.initial_weight
-        r2 = self.final_weight == other.final_weight
-        r3 = self.check_transitions(other, visited)
-        return r1 and r2 and r3
-
-    def check_transitions(self, other, visited):
-        if (self.name, other.name) in visited:
-            return True
-        ret = True
-        visited.add((self.name, other.name))
-        for symbol, transitions in self.transitions_list.items():
-            other_transitions = other.transitions_list[symbol]
-            if len(transitions) > 1 or len(other_transitions) > 1:
-                # TODO custom exception
-                raise Exception("Eq method supported only for Deterministic Weighted FA")
-            transition = transitions[0]
-            other_transition = other_transitions[0]
-            ret = ret and transition[1] == other_transition[1] \
-                  and transition[0].equals(other_transition[0], visited)
-        return ret
+            return self.name == other.name
 
     def __hash__(self):
         return hash(self.name)
