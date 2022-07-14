@@ -22,9 +22,6 @@ class WFAToleranceComparator(WFAComparator):
     def equivalent_output(self, observation1, observation2) -> bool:
         return pdfa_utils.are_within_tolerance_limit(observation1, observation2, self.tolerance)
 
-    def _pair_equivalent_by_name(self, states_pair1, states_pair2):
-        return states_pair1[0].name == states_pair2[0].name and states_pair1[1].name == states_pair2[1].name
-
     def equivalent_values(self, value1, value2):
         return abs(value1 - value2) <= self.tolerance
 
