@@ -18,11 +18,20 @@ class WFAQuantizationComparator(WFAComparator):
     def __init__(self, partitions: float) -> None:
         super().__init__()
         self.partitions = partitions
+        self._partition_cache = dict()
 
     def equivalent_output(self, observation1, observation2) -> bool:
         return pdfa_utils.are_in_same_partition(observation1, observation2, self.partitions)
 
     def equivalent_values(self, value1, value2):
-        part1 = pdfa_utils.get_partition(value1, self.partitions)
-        part2 = pdfa_utils.get_partition(value2, self.partitions)
+        part1 = self._get_partition(value1)
+        part2 = self._get_partition(value2)
         return part1 - part2 == 0
+
+    def _get_partition(self, value):
+        if value in self._partition_cache:
+            return self._partition_cache[value]
+        else:
+            partition = pdfa_utils.get_partition(value, self.partitions)
+            self._partition_cache[value] = partition
+            return partition
