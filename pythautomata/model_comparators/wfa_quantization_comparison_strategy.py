@@ -21,7 +21,11 @@ class WFAQuantizationComparator(WFAComparator):
         self._partition_cache = dict()
 
     def equivalent_output(self, observation1, observation2) -> bool:
-        return pdfa_utils.are_in_same_partition(observation1, observation2, self.partitions)
+        assert(len(obs1) == len(obs2))
+        for i in range(len(observation1)):
+            if self._get_partition(observation1[i])!=self._get_partition(observation2[i]):
+                return False
+        return True
 
     def equivalent_values(self, value1, value2):
         part1 = self._get_partition(value1)
