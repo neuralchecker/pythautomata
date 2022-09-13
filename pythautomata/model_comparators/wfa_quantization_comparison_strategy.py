@@ -21,7 +21,7 @@ class WFAQuantizationComparator(WFAComparator):
         self._partition_cache = dict()
 
     def equivalent_output(self, observation1, observation2) -> bool:
-        assert(len(obs1) == len(obs2))
+        assert(len(observation1) == len(observation2))
         for i in range(len(observation1)):
             if self._get_partition(observation1[i])!=self._get_partition(observation2[i]):
                 return False
