@@ -1,7 +1,8 @@
+from abc import ABC
 from .symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
 
-class State:
+class State():
     """Representation of NFA or DFA states.
 
     Attributes
