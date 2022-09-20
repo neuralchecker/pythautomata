@@ -28,7 +28,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
         self.states = states
         for state in self.states:
-            self._veirify_state(state, alphabet)
+            self._verify_state(state, alphabet)
             state.add_hole_transition(hole)
 
         self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
@@ -57,7 +57,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         # hole's hole state is itself
         self._hole.add_hole_transition(self.hole)
 
-    def _veirify_state(self, state: State, alphabet: Alphabet) -> None:
+    def _verify_state(self, state: State, alphabet: Alphabet) -> None:
         self._verify_transition_symbols_in_alphabet(
             state.transitions, alphabet)
         self._verify_state_is_deterministic(state)

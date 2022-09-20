@@ -19,7 +19,7 @@ class MooreState():
     
     hole: 'MooreState'
 
-    def __init__(self, name: str, value: Symbol = Symbol("")):
+    def __init__(self, name: str, value: Symbol = ""):
         self.name = name
         self.value = value
         self.transitions: dict[Symbol, set['MooreState']] = {}

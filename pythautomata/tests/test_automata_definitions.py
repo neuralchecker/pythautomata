@@ -7,6 +7,7 @@ from pythautomata.automata_definitions.sample_nfas import SampleNFAs
 from pythautomata.automata_definitions.tomitas_grammars_modifications import TomitasGrammarsMods
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
+from pythautomata.automata_definitions.sample_moore_machines import SampleMooreMachines
 
 class TestAutomataDefinitions(TestCase):
 
@@ -18,5 +19,6 @@ class TestAutomataDefinitions(TestCase):
         automata5 =TomitasGrammarsMods.get_all_automata()
         automata6 =TomitasGrammars.get_all_automata()
         automata7 =WeightedTomitasGrammars.get_all_automata()
+        automata8 =SampleMooreMachines.get_all_automata()
 
         self.assertTrue(True)
