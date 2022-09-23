@@ -1,42 +1,36 @@
+from genericpath import exists
 import uuid
 from pythautomata.abstract.boolean_model import BooleanModel
 
-from pythautomata.base_types.state import State
+from .moore_state import MooreState
+
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol
+
 from pythautomata.abstract.finite_automaton import FiniteAutomaton, FiniteAutomataComparator
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
 
+class MooreMachineAutomaton(FiniteAutomaton, BooleanModel):
 
-class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
-    """
-    Implementation of DFA.
-
-    Attributes
-    ----------
-    states: set[State]
-        Set containing the DFA's states
-    initial_state: State
-        Initial state of the DFA. Also included in "states"
-    """
-
-    def __init__(self, alphabet: Alphabet, initial_state: State, states: set[State],
+    def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
                  comparator: FiniteAutomataComparator, name: str = None,
-                 exportingStrategies: list = [EncodedFileExportingStrategy()], hole: State = State("Hole")):
+                 exportingStrategies: list = [EncodedFileExportingStrategy()], hole: MooreState = MooreState("Hole")):
+        
         self.states = states
         for state in self.states:
-            self._verify_state(state, alphabet)
+            self._verify_state(state, input_alphabet, output_alphabet)
             state.add_hole_transition(hole)
 
-        self._name = 'DFA - ' + str(uuid.uuid4().hex) if name is None else name
-        self._alphabet = alphabet
+        self._name = 'Moore Machine - ' + str(uuid.uuid4().hex) if name is None else name
+        self._alphabet = input_alphabet
+        self._outputAlphabet = output_alphabet
         self.initial_state = initial_state
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
-        super(DeterministicFiniteAutomaton, self).__init__(comparator)
+        super(MooreMachineAutomaton, self).__init__(comparator)
 
     def accepts(self, sequence: Sequence) -> bool:
         actual_state = self.initial_state
@@ -52,21 +46,27 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     def hole(self):
         return self._hole
 
-    def _set_hole(self, hole: State) -> None:
+    def _set_hole(self, hole: MooreState) -> None:
         self._hole = hole
         # hole's hole state is itself
         self._hole.add_hole_transition(self.hole)
-
-    def _verify_state(self, state: State, alphabet: Alphabet) -> None:
+    
+    def _verify_state(self, state: MooreState, alphabet: Alphabet, outputAlphabet: Alphabet) -> None:
+        self._verify_symbols_in_output_alphabet(state, outputAlphabet)
         self._verify_transition_symbols_in_alphabet(
             state.transitions, alphabet)
         self._verify_state_is_deterministic(state)
 
-    def _verify_transition_symbols_in_alphabet(self, transitions: dict[Symbol, set['State']], alphabet: Alphabet) -> \
+    def _verify_transition_symbols_in_alphabet(self, transitions: dict[Symbol, set['MooreState']], alphabet: Alphabet) -> \
             None:
         if not all(symbol in alphabet for symbol in transitions):
             raise UnknownSymbolsException()
+    
+    def _verify_symbols_in_output_alphabet(self, state: MooreState, outputAlphabet: Alphabet) -> \
+            None:
+        if not state.value in outputAlphabet:
+            raise UnknownSymbolsException()
 
-    def _verify_state_is_deterministic(self, state: State) -> None:
+    def _verify_state_is_deterministic(self, state: MooreState) -> None:
         if not state.is_deterministic:
             raise NonDeterministicStatesException()

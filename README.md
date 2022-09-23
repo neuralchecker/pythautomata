@@ -25,8 +25,6 @@ All of these can be exported in different manners, like pickle or to visual repr
 pip install pythautomata
 ```
 
-
-
 ## **Documentation**
 
 - [**API Documentation:**](https://neuralchecker.github.io/pythautomata/index.html)
@@ -40,5 +38,6 @@ Franz Mayr
 
 Federico Pan
 
-
 ## Colaborators
+
+
