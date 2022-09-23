@@ -32,11 +32,18 @@ class MooreMachineAutomaton(FiniteAutomaton, BooleanModel):
         self._exporting_strategies = exportingStrategies
         super(MooreMachineAutomaton, self).__init__(comparator)
 
-    def accepts(self, sequence: Sequence) -> bool:
-        actual_state = self.initial_state
-        for symbol in sequence.value:
-            actual_state = actual_state.next_state_for(symbol)
-        return actual_state.is_final
+    # def accepts(self, sequence: Sequence) -> bool:
+    #     actual_state = self.initial_state
+    #     for symbol in sequence.value:
+    #         actual_state = actual_state.next_state_for(symbol)
+    #     return actual_state.is_final
+
+    def last_symbol(self, sequence: Sequence) -> Symbol: #TODO
+        return
+
+    def transduce(self, sequence: Sequence) -> Sequence: # TODO
+        return
+
 
     @property
     def initial_states(self) -> frozenset:
