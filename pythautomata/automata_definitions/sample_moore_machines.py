@@ -16,6 +16,7 @@ abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c')
 
 
 class SampleMooreMachines:
+
     """
     Class containing sample Moore Machines
 
@@ -23,6 +24,18 @@ class SampleMooreMachines:
     -------
 
     """
+    @staticmethod
+    def get_a_symbol():
+        return 'a'
+    
+    @staticmethod
+    def get_b_symbol():
+        return 'b'
+
+    @staticmethod
+    def get_c_symbol():
+        return 'c'
+
     @staticmethod
     def get_all_automata():
         return [
@@ -34,12 +47,12 @@ class SampleMooreMachines:
 
     @staticmethod
     def get_3_states_automaton():
-        a = abAlphabet['a']
-        b = abAlphabet['b']
+        a = abAlphabet[SampleMooreMachines.get_a_symbol()]
+        b = abAlphabet[SampleMooreMachines.get_b_symbol()]
 
-        state0 = MooreState("State 0", abcAlphabet["a"]);
-        state1 = MooreState("State 1", abcAlphabet["b"]);
-        state2 = MooreState("State 2", abcAlphabet["c"]);
+        state0 = MooreState("State 0", abcAlphabet[SampleMooreMachines.get_a_symbol()]);
+        state1 = MooreState("State 1", abcAlphabet[SampleMooreMachines.get_b_symbol()]);
+        state2 = MooreState("State 2", abcAlphabet[SampleMooreMachines.get_c_symbol()]);
 
         state0.add_transition(a, state1)
         state0.add_transition(b, state2)
@@ -48,17 +61,17 @@ class SampleMooreMachines:
         state2.add_transition(a, state0)
         state2.add_transition(b, state1)
 
-        return MooreMachineAutomaton(abAlphabet, abcAlphabet, frozenset({state0}), 
+        return MooreMachineAutomaton(abAlphabet, abcAlphabet, state0, 
                 set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_3_states_automaton_wrong_alphabet():
-        a = abAlphabet['a']
-        b = abAlphabet['b']
+        a = abAlphabet[SampleMooreMachines.get_a_symbol()]
+        b = abAlphabet[SampleMooreMachines.get_b_symbol()]
 
-        state0 = MooreState("State 0", abcAlphabet["a"]);
-        state1 = MooreState("State 1", abcAlphabet["b"]);
-        state2 = MooreState("State 2", abcAlphabet["c"]);
+        state0 = MooreState("State 0", abcAlphabet[SampleMooreMachines.get_a_symbol()]);
+        state1 = MooreState("State 1", abcAlphabet[SampleMooreMachines.get_b_symbol()]);
+        state2 = MooreState("State 2", abcAlphabet[SampleMooreMachines.get_c_symbol()]);
 
         state0.add_transition(a, state1)
         state0.add_transition(b, state2)
@@ -67,17 +80,17 @@ class SampleMooreMachines:
         state2.add_transition(a, state0)
         state2.add_transition(b, state1)
 
-        return MooreMachineAutomaton(abAlphabet, abAlphabet, frozenset({state0}), 
+        return MooreMachineAutomaton(abAlphabet, abAlphabet, state0, 
                 set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_3_states_automaton_non_deterministic():
-        a = abAlphabet['a']
-        b = abAlphabet['b']
+        a = abAlphabet[SampleMooreMachines.get_a_symbol()]
+        b = abAlphabet[SampleMooreMachines.get_b_symbol()]
 
-        state0 = MooreState("State 0", abcAlphabet["a"]);
-        state1 = MooreState("State 1", abcAlphabet["b"]);
-        state2 = MooreState("State 2", abcAlphabet["c"]);
+        state0 = MooreState("State 0", abcAlphabet[SampleMooreMachines.get_a_symbol()]);
+        state1 = MooreState("State 1", abcAlphabet[SampleMooreMachines.get_b_symbol()]);
+        state2 = MooreState("State 2", abcAlphabet[SampleMooreMachines.get_c_symbol()]);
 
         state0.add_transition(a, state1)
         state0.add_transition(a, state2)
@@ -87,7 +100,7 @@ class SampleMooreMachines:
         state2.add_transition(a, state0)
         state2.add_transition(b, state1)
 
-        return MooreMachineAutomaton(abAlphabet, abAlphabet, frozenset({state0}), 
+        return MooreMachineAutomaton(abAlphabet, abAlphabet, state0, 
                 set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
 
     
