@@ -13,7 +13,7 @@ from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsExce
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
 
-class MooreMachineAutomaton(FiniteAutomaton, BooleanModel):
+class MooreMachineAutomaton(FiniteAutomaton):
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
                  comparator: FiniteAutomataComparator, name: str = None,
@@ -32,18 +32,19 @@ class MooreMachineAutomaton(FiniteAutomaton, BooleanModel):
         self._exporting_strategies = exportingStrategies
         super(MooreMachineAutomaton, self).__init__(comparator)
 
-    # def accepts(self, sequence: Sequence) -> bool:
-    #     actual_state = self.initial_state
-    #     for symbol in sequence.value:
-    #         actual_state = actual_state.next_state_for(symbol)
-    #     return actual_state.is_final
+    def last_symbol(self, sequence: Sequence) -> Symbol: 
+        actual_state = self.initial_state
+        for symbol in sequence.value:
+            actual_state = actual_state.next_state_for(symbol)
+        return actual_state.value
 
-    def last_symbol(self, sequence: Sequence) -> Symbol: #TODO
-        return
-
-    def transduce(self, sequence: Sequence) -> Sequence: # TODO
-        return
-
+    def transduce(self, sequence: Sequence) -> Sequence:
+        actual_state = self.initial_state
+        output = Sequence()
+        for symbol in sequence.value:
+            actual_state = actual_state.next_state_for(symbol)
+            output.append(actual_state.value)
+        return output
 
     @property
     def initial_states(self) -> frozenset:
