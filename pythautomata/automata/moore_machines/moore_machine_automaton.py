@@ -41,6 +41,7 @@ class MooreMachineAutomaton(FiniteAutomaton):
     def transduce(self, sequence: Sequence) -> Sequence:
         actual_state = self.initial_state
         output = Sequence()
+        output.append(actual_state.value)
         for symbol in sequence.value:
             actual_state = actual_state.next_state_for(symbol)
             output.append(actual_state.value)
