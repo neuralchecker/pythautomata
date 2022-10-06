@@ -8,7 +8,7 @@ from pythautomata.base_types.symbol import SymbolStr
 
 class TestMooreMachinesLastSymbolQueries(TestCase):
 
-    def test_1(self):
+    def test_empty_sequence(self):
         moore_machine = SampleMooreMachines.get_3_states_automaton()
         emptySequence = Sequence()
 
@@ -18,7 +18,7 @@ class TestMooreMachinesLastSymbolQueries(TestCase):
 
         return self.assertEqual(expected_result, res)
 
-    def test_2(self):
+    def test_non_empty_sequence(self):
         moore_machine = SampleMooreMachines.get_3_states_automaton()
         emptySequence = Sequence([SymbolStr(SampleMooreMachines.get_a_symbol()), SymbolStr(SampleMooreMachines.get_a_symbol())])
 

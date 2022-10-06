@@ -1,23 +1,40 @@
 from genericpath import exists
 import uuid
-from pythautomata.abstract.boolean_model import BooleanModel
 
-from .moore_state import MooreState
-
+from pythautomata.base_types.moore_state import MooreState
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol
 
-from pythautomata.abstract.finite_automaton import FiniteAutomaton, FiniteAutomataComparator
+from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy
+from pythautomata.abstract.finite_automaton import FiniteAutomataComparator, FiniteAutomaton
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
 
 class MooreMachineAutomaton(FiniteAutomaton):
+    """
+    Implementation of Moore Machines.
+
+    Attributes
+    ----------
+    states: set[MooreState]
+        Set containing the Moore Machines states
+    initial_state: State
+        Initial state of the Moore Machine. Also included in "states"
+    input_alphabet: Alphabet
+        Set of Symbols that defines the Symbols that can be used as inputs
+    output_alphabet: Alphabet
+        Set of Symbols that defines the Symbols that can be used as output 
+
+    Definition of Moore Machines is based on:
+        Author, Georgios Giantamidis, Author, Stavros Tripakis (2016). Learning Moore Machines from Input-Output Traces
+    Link del articulo: https://arxiv.org/pdf/1605.07805.pdf
+    """
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
                  comparator: FiniteAutomataComparator, name: str = None,
-                 exportingStrategies: list = [EncodedFileExportingStrategy()], hole: MooreState = MooreState("Hole")):
+                 exportingStrategies: list = [EncodedFileExportingStrategy()], hole: MooreState = MooreState('\u22A5')):
         
         self.states = states
         for state in self.states:

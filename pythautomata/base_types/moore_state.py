@@ -1,7 +1,7 @@
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
 
-class MooreState():
+class MooreState:
     """Representation of Moore machine states.
 
     Attributes
@@ -16,8 +16,6 @@ class MooreState():
         Hole state, state containing all transitions directed to itself. 
         It is used as default when a symbol is not present as transition key.
     """
-    
-    hole: 'MooreState'
 
     def __init__(self, name: str, value: Symbol = ""):
         self.name = name
