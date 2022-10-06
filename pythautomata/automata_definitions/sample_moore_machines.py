@@ -2,8 +2,8 @@ from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 
-from pythautomata.automata.moore_machines.moore_machine_automaton import MooreMachineAutomaton
-from pythautomata.automata.moore_machines.moore_state import MooreState
+from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
+from pythautomata.base_types.moore_state import MooreState
 
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparison
 
@@ -11,6 +11,7 @@ from pythautomata.utilities.automata_converter import AutomataConverter
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
+
 
 # TODO: DOCUMENT AND TEST
 
@@ -103,4 +104,21 @@ class SampleMooreMachines:
         return MooreMachineAutomaton(abAlphabet, abAlphabet, state0, 
                 set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
 
+    @staticmethod
+    def tomitas_automaton_1():
+        alphabet = Alphabet(frozenset((SymbolStr('False'), SymbolStr('True'))))
+
+        binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        zero = binaryAlphabet['0']
+        one = binaryAlphabet['1']
+
+        stateA = MooreState("State A", alphabet['True'])
+        stateB = MooreState("State B", alphabet['False'])
+        stateA.add_transition(one, stateA)
+        stateA.add_transition(zero, stateB)
+        stateB.add_transition(one, stateB)
+        stateB.add_transition(zero, stateB)
+
+        return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA, 
+                set([stateA, stateB]), "2 States Moore Machine")
     

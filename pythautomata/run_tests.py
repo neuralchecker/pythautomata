@@ -15,13 +15,13 @@ from pythautomata.tests.test_pdfa_metrics import TestPDFAMetrics
 from pythautomata.tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from pythautomata.tests.test_pdfa_operations import TestPDFAOperations
 from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQueries
-
+from pythautomata.tests.test_dfa_to_moore_machine import TestDFAToMooreMachine
 
 def get_all_tests():
     return [TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
-            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries]
+            TestRegexGenerator, TestPDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
 
 
 def run():

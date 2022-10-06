@@ -29,11 +29,11 @@ class MooreMachineAutomaton(FiniteAutomaton):
 
     Definition of Moore Machines is based on:
         Author, Georgios Giantamidis, Author, Stavros Tripakis (2016). Learning Moore Machines from Input-Output Traces
-    Link del articulo: https://arxiv.org/pdf/1605.07805.pdf
+    Link del artículo: https://arxiv.org/pdf/1605.07805.pdf
     """
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
-                 comparator: FiniteAutomataComparator, name: str = None,
+                 comparator: FiniteAutomataComparator = MooreMachineComparisonStrategy(), name: str = None,
                  exportingStrategies: list = [EncodedFileExportingStrategy()], hole: MooreState = MooreState('\u22A5')):
         
         self.states = states
