@@ -119,6 +119,8 @@ class SampleMooreMachines:
         stateB.add_transition(one, stateB)
         stateB.add_transition(zero, stateB)
 
+        hole_state = MooreState(name="hole", value=SymbolStr('False'))
+
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA, 
-                set([stateA, stateB]), "2 States Moore Machine")
+                set([stateA, stateB]), name='2 States Moore Machine', hole=hole_state)
     

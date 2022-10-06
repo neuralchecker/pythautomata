@@ -191,4 +191,4 @@ class AutomataConverter():\
 
         name = None if dfa.name == None else "MooreMachine_"+dfa.name
 
-        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name)
+        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name=name)
