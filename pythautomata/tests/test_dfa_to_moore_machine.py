@@ -8,9 +8,16 @@ from pythautomata.model_comparators.moore_machine_comparison_strategy import Moo
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars as Tomitas
 
 class TestDFAToMooreMachine(TestCase):
-    def test_dfa_to_moore_machine(self):
-        moore_machine = SampleMooreMachines.tomitas_automaton_1()
+    def test_dfa_to_moore_machine_tomitas_automaton_1(self):
+        moore_machine = SampleMooreMachines.get_tomitas_automaton_1()
         dfa = Tomitas.get_automaton_1()
+        converted_dfa = AutomataConverter.convert_dfa_to_moore_machine(dfa)
+
+        return self.assertEqual(moore_machine, converted_dfa)
+    
+    def test_dfa_to_moore_machine_tomitas_automaton_2(self):
+        moore_machine = SampleMooreMachines.get_tomitas_automaton_2()
+        dfa = Tomitas.get_automaton_2()
         converted_dfa = AutomataConverter.convert_dfa_to_moore_machine(dfa)
 
         return self.assertEqual(moore_machine, converted_dfa)

@@ -149,7 +149,7 @@ class AutomataConverter():\
 
         name = None if dfa.name == None else "SFA_"+dfa.name
         return SFA(dfa.alphabet, initial_state, set(states.values()), name, exportingStrategies)
-    
+
     @staticmethod
     def convert_dfa_to_moore_machine(dfa: DFA) -> MooreMachine:
         """
@@ -165,18 +165,19 @@ class AutomataConverter():\
         states: dict[str, MooreState] = {}
 
         # create alphabet with values = {0,1}
-        output_alphabet = Alphabet(frozenset((SymbolStr('False'), SymbolStr('True'))))
+        output_alphabet = Alphabet(
+            frozenset((SymbolStr('False'), SymbolStr('True'))))
 
         # get all states and convert them to moore machine state
         initial_state = None
         for state in dfa.states:
             if state.is_final:
                 new_state = MooreState(
-                state.name, output_alphabet['True']
+                    state.name, output_alphabet['True']
                 )
             else:
                 new_state = MooreState(
-                state.name, output_alphabet['False']
+                    state.name, output_alphabet['False']
                 )
             if new_state.name == dfa.initial_state.name:
                 initial_state = new_state
@@ -190,5 +191,7 @@ class AutomataConverter():\
                 states[state.name].add_transition(symbol, transition_state)
 
         name = None if dfa.name == None else "MooreMachine_"+dfa.name
+
+        # hole_state = MooreState("Hole", SymbolStr("False"))
 
         return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name=name)

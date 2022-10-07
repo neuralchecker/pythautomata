@@ -105,7 +105,7 @@ class SampleMooreMachines:
                 set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
 
     @staticmethod
-    def tomitas_automaton_1():
+    def get_tomitas_automaton_1():
         alphabet = Alphabet(frozenset((SymbolStr('False'), SymbolStr('True'))))
 
         binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
@@ -123,4 +123,28 @@ class SampleMooreMachines:
 
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA, 
                 set([stateA, stateB]), name='2 States Moore Machine', hole=hole_state)
+
+    
+    @staticmethod
+    def get_tomitas_automaton_2():
+        boolean_alphabet = Alphabet(frozenset((SymbolStr('False'), SymbolStr('True'))))
+
+        binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        zero = binaryAlphabet['0']
+        one = binaryAlphabet['1']
+
+        stateA = MooreState("State A", boolean_alphabet['True'])
+        stateB = MooreState("State B", boolean_alphabet['False'])
+        stateC = MooreState("State C", boolean_alphabet['False'])
+        stateA.add_transition(one, stateB)
+        stateA.add_transition(zero, stateC)
+        stateB.add_transition(one, stateC)
+        stateB.add_transition(zero, stateA)
+        stateC.add_transition(one, stateC)
+        stateC.add_transition(zero, stateC)
+
+        # hole_state = MooreState("Hole", SymbolStr("False"))
+
+        return MooreMachineAutomaton(binaryAlphabet, boolean_alphabet, stateA,
+                                            set([stateA, stateB, stateC]), name = "MMA implementation of Tomita's grammar 2 automaton")
     

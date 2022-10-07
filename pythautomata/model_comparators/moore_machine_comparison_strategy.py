@@ -10,7 +10,6 @@ class MooreMachineComparisonStrategy(FiniteAutomataComparator):
     def are_equivalent(self, automaton1, automaton2) -> bool:
         return self.get_counterexample_between(automaton1, automaton2) is None
 
-    # TODO: Change types to DeterministicFiniteAutomaton
     def get_counterexample_between(self, mma1, mma2) -> Optional[Sequence]:
         if mma1.alphabet != mma2.alphabet:
             raise ValueError("Alphabets are not equivalent.")
