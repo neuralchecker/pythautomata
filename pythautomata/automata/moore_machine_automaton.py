@@ -43,7 +43,7 @@ class MooreMachineAutomaton(FiniteAutomaton):
 
         self._name = 'Moore Machine - ' + str(uuid.uuid4().hex) if name is None else name
         self._alphabet = input_alphabet
-        self._outputAlphabet = output_alphabet
+        self._output_alphabet = output_alphabet
         self.initial_state = initial_state
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies

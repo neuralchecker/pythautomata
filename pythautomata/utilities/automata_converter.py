@@ -192,6 +192,6 @@ class AutomataConverter():\
 
         name = None if dfa.name == None else "MooreMachine_"+dfa.name
 
-        # hole_state = MooreState("Hole", SymbolStr("False"))
+        hole_state = MooreState("Hole", SymbolStr("False"))
 
-        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name=name)
+        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name=name, hole=hole_state)

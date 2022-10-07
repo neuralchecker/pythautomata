@@ -1,18 +1,21 @@
 from typing import Optional
 
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
+from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.state import State
 
 
-class MooreMachineComparisonStrategy(FiniteAutomataComparator):
+class MooreMachineComparisonStrategy():
 
     def are_equivalent(self, automaton1, automaton2) -> bool:
         return self.get_counterexample_between(automaton1, automaton2) is None
 
-    def get_counterexample_between(self, mma1, mma2) -> Optional[Sequence]:
+    def get_counterexample_between(self, mma1: MooreMachineAutomaton, mma2: MooreMachineAutomaton) -> Optional[Sequence]:
         if mma1.alphabet != mma2.alphabet:
-            raise ValueError("Alphabets are not equivalent.")
+            raise ValueError("Input alphabets are not equivalent.")
+        if mma1._output_alphabet != mma2._output_alphabet:
+            raise ValueError("Output alphabets are not equivalent.")
 
         # initialPairs is an arbitrary pair of states
         initialPair: tuple[State, State] = (
