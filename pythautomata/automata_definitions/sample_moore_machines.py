@@ -5,16 +5,12 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
 from pythautomata.base_types.moore_state import MooreState
 
-from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as DFAComparison
+from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy as MooreMachineComparison
 
-from pythautomata.utilities.automata_converter import AutomataConverter
 
 abAlphabet = Alphabet(frozenset((SymbolStr('a'), SymbolStr('b'))))
 abcAlphabet = Alphabet(
     frozenset((SymbolStr('a'), SymbolStr('b'), SymbolStr('c'))))
-
-
-# TODO: DOCUMENT AND TEST
 
 
 class SampleMooreMachines:
@@ -42,10 +38,8 @@ class SampleMooreMachines:
     def get_all_automata():
         return [
             SampleMooreMachines.get_3_states_automaton(),
-            # TODO fix this
-            #! Estos ejemplos fallan las pruebas
-            # SampleMooreMachines.get_3_states_automaton_wrong_alphabet(),
-            # SampleMooreMachines.get_3_states_automaton_non_deterministic()
+            SampleMooreMachines.get_tomitas_automaton_1(),
+            SampleMooreMachines.get_tomitas_automaton_2(),
         ]
 
     @staticmethod
@@ -68,7 +62,7 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abcAlphabet, state0,
-                                     set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
+                                     set([state0, state1, state2]), MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_3_states_automaton_wrong_alphabet():
@@ -90,7 +84,7 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abAlphabet, state0,
-                                     set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
+                                     set([state0, state1, state2]), MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_3_states_automaton_non_deterministic():
@@ -113,7 +107,7 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abAlphabet, state0,
-                                     set([state0, state1, state2]), DFAComparison(), "3 States Moore Machine")
+                                     set([state0, state1, state2]), MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_tomitas_automaton_1():
@@ -133,7 +127,7 @@ class SampleMooreMachines:
         hole_state = MooreState(name="hole", value=SymbolStr('False'))
 
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA,
-                                     set([stateA, stateB]), name='2 States Moore Machine', hole=hole_state)
+                                     set([stateA, stateB]), MooreMachineComparison(), name='2 States Moore Machine', hole=hole_state)
 
     @staticmethod
     def get_tomitas_automaton_2():
@@ -158,4 +152,4 @@ class SampleMooreMachines:
 
         return MooreMachineAutomaton(binaryAlphabet, boolean_alphabet, stateA,
                                      set([stateA, stateB, stateC]),
-                                     name="MMA implementation of Tomita's grammar 2 automaton", hole=hole_state)
+                                     MooreMachineComparison(), name="MMA implementation of Tomita's grammar 2 automaton", hole=hole_state)

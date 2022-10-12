@@ -18,6 +18,7 @@ from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
     BooleanAlgebraLearner as BAL
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy
 
 
 class AutomataConverter():\
@@ -194,4 +195,4 @@ class AutomataConverter():\
 
         hole_state = MooreState("Hole", SymbolStr("False"))
 
-        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), name=name, hole=hole_state)
+        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), MooreMachineComparisonStrategy(), name=name, hole=hole_state)

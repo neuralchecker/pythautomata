@@ -22,3 +22,19 @@ class TestAutomataDefinitions(TestCase):
         automata8 =SampleMooreMachines.get_all_automata()
 
         self.assertTrue(True)
+
+    def test_bad_instantiating_automata(self):
+        try:
+            SampleMooreMachines.get_3_states_automaton_wrong_alphabet()
+            self.assertTrue(False);
+        except:
+            pass
+        
+        try:
+            SampleMooreMachines.get_3_states_automaton_non_deterministic()
+            self.assertTrue(False);
+        except:
+            pass    
+        
+        self.assertTrue(True);
+        
