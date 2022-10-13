@@ -1,3 +1,4 @@
+import sys
 import uuid
 from typing import Any
 
@@ -8,7 +9,7 @@ from pythautomata.base_types.symbol import Symbol
 
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
-from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from pythautomata.model_exporters.image_exporting_mm_strategy import ImageExportingMMStrategy
 
 class MooreMachineAutomaton():
     """
@@ -32,7 +33,7 @@ class MooreMachineAutomaton():
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
                  comparator, name: str = None,
-                 exportingStrategies: list = [EncodedFileExportingStrategy()], hole: MooreState = MooreState('\u22A5')):
+                 exportingStrategies: list = [ImageExportingMMStrategy()], hole: MooreState = MooreState('\u22A5')):
         
         self.states = states
         for state in self.states:
@@ -72,6 +73,14 @@ class MooreMachineAutomaton():
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, MooreMachineAutomaton) and self._comparator.are_equivalent(self, other)
+
+    def export(self, path=None) -> None:
+        for strategy in self._exporting_strategies:
+            #try:
+            strategy.export(self, path)
+            # except:
+            #     print("Unexpected exception when exporting " +
+            #           str(self._name) + ": " + str(sys.exc_info()[0]))
 
     def _set_hole(self, hole: MooreState) -> None:
         self._hole = hole
