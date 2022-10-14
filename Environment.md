@@ -40,7 +40,11 @@
 
 - pip3.9 install pythautomata
 
+## Run Tests
 
+```
+poetry run python pythautomata/run_tests.py
+```
 
 
 
