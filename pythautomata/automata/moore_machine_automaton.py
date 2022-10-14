@@ -76,11 +76,11 @@ class MooreMachineAutomaton():
 
     def export(self, path=None) -> None:
         for strategy in self._exporting_strategies:
-            #try:
-            strategy.export(self, path)
-            # except:
-            #     print("Unexpected exception when exporting " +
-            #           str(self._name) + ": " + str(sys.exc_info()[0]))
+            try:
+                strategy.export(self, path)
+            except:
+                print("Unexpected exception when exporting " +
+                str(self._name) + ": " + str(sys.exc_info()[0]))
 
     def _set_hole(self, hole: MooreState) -> None:
         self._hole = hole
