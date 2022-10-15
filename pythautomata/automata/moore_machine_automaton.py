@@ -27,13 +27,16 @@ class MooreMachineAutomaton():
         Set of Symbols that defines the Symbols that can be used as output 
 
     Definition of Moore Machines is based on:
-        Author, Georgios Giantamidis, Author, Stavros Tripakis (2016). Learning Moore Machines from Input-Output Traces
+        Author, Georgios Giantamidis, Author, Stavros Tripakis (2016). 
+            Learning Moore Machines from Input-Output Traces
     Link del artículo: https://arxiv.org/pdf/1605.07805.pdf
     """
 
-    def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, initial_state: MooreState, states: set[MooreState],
-                 comparator, name: str = None,
-                 exportingStrategies: list = [ImageExportingMMStrategy()], hole: MooreState = MooreState('\u22A5')):
+    def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, 
+                initial_state: MooreState, states: set[MooreState],
+                comparator, name: str = None,
+                exportingStrategies: list = [ImageExportingMMStrategy()],
+                hole: MooreState = MooreState('\u22A5')):
         
         self.states = states
         for state in self.states:

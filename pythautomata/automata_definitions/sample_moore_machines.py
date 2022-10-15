@@ -107,7 +107,8 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abAlphabet, state0,
-                                     set([state0, state1, state2]), MooreMachineComparison(), "3 States Moore Machine")
+                                     set([state0, state1, state2]), 
+                                     MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
     def get_tomitas_automaton_1():
@@ -127,7 +128,8 @@ class SampleMooreMachines:
         hole_state = MooreState(name="hole", value=SymbolStr('False'))
 
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA,
-                                     set([stateA, stateB]), MooreMachineComparison(), name='2 States Moore Machine', hole=hole_state)
+                                     set([stateA, stateB]), MooreMachineComparison(),
+                                     name='2 States Moore Machine', hole=hole_state)
 
     @staticmethod
     def get_tomitas_automaton_2():
@@ -152,4 +154,6 @@ class SampleMooreMachines:
 
         return MooreMachineAutomaton(binaryAlphabet, boolean_alphabet, stateA,
                                      set([stateA, stateB, stateC]),
-                                     MooreMachineComparison(), name="MMA implementation of Tomita's grammar 2 automaton", hole=hole_state)
+                                     MooreMachineComparison(), 
+                                     name="MMA implementation of Tomita's grammar 2 automaton", 
+                                     hole=hole_state)

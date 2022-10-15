@@ -20,9 +20,11 @@ class TestMooreMachinesLastSymbolQueries(TestCase):
 
     def test_non_empty_sequence(self):
         moore_machine = SampleMooreMachines.get_3_states_automaton()
-        emptySequence = Sequence([SymbolStr(SampleMooreMachines.get_a_symbol()), SymbolStr(SampleMooreMachines.get_a_symbol())])
+        a_a_symbols = [SymbolStr(SampleMooreMachines.get_a_symbol()), 
+                        SymbolStr(SampleMooreMachines.get_a_symbol())]
+        non_empty_sequence = Sequence(a_a_symbols)
 
-        res = moore_machine.last_symbol(emptySequence)
+        res = moore_machine.last_symbol(non_empty_sequence)
 
         expected_result = SymbolStr(SampleMooreMachines.get_c_symbol())
 
