@@ -2,10 +2,10 @@
 
 ## Python (>= 3.9v && < 3.11v)
 
-- Debian, Ubuntu y derviados: `apt install python3.9`
-- Rhel y Fedora: `dnf install python3`
-- Arch y Manjaro: `pacman -Sy python3`
-- MacOS y Linux con *homebrew* instalado: `brew install python`
+- Debian, Ubuntu and derivatives: `apt install python3.9`
+- Rhel and Fedora: `dnf install python3`
+- Arch and Manjaro: `pacman -Sy python3`
+- MacOS and Linux with *homebrew* installed: `brew install python`
 - Windows: visit https://www.python.org/downloads/
 
 ## Pip
