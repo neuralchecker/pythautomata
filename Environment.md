@@ -2,25 +2,31 @@
 
 ## Python (>= 3.9v && < 3.11v)
 
-- Unix: sudo apt install python3.9
+- Debian, Ubuntu y derviados: `apt install python3.9`
+- Rhel y Fedora: `dnf install python3`
+- Arch y Manjaro: `pacman -Sy python3`
+- MacOS y Linux con *homebrew* instalado: `brew install python`
 - Windows: visit https://www.python.org/downloads/
 
 ## Pip
-- Unix: curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py 
-- python3.9 get-pip.py
-- Windows: python get-pip.py
+- *nix: `curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
+- `python3 get-pip.py`
+- Windows: `python get-pip.py`
+
 
 ## Poetry
 
-- Unix: curl -sSL https://install.python-poetry.org | python3 -
-- Windows (Powershell): (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+- *nix: `curl -sSL https://install.python-poetry.org | python3 -`
+- `poetry config virtualenvs.in-project true`
+- Windows (Powershell): `(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -`
 
 ### Adding poetry to $PATH
 
-#### Unix
+#### *nix
 
-- code ~/.bashrc
-- At the end of the file add: export PATH=$/home/username/.local/bin:$PATH
+- `code ~/.bashrc` [bash]
+- `code ~/.zshrc` [zsh]
+- At the end of the file add: `export PATH=$/home/username/ local/bin:$PATH`
 
 #### Windows
 
@@ -33,12 +39,11 @@
 
 ### Installing dependencies
 
-- poetry config virtualenvs.in-project true
-- poetry install
+- `poetry install`
 
 ## Pythautomata
 
-- pip3.9 install pythautomata
+- `pip install pythautomata`
 
 ## Run Tests
 
