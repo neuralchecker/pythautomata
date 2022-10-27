@@ -2,18 +2,23 @@ from pythautomata.abstract.model_exporting_strategy import \
     ModelExportingStrategy
 from pythautomata.automata.deterministic_finite_automaton import \
     DeterministicFiniteAutomaton as DFA
+from pythautomata.automata.moore_machine_automaton import \
+    MooreMachineAutomaton as MooreMachine
 from pythautomata.automata.non_deterministic_finite_automaton import \
     NondeterministicFiniteAutomaton as NFA
 from pythautomata.automata.symbolic_finite_automaton import \
     SymbolicFiniteAutomaton as SFA
+from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.guard import Guard
 from pythautomata.base_types.state import State
-from pythautomata.base_types.symbol import Symbol
+from pythautomata.base_types.symbol import Symbol, SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
+from pythautomata.base_types.moore_state import MooreState
 from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
     BooleanAlgebraLearner as BAL
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy
 
 
 class AutomataConverter():\
@@ -115,7 +120,7 @@ class AutomataConverter():\
             automaton (DFA): Input deterministic finite automaton.
 
         Returns:
-            DFA: DFA equivalent to the inputted NFA.
+            SFA: SFA equivalent to the inputted DFA.
         """
         initial_state: SymbolicState
         states: dict[str, SymbolicState] = {}
@@ -145,3 +150,49 @@ class AutomataConverter():\
 
         name = None if dfa.name == None else "SFA_"+dfa.name
         return SFA(dfa.alphabet, initial_state, set(states.values()), name, exportingStrategies)
+
+    @staticmethod
+    def convert_dfa_to_moore_machine(dfa: DFA) -> MooreMachine:
+        """
+        Converts a given deterministic finite automaton into a moore machine.
+
+        Args:
+            automaton (DFA): Input deterministic finite automaton.
+
+        Returns:
+            MooreMachine: MooreMachine equivalent to the inputted DFA.
+        """
+        initial_state: MooreState
+        states: dict[str, MooreState] = {}
+
+        # create alphabet with values = {0,1}
+        output_alphabet = Alphabet(
+            frozenset((SymbolStr('False'), SymbolStr('True'))))
+
+        # get all states and convert them to moore machine state
+        initial_state = None
+        for state in dfa.states:
+            if state.is_final:
+                new_state = MooreState(
+                    state.name, output_alphabet['True']
+                )
+            else:
+                new_state = MooreState(
+                    state.name, output_alphabet['False']
+                )
+            if new_state.name == dfa.initial_state.name:
+                initial_state = new_state
+            states[new_state.name] = new_state
+
+        for state in dfa.states:
+            # for each state, get all the transitions
+            for symbol, state_set in state.transitions.items():
+                current_state = list(state_set).pop()
+                transition_state = states[current_state.name]
+                states[state.name].add_transition(symbol, transition_state)
+
+        name = None if dfa.name == None else "MooreMachine_"+dfa.name
+
+        hole_state = MooreState("Hole", SymbolStr("False"))
+
+        return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), MooreMachineComparisonStrategy(), name=name, hole=hole_state)
