@@ -2,7 +2,7 @@
 
 Pythautomata is a Python library for modeling finite state systems.
 
-## A**bout**
+## **About**
 Pythautomata is developed at the Department of Artificial Intelligence and Big Data of the Universidad ORT Uruguay. Its main goal is to provide implementations for the structures needed for working in the Model Extraction Framework.
 
 Models present in the framework are:
