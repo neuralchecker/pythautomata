@@ -124,3 +124,41 @@ def absolute_error_avg(target_model: ProbabilisticModel, learned_model: Probabil
         absolute_error_sum += np.sum(np.abs(obs1-obs2))
 
     return absolute_error_sum / len(test_sequences)
+
+
+def cross_entropy(target_distribution, learned_distribution):
+    # Categorical Cross Entropy Metric implemented following Keras implementation
+    y_true = target_distribution
+    y_pred = learned_distribution
+
+    mask_0 = y_pred == 0
+    y_true = y_true + mask_0*1e-7
+    y_pred = y_pred + mask_0*1e-7
+
+    mask_1 = y_pred == 1
+    y_true = y_true - mask_1*1e-7
+    y_pred = y_pred - mask_1*1e-7
+
+    y_pred = y_pred/np.sum(y_pred)
+    cross_entropy = - np.sum(y_true*np.log(y_pred))
+    return cross_entropy
+
+
+def mean_cross_entropy(target_model: ProbabilisticModel, learned_model: ProbabilisticModel, test_sequences: list[Sequence]):
+    suffixes = list()
+    suffixes.append(Sequence() + learned_model.terminal_symbol)
+    for symbol in learned_model.alphabet.symbols:
+        suffixes.append(Sequence(symbol))
+
+    target_obs = target_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+    learned_obs = learned_model.last_token_probabilities_batch(
+        test_sequences, suffixes)
+
+    ce_sum = 0
+    for i in range(len(target_obs)):
+        obs1 = np.asarray(target_obs[i])
+        obs2 = np.asarray(learned_obs[i])
+        ce_sum += cross_entropy(obs1, obs2)
+
+    return ce_sum / len(test_sequences)

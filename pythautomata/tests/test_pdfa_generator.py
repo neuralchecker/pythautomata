@@ -40,3 +40,14 @@ class TestPDFAGenerator(TestCase):
         dfa = TomitasGrammars.get_automaton_7()
         pdfa = pdfa_generator.pdfa_from_dfa(dfa)
         self.assertEqual(pdfa, pdfa)
+
+    def test_8(self):
+        dfa = TomitasGrammars.get_automaton_7()
+        pdfa = pdfa_generator.pdfa_from_dfa(dfa, distributions=3, max_shift=0)
+        self.assertEqual(pdfa, pdfa)
+
+    def test_9(self):
+        dfa = TomitasGrammars.get_automaton_7()
+        pdfa = pdfa_generator.pdfa_from_dfa(
+            dfa, distributions=1, max_shift=0.1)
+        self.assertEqual(pdfa, pdfa)

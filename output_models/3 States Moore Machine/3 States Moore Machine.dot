@@ -1,0 +1,16 @@
+digraph moore_machine {
+	rankdir=LR size="8,5"
+	node [shape=circle]
+	"State 2" [label="State 2/c"]
+	"State 2" -> "State 0" [label=a]
+	"State 2" -> "State 1" [label=b]
+	"State 0" [label="State 0/a"]
+	"State 0" -> "State 1" [label=a]
+	"State 0" -> "State 2" [label=b]
+	"State 1" [label="State 1/b"]
+	"State 1" -> "State 2" [label=a]
+	"State 1" -> "State 0" [label=b]
+	node [shape=point]
+	start
+	start -> "State 0"
+}
