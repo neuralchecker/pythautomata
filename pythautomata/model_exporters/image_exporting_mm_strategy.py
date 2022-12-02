@@ -1,10 +1,7 @@
 from genericpath import isdir
 from os import makedirs
 from pathlib import Path
-from pythautomata.automata.non_deterministic_finite_automaton import NondeterministicFiniteAutomaton
-from pythautomata.base_types.symbolic_state import SymbolicState
 from graphviz import Digraph
-from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 
 
 class ImageExportingMMStrategy():
