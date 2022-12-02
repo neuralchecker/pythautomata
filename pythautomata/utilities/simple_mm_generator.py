@@ -14,7 +14,7 @@ def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, 
         input_alphabet (Alphabet): Moore Machine input alphabet.
         output_alphabet (Alphabet): Moore Machine output alphabet.
         number_of_states (int): Number of states of the generated Moore Machine. Defaults to 200.
-        seed (int, optional): Random seed. Defaults to 42.
+        exporting_strategies (list, optional): List of strategies to export the generated Moore Machine. Defaults to [ImageExportingMMStrategy()].
 
     Returns:
         MooreMachineAutomaton: Random Moore Machine.
