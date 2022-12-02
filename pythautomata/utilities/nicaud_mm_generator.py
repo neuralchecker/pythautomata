@@ -25,5 +25,5 @@ def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, 
     ro_k = ro_k.real
     v_k = ro_k/k
     number_of_states = math.ceil(nominal_size / v_k)
-    moore_machine = simple_moore_machine_generator.generate_moore_machine(input_alphabet, output_alphabet, number_of_states, seed)
+    moore_machine = simple_moore_machine_generator.generate_moore_machine(input_alphabet, output_alphabet, number_of_states)
     return moore_machine
