@@ -1,12 +1,12 @@
 from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
-from random import getrandbits, choice
+import random
 from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 
 
-def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
+def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, seed=None, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
     """
     Function returning a randomly generated DFA, with random transitions to other states and equal probability of being a final state or not.
 
@@ -20,6 +20,8 @@ def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_stra
         The number of states is centered around a value that depends on the alphabet size, more info in:
         Nicaud, Cyril. (2014). Random Deterministic Automata. 5-23. 10.1007/978-3-662-44522-8_2. 
     """
+    if seed is not None:
+        random.seed(seed)
     states = _generate_states(number_of_states)
     _add_dfa_transitions_to_states(states, alphabet.symbols)
     initial_state = next(iter(states))
@@ -31,7 +33,7 @@ def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, exporting_stra
 def _generate_states(number_of_states):
     states = []
     for index in range(number_of_states):
-        is_final = bool(getrandbits(1))
+        is_final = bool(random.getrandbits(1))
         generated_state = State(str(index), is_final)
         states.append(generated_state)
     return states
@@ -40,7 +42,7 @@ def _generate_states(number_of_states):
 def _add_dfa_transitions_to_states(states, symbols):
     for state in states:
         for symbol in symbols:
-            random_state = choice(states)
+            random_state = random.choice(states)
             state.add_transition(symbol, random_state)
 
 

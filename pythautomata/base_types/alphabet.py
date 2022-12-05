@@ -1,8 +1,25 @@
 from .symbol import Symbol
 
+
 class Alphabet:
     """Set of Symbols.
     """
+
+    @staticmethod
+    def from_strings(strings: list[str]) -> 'Alphabet':
+        """Create an alphabet from a list of strings.
+
+        Parameters
+        ----------
+        strings : list[str]
+            List of strings
+
+        Returns
+        -------
+        Alphabet
+            Alphabet
+        """
+        return Alphabet(frozenset(map(Symbol, strings)))
 
     def __init__(self, symbols: frozenset[Symbol], name: str = None):
         """Constructor
