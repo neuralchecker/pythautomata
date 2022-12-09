@@ -1,4 +1,4 @@
-from .symbol import Symbol
+from .symbol import Symbol, SymbolStr
 
 
 class Alphabet:
@@ -19,7 +19,7 @@ class Alphabet:
         Alphabet
             Alphabet
         """
-        return Alphabet(frozenset(map(Symbol, strings)))
+        return Alphabet(frozenset(map(SymbolStr, strings)))
 
     def __init__(self, symbols: frozenset[Symbol], name: str = None):
         """Constructor
