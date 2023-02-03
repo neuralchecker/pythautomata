@@ -9,6 +9,9 @@ from pythautomata.abstract.finite_automaton import FiniteAutomaton, FiniteAutoma
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.model_exporters.encoded_file_exporting_strategy import EncodedFileExportingStrategy
+from pythautomata.model_exporters.encoded_string_exporting_strategy import EncodedStringExportingStrategy
+from pythautomata.utilities.encoded_string_importer import EncodedStringImporter
+from pythautomata.utilities.encoded_file_importer import EncodedFileImporter
 
 
 class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
@@ -70,3 +73,23 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     def _verify_state_is_deterministic(self, state: State) -> None:
         if not state.is_deterministic:
             raise NonDeterministicStatesException()
+
+    def __getstate__(self):
+        # dump a string
+        lines = EncodedStringExportingStrategy().export(self)
+        return lines
+
+    def __setstate__(self, state):
+        attrs = EncodedStringImporter().import_automata_attributes(str(state))
+        alphabet, initialStates, states, modelName = attrs
+        self.name = modelName
+        self._alphabet = alphabet
+        self.initial_state = list(initialStates)[0]
+        self.states = states
+        hole = State("Hole")
+        self._set_hole(hole)
+        for state in self.states:
+            assert all(
+                symbol in self.alphabet for symbol in state.transitions.keys())
+            state.add_hole_transition(self.hole)
+        self._queryable_self = self
