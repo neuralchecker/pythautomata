@@ -6,14 +6,14 @@ from graphviz import Digraph
 
 class StandardDotExportingStrategy(ModelExportingStrategy):
 
-    def export(self, model, path=None):
+    def export(self, model, path=None, encoding=None):
         graph = self.create_graph(model)
         path = self.get_path_for(path, model)
         path = str(path) + '.dot'
 
         dot_code = graph.source
 
-        with open(path, "w+", encoding="utf-8") as f:
+        with open(path, "w+", encoding=encoding) as f:
             f.write(dot_code)
 
     def create_graph(self, model):

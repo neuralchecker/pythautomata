@@ -1,20 +1,20 @@
 digraph finite_state_machine {
 	rankdir=LR size="8,5"
 	node [shape=doublecircle]
-	state0
 	state2
-	state1
 	state3
+	state1
+	state0
 	node [shape=circle]
-	state0 -> state1 [label=1]
-	state0 -> state0 [label=0]
 	state2 -> state3 [label=1]
 	state2 -> state2 [label=0]
 	state4 -> state4 [label="Σ"]
-	state1 -> state1 [label=1]
-	state1 -> state2 [label=0]
 	state3 -> state3 [label=1]
 	state3 -> state4 [label=0]
+	state1 -> state1 [label=1]
+	state1 -> state2 [label=0]
+	state0 -> state1 [label=1]
+	state0 -> state0 [label=0]
 	node [shape=point]
 	start
 	start -> state0
