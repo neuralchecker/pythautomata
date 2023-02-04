@@ -17,10 +17,11 @@ from pythautomata.tests.test_simple_DFA_generator import TestSimpleDFAGenerator
 from pythautomata.tests.test_pdfa_operations import TestPDFAOperations
 from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQueries
 from pythautomata.tests.test_dfa_to_moore_machine import TestDFAToMooreMachine
+from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 
 
 def get_all_tests():
-    return [TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
+    return [TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
             TestRegexGenerator, TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]

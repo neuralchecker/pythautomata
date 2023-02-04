@@ -1,0 +1,10 @@
+digraph finite_state_machine {
+	__start0 [label="" shape=none]
+	"State B" [label="State B" shape=circle]
+	"State A" [label="State A" shape=doublecircle]
+	__start0 -> "State A" [label=""]
+	"State B" -> "State B" [label=1]
+	"State B" -> "State B" [label=0]
+	"State A" -> "State A" [label=1]
+	"State A" -> "State B" [label=0]
+}
