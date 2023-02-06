@@ -22,9 +22,10 @@ from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 
 def get_all_tests():
     return [TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
-            TestDFAGenerators, TestAutomataComparison, TestSequence,
-            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
-            TestRegexGenerator, TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
+            TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
+            TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
+            TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
+            TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
 
 
 def run():

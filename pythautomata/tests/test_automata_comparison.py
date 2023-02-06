@@ -19,6 +19,8 @@ from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.random_walk_comparison_strategy import \
+    RandomWalkComparisonStrategy
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as HopcroftKarpComparison
 from pythautomata.utilities.automata_converter import AutomataConverter
@@ -230,3 +232,16 @@ class TestAutomataComparison(TestCase):
         sfa = SymbolicFiniteAutomaton(
             Alphabet(frozenset()), init_state, {init_state})
         assert(not comparator.are_equivalent(tomita1, sfa))
+
+    def test_equivalence_reflexiveness_random_walk(self):
+        mergedAutomata = list(chain(TomitasGrammars.get_all_automata()))
+        comparison_strategy1 = RandomWalkComparisonStrategy(1000, 0.01)
+        comparison_strategy2 = RandomWalkComparisonStrategy(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata)):
+                if i == j:
+                    self.assertTrue(comparison_strategy1.are_equivalent(
+                        mergedAutomata[i], mergedAutomata[j]))
+                else:
+                    self.assertFalse(
+                        comparison_strategy2.are_equivalent(mergedAutomata[i], mergedAutomata[j]))
