@@ -6,7 +6,7 @@ from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMoore
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
 from pythautomata.tests.test_dfa_serialization import TestDFASerialization
-from pythautomata.tests.test_DFA_generators import TestDFAGenerators
+from pythautomata.tests.test_dfa_generators import TestDFAGenerators
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
@@ -22,9 +22,10 @@ from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 
 def get_all_tests():
     return [TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
-            TestDFAGenerators, TestAutomataComparison, TestSequence,
-            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator,
-            TestRegexGenerator, TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
+            TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
+            TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
+            TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
+            TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
 
 
 def run():

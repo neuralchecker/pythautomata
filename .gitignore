@@ -147,3 +147,6 @@ documentation/source/*
 !documentation/source/index.rst
 !documentation/make.bat
 !documentation/Makefile
+
+#output models
+/output_models/
