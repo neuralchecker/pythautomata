@@ -39,6 +39,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         self.initial_state = initial_state
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
+        self._actual_state = self.initial_state
         super(DeterministicFiniteAutomaton, self).__init__(comparator)
 
     def accepts(self, sequence: Sequence) -> bool:
@@ -54,6 +55,13 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     @property
     def hole(self):
         return self._hole
+
+    def step(self, symbol):
+        self._actual_state = self._actual_state.next_state_for(symbol)
+        return self._actual_state.is_final
+    
+    def reset(self):
+        self._actual_state = self.initial_state
 
     def _set_hole(self, hole: State) -> None:
         self._hole = hole
