@@ -50,6 +50,15 @@ class MooreMachineAutomaton():
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
         self._comparator = comparator
+        self._actual_state = initial_state
+
+    def step(self, symbol):
+        self._actual_state = self._actual_state.next_state_for(symbol)
+
+        return self._actual_state.value
+
+    def reset(self):
+        self._actual_state = self.initial_state
 
     def last_symbol(self, sequence: Sequence) -> Symbol: 
         actual_state = self.initial_state
