@@ -241,7 +241,7 @@ class TestAutomataComparison(TestCase):
             for j in range(len(mergedAutomata)):
                 if i == j:
                     self.assertTrue(comparison_strategy1.are_equivalent(
-                        mergedAutomata[i], mergedAutomata[j]))
+                        mergedAutomata[i], mergedAutomata[j].clone()))
                 else:
                     self.assertFalse(
                         comparison_strategy2.are_equivalent(mergedAutomata[i], mergedAutomata[j]))

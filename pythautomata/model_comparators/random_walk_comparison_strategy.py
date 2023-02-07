@@ -43,7 +43,7 @@ class RandomWalkComparisonStrategy(FiniteAutomataComparator):
             counter_example = counter_example.append(symbols[pos])
             steps += 1
             equivalent_output = self.equivalent_output(
-                dfa1.accepts(counter_example), dfa2.accepts(counter_example))
+                dfa1.step(symbols[pos]), dfa2.step(symbols[pos]))
             if not equivalent_output:
                 return counter_example
         return None
