@@ -1,7 +1,6 @@
 from genericpath import isdir
 from os import makedirs
 from pathlib import Path
-from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
 from pythautomata.model_exporters.image_exporting_mm_strategy import ImageExportingMMStrategy
 
 
@@ -16,7 +15,7 @@ class DotExportingMMStrategy():
         with open(path, "w+", encoding="utf-8") as f:
             f.write(dot_code)
 
-    def get_path_for(self, path: str, model: MooreMachineAutomaton):
+    def get_path_for(self, path: str, model):
         if path is None:
             name = model._name
             path = "output_models/" + \
