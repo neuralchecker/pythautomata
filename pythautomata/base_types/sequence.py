@@ -8,14 +8,20 @@ class Sequence():
     """Ordered collection of Symbols.
     """
 
-    def __init__(self, value: list = []):
-        if isinstance(value, abc.Sequence):
-            self._value = list(value)
+    def __init__(self, value: Union['Sequence', list[Symbol], tuple[Symbol]] = ()):
+        if value == ():
+            self._value: tuple[Symbol] = ()
+        elif isinstance(value, Sequence):
+            self._value = value.value
+        elif isinstance(value, list):
+            self._value = tuple(value)
+        elif isinstance(value, tuple):
+            self._value = value
         else:
-            self._value = [value]
+            raise ValueError
 
     @property
-    def value(self) -> list[Symbol]:
+    def value(self) -> tuple[Symbol]:
         return self._value
 
     def get_prefixes(self) -> list['Sequence']:
@@ -45,18 +51,18 @@ class Sequence():
         if isinstance(other, Sequence):
             return Sequence(self.value + other.value)
         if isinstance(other, Symbol):
-            return Sequence(self.value + [other])
+            return Sequence(self.value + (other,))
         raise UnexpectedTypeException()
 
     def __radd__(self, other: Union['Sequence', Symbol]) -> 'Sequence':
         if isinstance(other, Sequence):
             return Sequence(other.value + self.value)
         if isinstance(other, Symbol):
-            return Sequence([other] + self.value)
+            return Sequence((other,) + self.value)
         raise UnexpectedTypeException()
 
     def __repr__(self):
-        return "ϵ" if self.value == [] else "".join(map(lambda x: str(x), self.value))
+        return "ϵ" if self.value == () else "".join(map(lambda x: str(x), self.value))
 
     def __lt__(self, other: 'Sequence') -> bool:
         if len(self.value) == len(other.value):
@@ -67,15 +73,10 @@ class Sequence():
     def __iter__(self):
         return self.value.__iter__()
 
-    def __eq__(self, other: 'Sequence') -> bool:
+    def __eq__(self, other) -> bool:
         if isinstance(other, Sequence):
             return self.value == other.value
         return False
 
     def __hash__(self):
-        result = 0
-        i = 0
-        for v in self._value:
-            result += hash(v) * i
-            i += 1
-        return result
+        return hash(self._value)

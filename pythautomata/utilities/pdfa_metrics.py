@@ -14,7 +14,7 @@ def ndcg_score_avg(target_model: ProbabilisticModel, learned_model: Probabilisti
     k = math.ceil(len(learned_model.alphabet) / 2)
 
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
@@ -36,7 +36,7 @@ def wer_avg(target_model: ProbabilisticModel, learned_model: ProbabilisticModel,
     wer = 0
 
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
@@ -67,7 +67,7 @@ def out_of_tolerance_elements(target_model: ProbabilisticModel, learned_model: P
     errorCount = 0
     suffixes.append(Sequence() + learned_model.terminal_symbol)
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
@@ -88,7 +88,7 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
     errorCount = 0
     suffixes.append(Sequence() + learned_model.terminal_symbol)
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
@@ -110,7 +110,7 @@ def absolute_error_avg(target_model: ProbabilisticModel, learned_model: Probabil
     suffixes.append(Sequence() + learned_model.terminal_symbol)
 
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     all_obs1 = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
@@ -148,7 +148,7 @@ def mean_cross_entropy(target_model: ProbabilisticModel, learned_model: Probabil
     suffixes = list()
     suffixes.append(Sequence() + learned_model.terminal_symbol)
     for symbol in learned_model.alphabet.symbols:
-        suffixes.append(Sequence(symbol))
+        suffixes.append(Sequence((symbol,)))
 
     target_obs = target_model.last_token_probabilities_batch(
         test_sequences, suffixes)
