@@ -22,8 +22,6 @@ class EncodedStringImporter:
         EncodedStringImporter.__get_transitions_from_data(
             fileLines, alphabet, statesByName)
 
-        # return FiniteAutomaton(alphabet, initialStates,
-        #                        set(statesByName.values()), modelName)
         return alphabet, initialStates, set(statesByName.values()), modelName
 
     @staticmethod

@@ -17,7 +17,7 @@ class DotExportingStrategy(ModelExportingStrategy):
             f.write(dot_code)
 
     def create_graph(self, model):
-        graph = Digraph('finite_state_machine')
+        graph = Digraph(model.name)
         graph.attr(rankdir='LR', size='8,5')
 
         finalStates = filter(lambda state: state.is_final, model.states)
