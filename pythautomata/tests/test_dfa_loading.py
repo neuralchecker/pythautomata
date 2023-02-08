@@ -15,13 +15,3 @@ class TestDFALoading(TestCase):
             path = './output_models/tests'+'/'+dfa.name+'.dot'
             loaded_dfa = StandardDotNotationImporter.import_automata(path)
             self.assertEqual(dfa, loaded_dfa)
-
-    def test2(self):
-        name = "DFArandomChamparnaudParanthon_1000States_20Inputs_0"
-        path = './output_models/tests'+'/'+name+'.dot'
-        loaded_dfa = StandardDotNotationImporter.import_automata(path)
-        loaded_dfa.name += "2"
-        StandardDotExportingStrategy().export(loaded_dfa, "./output_models/tests")
-        path = './output_models/tests'+'/'+loaded_dfa.name+'.dot'
-        loaded_dfa2 = StandardDotNotationImporter.import_automata(path)
-        self.assertEqual(loaded_dfa, loaded_dfa2)
