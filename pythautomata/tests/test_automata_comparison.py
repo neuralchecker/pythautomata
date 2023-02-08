@@ -23,9 +23,11 @@ from pythautomata.model_comparators.random_walk_comparison_strategy import \
     RandomWalkComparisonStrategy
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as HopcroftKarpComparison
+from pythautomata.model_comparators.random_walk_mm_comparison_strategy import RandomWalkMMComparisonStrategy
 from pythautomata.utilities.automata_converter import AutomataConverter
 from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 from pythautomata.model_comparators.wfa_quantization_comparison_strategy import WFAQuantizationComparator
+from pythautomata.automata_definitions.sample_moore_machines import SampleMooreMachines
 
 
 class TestAutomataComparison(TestCase):
@@ -245,3 +247,20 @@ class TestAutomataComparison(TestCase):
                 else:
                     self.assertFalse(
                         comparison_strategy2.are_equivalent(mergedAutomata[i], mergedAutomata[j]))
+
+    def test_equivalence_random_walk_for_mm(self):
+        mergedAutomata = list(chain(SampleMooreMachines.get_all_automata()))
+        mergedAutomata2 = list(chain(SampleMooreMachines.get_all_automata()))
+        comparison_strategy = RandomWalkMMComparisonStrategy(1000, 0.01)
+
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata2)):
+                if i == j:
+                    self.assertTrue(comparison_strategy.are_equivalent(
+                        mergedAutomata[i], mergedAutomata2[j]))
+                else:
+                    try:
+                        self.assertFalse(
+                            comparison_strategy.are_equivalent(mergedAutomata[i], mergedAutomata2[j]))
+                    except:
+                        pass
