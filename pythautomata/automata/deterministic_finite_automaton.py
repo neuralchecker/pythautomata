@@ -59,9 +59,16 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
     def step(self, symbol):
         self._actual_state = self._actual_state.next_state_for(symbol)
         return self._actual_state.is_final
-    
+
     def reset(self):
         self._actual_state = self.initial_state
+
+    def clone(self) -> 'DeterministicFiniteAutomaton':
+        return DeterministicFiniteAutomaton(self.alphabet,
+                                            self.initial_state,
+                                            self.states,
+                                            self.comparator,
+                                            self.name)
 
     def _set_hole(self, hole: State) -> None:
         self._hole = hole
