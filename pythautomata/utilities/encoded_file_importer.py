@@ -5,6 +5,7 @@ from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.exceptions.model_importing_error import ModelImportingError
+#from pydot import Dot, Node, Edge, graph_from_dot_file
 
 
 class EncodedFileImporter:
