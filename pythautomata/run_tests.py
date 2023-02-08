@@ -32,6 +32,7 @@ def get_all_tests():
             TestDFAToMooreMachine, TestMMLoading, TestMMExporting]
 
 
+
 def run():
     test_classes_to_run = get_all_tests()
     loader = TestLoader()
