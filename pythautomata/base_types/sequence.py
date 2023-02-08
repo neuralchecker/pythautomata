@@ -19,6 +19,7 @@ class Sequence():
             self._value = value
         else:
             raise ValueError
+        self._hash = None
 
     @property
     def value(self) -> tuple[Symbol]:
@@ -79,4 +80,6 @@ class Sequence():
         return False
 
     def __hash__(self):
-        return hash(self._value)
+        if self._hash == None:
+            self._hash = hash(self._value)
+        return self._hash

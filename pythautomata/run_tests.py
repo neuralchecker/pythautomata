@@ -22,12 +22,11 @@ from pythautomata.tests.test_dfa_loading import TestDFALoading
 
 
 def get_all_tests():
-    return [TestDFALoading]
-    # , TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
-    #         TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
-    #         TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
-    #         TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
-    #         TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
+    return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
+            TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
+            TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
+            TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
+            TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
 
 
 def run():
