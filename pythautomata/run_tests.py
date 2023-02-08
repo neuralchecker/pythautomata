@@ -6,7 +6,7 @@ from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMoore
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
 from pythautomata.tests.test_dfa_serialization import TestDFASerialization
-from pythautomata.tests.test_dfa_generators import TestDFAGenerators
+from pythautomata.tests.test_DFA_generators import TestDFAGenerators
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
@@ -19,15 +19,16 @@ from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQue
 from pythautomata.tests.test_dfa_to_moore_machine import TestDFAToMooreMachine
 from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 from pythautomata.tests.test_dfa_loading import TestDFALoading
+from pythautomata.tests.test_mm_exporting import TestMMExporting
 
 
 def get_all_tests():
-    return [TestDFALoading]
-    # , TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
-    #         TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
-    #         TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
-    #         TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
-    #         TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
+    return [TestMMExporting, TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, 
+            TestMinimizer, TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, 
+            TestSequence, TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, 
+            TestRegexGenerator, TestPDFASerialization,TestDFASerialization, TestPDFAMetrics, 
+            TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, 
+            TestDFAToMooreMachine]
 
 
 def run():

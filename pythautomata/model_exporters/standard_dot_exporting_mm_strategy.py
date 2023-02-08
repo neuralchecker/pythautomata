@@ -4,7 +4,7 @@ from os.path import isdir
 from pathlib import Path
 
 
-class StandardDotExportingStrategy:
+class StandardDotMMExportingStrategy:
 
     def export(self, model, path=None, encoding=None):
         graph = self.create_graph(model)

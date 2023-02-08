@@ -10,7 +10,7 @@ from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.model_exporters.dot_exporting_mm_strategy import DotExportingMMStrategy
-from pythautomata.model_exporters.standard_dot_exporting_mm_strategy import StandardDotExportingStrategy
+from pythautomata.model_exporters.standard_dot_exporting_mm_strategy import StandardDotMMExportingStrategy
 
 class MooreMachineAutomaton():
     """
@@ -36,7 +36,7 @@ class MooreMachineAutomaton():
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet, 
                 initial_state: MooreState, states: set[MooreState],
                 comparator, name: str = None,
-                exportingStrategies: list = [DotExportingMMStrategy(), StandardDotExportingStrategy()],
+                exportingStrategies: list = [DotExportingMMStrategy(), StandardDotMMExportingStrategy()],
                 hole: MooreState = MooreState('\u22A5')):
         
         self.states = states
