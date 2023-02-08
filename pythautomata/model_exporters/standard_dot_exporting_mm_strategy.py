@@ -41,4 +41,4 @@ class StandardDotMMExportingStrategy:
                 ("" if name is None else f"{name}")
         if not isdir(path):
             makedirs(path)
-        return Path(path, "Stadard %s" % (model._name))
+        return Path(path, "Standard %s" % (model._name))

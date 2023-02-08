@@ -20,15 +20,16 @@ from pythautomata.tests.test_dfa_to_moore_machine import TestDFAToMooreMachine
 from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 from pythautomata.tests.test_dfa_loading import TestDFALoading
 from pythautomata.tests.test_mm_exporting import TestMMExporting
+from pythautomata.tests.test_mm_loading import TestMMLoading
 
 
 def get_all_tests():
-    return [TestMMExporting, TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, 
-            TestMinimizer, TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, 
-            TestSequence, TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, 
-            TestRegexGenerator, TestPDFASerialization,TestDFASerialization, TestPDFAMetrics, 
-            TestPDFAOperations, TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, 
-            TestDFAToMooreMachine]
+    return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
+            TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence, 
+            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, 
+            TestPDFASerialization,TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, 
+            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, 
+            TestDFAToMooreMachine, TestMMLoading, TestMMExporting]
 
 
 def run():
