@@ -1,4 +1,6 @@
 from unittest import TestLoader, TestSuite, TextTestRunner
+import os
+import sys
 
 from pythautomata.tests.test_minimizer import TestMinimizer
 from pythautomata.tests.test_automata_convertor import TestAutomataConvertor
@@ -19,14 +21,14 @@ from pythautomata.tests.test_pdfa_last_token_queries import TestPDFALastTokenQue
 from pythautomata.tests.test_dfa_to_moore_machine import TestDFAToMooreMachine
 from pythautomata.tests.test_dfa_exporting import TestDFAExporting
 from pythautomata.tests.test_dfa_loading import TestDFALoading
-
+from pythautomata.tests.test_probabilistic_filter_model import TestProbabilisticFilterModel
 
 def get_all_tests():
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer, TestAutomataConvertor,
             TestDFAGenerators, TestAutomataComparison, TestSequence, TestDFAOperations,
             TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator, TestPDFASerialization,
             TestDFASerialization, TestPDFAMetrics, TestPDFAOperations, TestPDFALastTokenQueries,
-            TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine]
+            TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine, TestProbabilisticFilterModel]
 
 
 def run():
