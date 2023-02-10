@@ -16,12 +16,15 @@ class ProbabilisticFilterModel(ProbabilisticModel):
         self._max_length = max_length
         #self._filter_symbol = filter_symbol
     
+    @property
     def name(self) -> str:
         return self._model.name+"_filtered"
-    
+
+    @property
     def terminal_symbol(self) -> SymbolStr:
         return self._model.terminal_symbol
-
+        
+    @property
     def alphabet(self) -> Alphabet:
         return self._alphabet
 
