@@ -28,13 +28,14 @@ class RandomWalkComparisonStrategy(FiniteAutomataComparator):
         counter_example = Sequence()
         dfa1.reset()
         dfa2.reset()
-        equivalent_output = self.equivalent_output(
-            dfa1.accepts(counter_example), dfa2.accepts(counter_example))
+        if not self.equivalent_output(
+                dfa1.accepts(counter_example), dfa2.accepts(counter_example)):
+            return counter_example
 
         symbols = list(dfa1.alphabet.symbols)
         symbols.sort()
 
-        while equivalent_output and steps < self._number_steps:
+        while steps < self._number_steps:
             if random.random() <= self._reset_probability:
                 counter_example = Sequence()
                 dfa1.reset()
@@ -42,9 +43,7 @@ class RandomWalkComparisonStrategy(FiniteAutomataComparator):
             pos = randint(0, len(symbols) - 1)
             counter_example = counter_example.append(symbols[pos])
             steps += 1
-            equivalent_output = self.equivalent_output(
-                dfa1.step(symbols[pos]), dfa2.step(symbols[pos]))
-            if not equivalent_output:
+            if not self.equivalent_output(dfa1.step(symbols[pos]), dfa2.step(symbols[pos])):
                 return counter_example
         return None
 
