@@ -50,5 +50,5 @@ class ProbabilisticFilterModel(ProbabilisticModel):
     def log_sequence_weight(self, sequence: Sequence) -> float:
         return self.log_sequence_probability(sequence)
 
-    def last_token_weights(self, sequence: Sequence, required_suffixes: list[Sequence]) -> list[float]:
+    def get_last_token_weights(self, sequence: Sequence, required_suffixes: list[Sequence]) -> list[float]:
         return self.last_token_probabilities(sequence, required_suffixes)
