@@ -29,10 +29,10 @@ class ProbabilisticFilterModel(ProbabilisticModel):
         return self._alphabet
 
     def sequence_probability(self, sequence: Sequence) -> float:
-        raise NotImplementedError
+        return self._model.sequence_probability(sequence)
 
     def log_sequence_probability(self, sequence: Sequence) -> float:
-        raise NotImplementedError
+        return self._model.log_sequence_probability(sequence)
 
     def last_token_probability(self, sequence: Sequence) -> float:
         if len(sequence) > self._max_length:
