@@ -16,11 +16,13 @@ class WFAArgMaxComparator(WFAComparator):
     """
 
     def __init__(self) -> None:
+        raise NotImplemented
         super().__init__()
 
     def equivalent_output(self, observation1, observation2) -> bool:
+        raise NotImplemented
         return pdfa_utils.have_same_argmax(observation1, observation2)
 
     def equivalent_values(self, value1, value2):
+        raise NotImplemented
         return abs(value1 - value2) <= self.tolerance
-
