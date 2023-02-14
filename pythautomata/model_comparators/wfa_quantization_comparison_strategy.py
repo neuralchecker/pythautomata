@@ -21,9 +21,9 @@ class WFAQuantizationComparator(WFAComparator):
         self._partition_cache = dict()
 
     def equivalent_output(self, observation1, observation2) -> bool:
-        assert(len(observation1) == len(observation2))
+        assert (len(observation1) == len(observation2))
         for i in range(len(observation1)):
-            if self._get_partition(observation1[i])!=self._get_partition(observation2[i]):
+            if self._get_partition(observation1[i]) != self._get_partition(observation2[i]):
                 return False
         return True
 
@@ -36,6 +36,7 @@ class WFAQuantizationComparator(WFAComparator):
         if value in self._partition_cache:
             return self._partition_cache[value]
         else:
-            partition = pdfa_utils.get_partition(value, self.partitions)
+            partition = pdfa_utils.get_quantized_interval_partition(
+                value, self.partitions)
             self._partition_cache[value] = partition
             return partition

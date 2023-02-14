@@ -46,8 +46,8 @@ class QuantizationProbabilityPartitioner(ProbabilityPartitioner):
         assert (len(positions) == 1)
         return positions[0]
 
-    def get_partition(self, probability_vector):
-        return np.fromiter((self._get_interval(xi, self._partitions) for xi in probability_vector), dtype=int)
+    def _get_partition(self, probability_vector):
+        return np.fromiter((self._get_interval(xi) for xi in probability_vector), dtype=int)
 
     def are_in_same_partition(self, probability_vector1, probability_vector2):
         assert (len(probability_vector1) == len(probability_vector2))
@@ -61,7 +61,7 @@ class ArgMaxProbabilityPartitioner(ProbabilityPartitioner):
     def __init__(self) -> None:
         super().__init__()
 
-    def get_partition(self, probability_vector):
+    def _get_partition(self, probability_vector):
         return np.argmax(probability_vector)
 
     def are_in_same_partition(self, probability_vector1, probability_vector2):
