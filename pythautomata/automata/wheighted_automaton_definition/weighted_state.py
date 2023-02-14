@@ -3,16 +3,19 @@ from pythautomata.automata.wheighted_automaton_definition.weighted_transition im
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.none_state_exception import NoneStateException
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
+from pythautomata.base_types.symbol import SymbolStr
 
 
 class WeightedState:
 
-    def __init__(self, name, initial_weight, final_weight):
+    def __init__(self, name, initial_weight, final_weight, terminal_symbol=SymbolStr('$')):
         self.name = name
         self.transitions_set: dict[Symbol, set[WeightedTransition]] = dict()
-        self.transitions_list: dict[Symbol, list[tuple[WeightedState, float]]] = dict()
+        self.transitions_list: dict[Symbol,
+                                    list[tuple[WeightedState, float]]] = dict()
         self.initial_weight: float = initial_weight
         self.final_weight: float = final_weight
+        self.terminal_symbol: Symbol = terminal_symbol
 
     def add_transition(self, symbol: Symbol, next_state: WeightedState, weight: float) -> None:
         if next_state is None:
@@ -22,7 +25,8 @@ class WeightedState:
             self.transitions_list[symbol] = list()
         transition = WeightedTransition(next_state, weight)
         if transition not in self.transitions_set[symbol]:
-            self.transitions_set[symbol].add(WeightedTransition(next_state, weight))
+            self.transitions_set[symbol].add(
+                WeightedTransition(next_state, weight))
             self.transitions_list[symbol].append((next_state, weight))
 
     def transitions_set_for(self, symbol: Symbol) -> set[WeightedTransition]:
@@ -40,7 +44,7 @@ class WeightedState:
             raise NonDeterministicStatesException()
         return set(t[0] for t in self.transitions_list[symbol])
 
-    def get_all_symbol_weights(self, terminal_symbol) -> tuple[list[Symbol], list[float], list[WeightedState]]:
+    def get_all_symbol_weights(self) -> tuple[list[Symbol], list[float], list[WeightedState]]:
         symbols = list()
         weights = list()
         next_states = list()
@@ -51,7 +55,7 @@ class WeightedState:
                 next_states.append(weighted_transition.next_state)
         weights.append(self.final_weight)
         next_states.append(None)
-        symbols.append(terminal_symbol)
+        symbols.append(self.terminal_symbol)
         return symbols, weights, next_states
 
     def __eq__(self, other):

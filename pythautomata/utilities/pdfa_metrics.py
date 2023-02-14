@@ -98,7 +98,9 @@ def out_of_partition_elements(target_model: ProbabilisticModel, learned_model: P
     for i in range(len(all_obs1)):
         obs1 = np.asarray(all_obs1[i])
         obs2 = np.asarray(all_obs2[i])
-        result = pdfa_utils.are_in_same_partition(obs1, obs2, partitions)
+        p1 = pdfa_utils.get_quantized_interval_partitions(obs1, partitions)
+        p2 = pdfa_utils.get_quantized_interval_partitions(obs2, partitions)
+        result = pdfa_utils.compare_quantized_interval_partition(p1, p2)
         if not result:
             errorCount += 1
 
