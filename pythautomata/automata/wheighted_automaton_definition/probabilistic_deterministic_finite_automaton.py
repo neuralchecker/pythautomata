@@ -40,9 +40,10 @@ class ProbabilisticDeterministicFiniteAutomaton(WeightedAutomaton, Probabilistic
     def __init__(self, alphabet: Alphabet, weighted_states: set, terminal_symbol: Symbol,
                  comparator: FiniteAutomataComparator,
                  name=None,
-                 export_strategies: list[PDFAModelExportingStrategy] = None):
-        assert is_probabilistic(
-            weighted_states, alphabet), "Trying to instantiate a non probabilisitic DFA"
+                 export_strategies: list[PDFAModelExportingStrategy] = None, check_is_probabilistic=True):
+        if check_is_probabilistic:
+            assert is_probabilistic(
+                weighted_states, alphabet), "Trying to instantiate a non probabilisitic DFA"
         if export_strategies is None:
             export_strategies = [WFAImageExporter()]
         if name is None:
