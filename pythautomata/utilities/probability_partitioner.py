@@ -56,13 +56,17 @@ class QuantizationProbabilityPartitioner(ProbabilityPartitioner):
         return np.all((abs(partition1 - partition2) == 0))
 
 
-class ArgMaxProbabilityPartitioner(ProbabilityPartitioner):
+class TopKProbabilityPartitioner(ProbabilityPartitioner):
 
-    def __init__(self) -> None:
+    def __init__(self, k) -> None:
+        self.k = k
         super().__init__()
 
     def _get_partition(self, probability_vector):
-        return np.argmax(probability_vector)
+        order = probability_vector.argsort()
+        ranks = order.argsort()
+        ranks[ranks >= self.k] = -1
+        return ranks
 
     def are_in_same_partition(self, probability_vector1, probability_vector2):
         assert (len(probability_vector1) == len(probability_vector2))

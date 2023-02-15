@@ -1,11 +1,6 @@
 import numpy as np
 
 
-def all_have_same_argmax(obs1, obs2):
-    assert (len(obs1) == len(obs2))
-    return np.argmax(np.array(obs1)) == np.argmax(np.array(obs2))
-
-
 def are_within_tolerance_limit(obs1, obs2, tolerance):
     assert (len(obs1) == len(obs2))
     return np.all((abs(np.array(obs1) - np.array(obs2)) <= tolerance))
