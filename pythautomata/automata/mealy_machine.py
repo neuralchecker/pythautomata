@@ -56,7 +56,7 @@ class MealyMachine:
         return self._hole
 
     def step(self, symbol):
-        output = self._actual_state.transitions[symbol]
+        output = self._actual_state.outputs[symbol]
         self._actual_state = self._actual_state.next_state_for(symbol)
 
         return output
