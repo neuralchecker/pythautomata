@@ -52,13 +52,20 @@ class WFAComparator(FiniteAutomataComparator):
 
     @abstractmethod
     def equivalent_output(self, observation1, observation2) -> bool:
+        "Asumes observation is any collection of weights"
+        raise NotImplementedError
+
+    @abstractmethod
+    def next_tokens_equivalent_output(self, observation1, observation2) -> bool:
+        "Asumes observation is any collection of weights corresponding to the next token weights of a state"
         raise NotImplementedError
 
     def _pair_equivalent_by_name(self, states_pair1, states_pair2):
         return states_pair1[0].name == states_pair2[0].name and states_pair1[1].name == states_pair2[1].name
 
     def _states_are_equivalent(self, state1, state2, alphabet, ignore_initial_weight=True):
-        r1 = self.equivalent_values(state1.initial_weight, state2.initial_weight)
+        r1 = self.equivalent_values(
+            state1.initial_weight, state2.initial_weight)
         r2 = self.equivalent_values(state1.final_weight, state2.final_weight)
         r3 = self._check_transitions(state1, state2, alphabet)
         return (r1 or ignore_initial_weight) and r2 and r3

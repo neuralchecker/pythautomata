@@ -31,6 +31,9 @@ class WFAPartitionComparator(WFAComparator):
             state1), self._get_probability_distribution(state2))
         return (r1 or ignore_initial_weight) and r2
 
+    def next_tokens_equivalent_output(self, observation1, observation2) -> bool:
+        return self._partitioner.are_in_same_partition(observation1, observation2)
+
     def equivalent_output(self, observation1, observation2) -> bool:
         raise NotImplemented
         return pdfa_utils.have_same_argmax(observation1, observation2)
