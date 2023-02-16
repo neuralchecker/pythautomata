@@ -63,7 +63,7 @@ class TopKProbabilityPartitioner(ProbabilityPartitioner):
         super().__init__()
 
     def _get_partition(self, probability_vector):
-        order = np.array(probability_vector).argsort()
+        order = (np.array(probability_vector)*-1).argsort()
         ranks = order.argsort()
         ranks[ranks >= self.k] = -1
         return ranks
