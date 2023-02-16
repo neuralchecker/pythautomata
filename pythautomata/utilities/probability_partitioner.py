@@ -72,4 +72,4 @@ class TopKProbabilityPartitioner(ProbabilityPartitioner):
         assert (len(probability_vector1) == len(probability_vector2))
         partition1 = self.get_partition(probability_vector1)
         partition2 = self.get_partition(probability_vector2)
-        return np.equal(partition1, partition2)
+        return np.all(np.equal(partition1, partition2))
