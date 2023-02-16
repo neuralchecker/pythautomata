@@ -25,3 +25,5 @@ class WFAToleranceComparator(WFAComparator):
     def equivalent_values(self, value1, value2):
         return abs(value1 - value2) <= self.tolerance
 
+    def next_tokens_equivalent_output(self, observation1, observation2) -> bool:
+        return self.equivalent_output(observation1, observation2)
