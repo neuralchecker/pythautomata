@@ -40,3 +40,6 @@ class WFAQuantizationComparator(WFAComparator):
                 value, self.partitions)
             self._partition_cache[value] = partition
             return partition
+
+    def next_tokens_equivalent_output(self, observation1, observation2) -> bool:
+        return self.equivalent_output(observation1, observation2)
