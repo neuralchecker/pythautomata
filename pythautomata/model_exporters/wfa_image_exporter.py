@@ -9,22 +9,24 @@ class WFAImageExporter(PDFAModelExportingStrategy):
         graph.attr(rankdir='LR', margin='0', size='15')
 
         graph.attr('node', shape='circle')
-        states = sorted(model.weighted_states, key=lambda x: x.name)
+        states = sorted(model.weighted_states, key=lambda x: str(x.name))
         for state in states:
-            label = str(state.final_weight)
+            state_name = str(state.name)
+            label = state_name + "\n" + str(state.final_weight)
             if state.initial_weight == 1:
-                graph.node(state.name, label, shape='diamond')
+                graph.node(state_name, label, shape='diamond')
             else:
-                graph.node(state.name, label)
+                graph.node(state_name, label)
             transitions = dict()
             for symbol, weighted_transitions in state.transitions_list.items():
                 for weighted_transition in weighted_transitions:
-                    if (state.name, weighted_transition[0].name) in transitions.keys():
-                        new = transitions[(state.name, weighted_transition[0].name)] + "\n" + str(symbol) + "-" + \
-                              str(weighted_transition[1])
+                    weighted_transition_name = str(weighted_transition[0].name)
+                    if (state_name, weighted_transition_name) in transitions.keys():
+                        new = transitions[(state_name, weighted_transition_name)] + "\n" + str(symbol) + "-" + \
+                            str(weighted_transition[1])
                     else:
                         new = str(symbol) + "-" + str(weighted_transition[1])
-                    transitions[(state.name, weighted_transition[0].name)] = new
+                    transitions[(state_name, weighted_transition_name)] = new
             for key in transitions.keys():
                 s_from, s_to = key
                 graph.edge(s_from, s_to, str(transitions[key]))
