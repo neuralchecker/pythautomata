@@ -10,11 +10,13 @@ class PDFAModelExportingStrategy(ABC):
     def export(self, model, path: str):
         raise NotImplementedError
 
-    def get_path_for(self, path: str, model):
+    def get_path_for(self, path: str, model, file_name: str):
         if path is None:
             name = model.name
             path = "output_models/" + \
                 ("" if name is None else f"{name}")
         if not isdir(path):
             makedirs(path)
-        return Path(path, model.name)
+        if file_name is None:
+            file_name = model.name
+        return Path(path, file_name)

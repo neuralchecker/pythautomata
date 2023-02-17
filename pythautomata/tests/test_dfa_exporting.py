@@ -82,7 +82,3 @@ class TestDFAExporting(TestCase):
         StandardDotExportingStrategy().export(dfa, "./output_models/tests")
         dfa.name = name + "_no_hole"
         ImageExportingStrategyWithoutHoleState().export(dfa, "./output_models/tests")
-
-    def test_8(self):
-        wfa = WeightedTomitasGrammars.get_automaton_7()
-        WFAImageExporter().export(wfa, "./output_models/tests")
