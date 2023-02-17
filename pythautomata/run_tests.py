@@ -24,15 +24,17 @@ from pythautomata.tests.test_dfa_loading import TestDFALoading
 from pythautomata.tests.test_probabilistic_filter_model import TestProbabilisticFilterModel
 from pythautomata.tests.test_mm_exporting import TestMMExporting
 from pythautomata.tests.test_mm_loading import TestMMLoading
+from pythautomata.tests.test_wfa_exporting import TestWFAExporting
 
 
 def get_all_tests():
+    return [TestWFAExporting]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
             TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries,
-            TestDFAToMooreMachine, TestMMLoading, TestMMExporting, TestProbabilisticFilterModel]
+            TestDFAToMooreMachine, TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestWFAExporting]
 
 
 def run():
