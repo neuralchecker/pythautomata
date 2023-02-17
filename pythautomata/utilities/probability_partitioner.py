@@ -66,6 +66,7 @@ class TopKProbabilityPartitioner(ProbabilityPartitioner):
         order = (np.array(probability_vector)*-1).argsort()
         ranks = order.argsort()
         ranks[ranks >= self.k] = -1
+        ranks[ranks != -1] = 1
         return ranks
 
     def are_in_same_partition(self, probability_vector1, probability_vector2):
