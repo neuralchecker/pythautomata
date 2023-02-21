@@ -2,10 +2,13 @@ import pickle
 from unittest import TestCase
 
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
+from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 from pythautomata.model_exporters.dot_exporting_strategy import DotExportingStrategy
 from pythautomata.model_exporters.standard_dot_exporting_strategy import StandardDotExportingStrategy
 from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
 from pythautomata.model_exporters.image_exporting_strategy_without_hole_state import ImageExportingStrategyWithoutHoleState
+from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
+from pythautomata.base_types.sequence import Sequence
 
 
 class TestDFAExporting(TestCase):
