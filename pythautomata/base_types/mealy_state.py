@@ -3,20 +3,20 @@ from pythautomata.exceptions.none_state_exception import NoneStateException
 
 
 class MealyState:
-    """Representation of Moore machine states.
+    """Representation of Mealy machine states.
 
-  Attributes
-  ----------
-  name: str
-      State name.
-  value: Symbol
-      Is an element of an alphabet associated with the state.
-  transitions: dict[Symbol, set['State']]
-      For any given symbol represents the next state (or set of states in the case of NFA).
-  hole:
-      Hole state, state containing all transitions directed to itself.
-      It is used as default when a symbol is not present as transition key.
-  """
+    Attributes
+    ----------
+    name: str
+        State name.
+    transitions: dict[Symbol, set['State']]
+        For any given symbol represents the next state (or set of states in the case of NFA).
+    outputs: dict[Symbol, Symbol]
+        For any given symbol represents the output symbol.
+    hole:
+        Hole state, state containing all transitions directed to itself.
+        It is used as default when a symbol is not present as transition key.
+    """
 
     def __init__(self, name: str):
         self.name = name

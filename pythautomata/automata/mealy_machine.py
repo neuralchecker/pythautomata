@@ -55,6 +55,9 @@ class MealyMachine:
     def hole(self):
         return self._hole
 
+    def __eq__(self, other):
+        return isinstance(other, MealyMachine) and self._comparator.are_equivalent(self, other)
+
     def step(self, symbol):
         output = self._actual_state.outputs[symbol]
         self._actual_state = self._actual_state.next_state_for(symbol)
@@ -104,7 +107,7 @@ class MealyMachine:
                 raise UnknownSymbolsException()
 
     def verify_output(self, state: MealyState, output_alphabet: Alphabet):
-        for symbol in state.outputs:
+        for _, symbol in state.outputs.items():
             if symbol not in output_alphabet:
                 raise UnknownSymbolsException()
 
