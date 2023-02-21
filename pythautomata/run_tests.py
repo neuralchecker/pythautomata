@@ -29,13 +29,12 @@ from pythautomata.tests.test_wfa_exporting import TestWFAExporting
 
 
 def get_all_tests():
-    return [TestWFAExporting]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
-            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries,
-            TestDFAToMooreMachine, TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting]
+            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
+            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting]
 
 
 def run():
