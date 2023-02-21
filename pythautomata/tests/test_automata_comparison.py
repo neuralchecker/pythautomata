@@ -12,6 +12,7 @@ from pythautomata.automata_definitions.bollig_habermehl_kern_leucker_automata im
 from pythautomata.automata_definitions.omlin_giles_automata import \
     OmlinGilesAutomata
 from pythautomata.automata_definitions.other_automata import OtherAutomata
+from pythautomata.automata_definitions.sample_mealy_machines import SampleMealyMachines
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 from pythautomata.base_types.alphabet import Alphabet
@@ -151,7 +152,7 @@ class TestAutomataComparison(TestCase):
         return areEquivalent
 
     def assertAreEquivalentFAs(self, automaton1, automaton2):
-        assert(self._areEquivalentFAs(automaton1, automaton2))
+        assert (self._areEquivalentFAs(automaton1, automaton2))
 
     def assertAreNotEquivalentFAs(self, automaton1, automaton2):
         self.assertFalse(self._areEquivalentFAs(automaton1, automaton2))
@@ -160,7 +161,7 @@ class TestAutomataComparison(TestCase):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
         comparator = WFAToleranceComparator()
         for wfa in weightedTomitasAutomata:
-            assert(comparator.are_equivalent(wfa, wfa))
+            assert (comparator.are_equivalent(wfa, wfa))
 
     def test_wfa_equivalence_false_case(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
@@ -170,7 +171,7 @@ class TestAutomataComparison(TestCase):
                 if i != j:
                     wfa1 = weightedTomitasAutomata[i]
                     wfa2 = weightedTomitasAutomata[j]
-                    assert(not comparator.are_equivalent(wfa1, wfa2))
+                    assert (not comparator.are_equivalent(wfa1, wfa2))
 
     def test_tomita4_vs_single_state_pdfa(self):
         weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
@@ -192,13 +193,13 @@ class TestAutomataComparison(TestCase):
             binaryAlphabet, states, SymbolStr("$"), comparator, "WeightedTomitas4")
         counterexample = comparator.get_counterexample_between(
             weightedTomita4, single_state_wfa)
-        assert(counterexample is not None)
+        assert (counterexample is not None)
 
     def test_wfa_quantization_equivalence_reflexiveness(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
         comparator = WFAQuantizationComparator(100)
         for wfa in weightedTomitasAutomata:
-            assert(comparator.are_equivalent(wfa, wfa))
+            assert (comparator.are_equivalent(wfa, wfa))
 
     def test_wfa_quantization_equivalence_false_case(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
@@ -208,7 +209,7 @@ class TestAutomataComparison(TestCase):
                 if i != j:
                     wfa1 = weightedTomitasAutomata[i]
                     wfa2 = weightedTomitasAutomata[j]
-                    assert(not comparator.are_equivalent(wfa1, wfa2))
+                    assert (not comparator.are_equivalent(wfa1, wfa2))
 
     def test_quantization_equivalence_tomita4_vs_single_state_pdfa(self):
         weightedTomita4 = WeightedTomitasGrammars.get_automaton_4()
@@ -233,7 +234,7 @@ class TestAutomataComparison(TestCase):
         init_state = SymbolicState('', is_final=True)
         sfa = SymbolicFiniteAutomaton(
             Alphabet(frozenset()), init_state, {init_state})
-        assert(not comparator.are_equivalent(tomita1, sfa))
+        assert (not comparator.are_equivalent(tomita1, sfa))
 
     def test_equivalence_reflexiveness_random_walk(self):
         mergedAutomata = list(chain(TomitasGrammars.get_all_automata()))
@@ -264,3 +265,8 @@ class TestAutomataComparison(TestCase):
                             comparison_strategy.are_equivalent(mergedAutomata[i], mergedAutomata2[j]))
                     except:
                         pass
+
+    def test_are_equivalent_mealy(self):
+        machine1 = SampleMealyMachines.get_3_states_mealy_machine()
+        machine2 = SampleMealyMachines.get_3_states_mealy_machine()
+        self.assertEqual(machine1, machine2)

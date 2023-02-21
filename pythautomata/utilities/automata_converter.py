@@ -2,6 +2,7 @@ from pythautomata.abstract.model_exporting_strategy import \
     ModelExportingStrategy
 from pythautomata.automata.deterministic_finite_automaton import \
     DeterministicFiniteAutomaton as DFA
+from pythautomata.automata.mealy_machine import MealyMachine
 from pythautomata.automata.moore_machine_automaton import \
     MooreMachineAutomaton as MooreMachine
 from pythautomata.automata.non_deterministic_finite_automaton import \
@@ -10,6 +11,7 @@ from pythautomata.automata.symbolic_finite_automaton import \
     SymbolicFiniteAutomaton as SFA
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.guard import Guard
+from pythautomata.base_types.mealy_state import MealyState
 from pythautomata.base_types.state import State
 from pythautomata.base_types.symbol import Symbol, SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
@@ -18,6 +20,7 @@ from pythautomata.boolean_algebra_learner.boolean_algebra_learner import \
     BooleanAlgebraLearner as BAL
 from pythautomata.model_comparators.dfa_comparison_strategy import \
     DFAComparisonStrategy as DFAComparator
+from pythautomata.model_comparators.mealy_machine_comparison_strategy import MealyMachineComparisonStrategy
 from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy
 
 
@@ -196,3 +199,43 @@ class AutomataConverter():\
         hole_state = MooreState("Hole", SymbolStr("False"))
 
         return MooreMachine(dfa.alphabet, output_alphabet, initial_state, set(states.values()), MooreMachineComparisonStrategy(), name=name, hole=hole_state)
+
+    @staticmethod
+    def convert_moore_machine_to_mealy_machine(moore_machine: MooreMachine) -> MealyMachine:
+        """
+        Converts a given moore machine into a mealy machine.
+
+        Args:
+            moore_machine (MooreMachine): Input moore machine.
+
+        Returns:
+            MealyMachine: MealyMachine equivalent to the inputted MooreMachine.
+        """
+        initial_state: MealyState
+        states: dict[str, MealyState] = {}
+
+        # get all states and convert them to output function λ'(q, a) = λ(δ(q, a))
+        # where λ is the output function of the Moore machine and λ' is the output function of the Mealy machine
+        # and δ is the transition function of the Moore machine
+        initial_state = None
+
+        for state in moore_machine.states:
+            new_state = MealyState(state.name)
+            if new_state.name == moore_machine.initial_state.name:
+                initial_state = new_state
+            states[new_state.name] = new_state
+
+        for state in moore_machine.states:
+            for symbol, state_set in state.transitions.items():
+                current_state = list(state_set).pop()
+                states[state.name].add_transition(
+                    symbol, states[current_state.name], current_state.value)
+
+        name = None if moore_machine._name == None else "MooreMachine_"+moore_machine._name
+
+        hole_state = MealyState("Hole")
+
+        return MealyMachine(moore_machine._input_alphabet, moore_machine._output_alphabet,
+                            initial_state,
+                            set(states.values()), MealyMachineComparisonStrategy(),
+                            name=name, hole=hole_state)
