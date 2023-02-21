@@ -20,7 +20,7 @@ class MealyState:
 
     def __init__(self, name: str):
         self.name = name
-        self.transitions: dict[Symbol, 'MealyState'] = {}
+        self.transitions: dict[Symbol, set('MealyState')] = {}
         self.outputs: dict[Symbol, Symbol] = {}
         self._is_deterministic: bool = True
 
@@ -32,15 +32,17 @@ class MealyState:
         if next_state is None:
             raise NoneStateException()
         if symbol not in self.transitions:
-            self.transitions[symbol] = next_state
-            self.outputs[symbol] = output
+            self.transitions[symbol] = set()
         else:
             self._is_deterministic = False
+
+        self.transitions[symbol].add(next_state)
+        self.outputs[symbol] = output
 
     def next_states_for(self, symbol: Symbol) -> set['MealyState']:
         if symbol not in self.transitions:
             return set()
-        return {self.transitions[symbol]}
+        return self.transitions[symbol]
 
     def next_state_for(self, symbol: Symbol) -> 'MealyState':
         next_states = list(self.next_states_for(symbol))

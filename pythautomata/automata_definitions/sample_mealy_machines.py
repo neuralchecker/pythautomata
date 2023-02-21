@@ -70,4 +70,4 @@ class SampleMealyMachines:
         return MealyMachine(binaryAlphabet, alphabet, stateA,
                             set([stateA, stateB]
                                 ), MealyMachineComparisonStrategy(),
-                            name='2 States Moore Machine', hole=hole_state)
+                            name="Mealy machine implementation of Tomita's grammar 2 automaton", hole=hole_state)
