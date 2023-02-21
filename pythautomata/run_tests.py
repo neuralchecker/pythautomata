@@ -8,7 +8,7 @@ from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMoore
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
 from pythautomata.tests.test_dfa_serialization import TestDFASerialization
-from pythautomata.tests.test_dfa_generators import TestDFAGenerators
+from pythautomata.tests.test_DFA_generators import TestDFAGenerators
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
@@ -24,17 +24,19 @@ from pythautomata.tests.test_dfa_loading import TestDFALoading
 from pythautomata.tests.test_probabilistic_filter_model import TestProbabilisticFilterModel
 from pythautomata.tests.test_mm_exporting import TestMMExporting
 from pythautomata.tests.test_mm_loading import TestMMLoading
+from pythautomata.tests.test_mealy_exporting import TestMealyExporting
 from pythautomata.tests.test_wfa_exporting import TestWFAExporting
+from pythautomata.tests.test_mealy_loading import TestMealyLoading
 
 
 def get_all_tests():
-    return [TestWFAExporting]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
-            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries,
-            TestDFAToMooreMachine, TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestWFAExporting]
+            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
+            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
+            TestMealyLoading]
 
 
 def run():

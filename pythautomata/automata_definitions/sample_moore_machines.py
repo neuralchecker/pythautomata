@@ -20,6 +20,26 @@ class SampleMooreMachines:
 
     Methods
     -------
+    get_a_symbol()
+        Returns the symbol 'a'
+    get_b_symbol()
+        Returns the symbol 'b'
+    get_c_symbol()
+        Returns the symbol 'c'
+    get_all_automata()
+        Returns a list containing all the sample Moore Machines that are correct
+    get_3_states_automaton()
+        Returns a Moore Machine with 3 states
+    get_3_states_automaton_wrong_alphabet()
+        Returns a Moore Machine with 3 states and wrong alphabet. This is used to test the Moore Machine constructor 
+        and will raise an exception when used
+    get_3_states_automaton_non_deterministic()
+        Returns a Moore Machine with 3 states and non deterministic transitions. 
+        This is used to test the Moore Machine constructor and will raise an exception when used
+    get_tomitas_automaton_1()
+        Returns a Moore Machine that accepts the language of Tomita's automaton 1
+    get_tomitas_automaton_2()
+        Returns a Moore Machine that accepts the language of Tomita's automaton 2
 
     """
     @staticmethod
@@ -107,7 +127,7 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abAlphabet, state0,
-                                     set([state0, state1, state2]), 
+                                     set([state0, state1, state2]),
                                      MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
@@ -128,7 +148,8 @@ class SampleMooreMachines:
         hole_state = MooreState(name="hole", value=SymbolStr('False'))
 
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA,
-                                     set([stateA, stateB]), MooreMachineComparison(),
+                                     set([stateA, stateB]
+                                         ), MooreMachineComparison(),
                                      name='2 States Moore Machine', hole=hole_state)
 
     @staticmethod
@@ -154,6 +175,6 @@ class SampleMooreMachines:
 
         return MooreMachineAutomaton(binaryAlphabet, boolean_alphabet, stateA,
                                      set([stateA, stateB, stateC]),
-                                     MooreMachineComparison(), 
-                                     name="MMA implementation of Tomita's grammar 2 automaton", 
+                                     MooreMachineComparison(),
+                                     name="MMA implementation of Tomita's grammar 2 automaton",
                                      hole=hole_state)
