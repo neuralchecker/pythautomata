@@ -26,6 +26,7 @@ from pythautomata.tests.test_mm_exporting import TestMMExporting
 from pythautomata.tests.test_mm_loading import TestMMLoading
 from pythautomata.tests.test_mealy_exporting import TestMealyExporting
 from pythautomata.tests.test_wfa_exporting import TestWFAExporting
+from pythautomata.tests.test_mealy_loading import TestMealyLoading
 
 
 def get_all_tests():
@@ -34,7 +35,8 @@ def get_all_tests():
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
             TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
-            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting]
+            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
+            TestMealyLoading]
 
 
 def run():
