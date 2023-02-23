@@ -67,6 +67,9 @@ class MooreMachineAutomaton():
             actual_state = actual_state.next_state_for(symbol)
         return actual_state.value
 
+    def process_query(self, sequence: Sequence) -> Symbol:
+        return self.last_symbol(sequence)
+
     def transduce(self, sequence: Sequence) -> Sequence:
         actual_state = self.initial_state
         output = Sequence()
