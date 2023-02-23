@@ -68,7 +68,7 @@ class MealyMachine:
     def reset(self):
         self._actual_state = self.initial_state
 
-    def last_symbol(self, sequence: Sequence) -> Symbol:
+    def process_query(self, sequence: Sequence) -> Symbol:
         actual_state = self.initial_state
         output = Symbol()
         for symbol in sequence.value:
