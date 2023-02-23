@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from pythautomata.automata_definitions.sample_mealy_machines import SampleMealyMachines
-from pythautomata.model_exporters.standard_dot_exporting_mealy_strategy import StandardDotExportingMealyStrategy
+from pythautomata.model_exporters.standard_exporters.mealy_standard_dot_exporting_strategy import MealyStandardDotExportingStrategy
 from pythautomata.utilities.standard_dot_notation_mealy_importer import StandardDotNotationMealyImporter
 
 
@@ -12,7 +12,7 @@ class TestMealyLoading(TestCase):
             name = mealy_machine._name
             mealy_machine._name = name + "_standard"
 
-            StandardDotExportingMealyStrategy().export(
+            MealyStandardDotExportingStrategy().export(
                 mealy_machine, "./output_models/tests")
 
             path = './output_models/tests'+'/'+mealy_machine._name+'.dot'

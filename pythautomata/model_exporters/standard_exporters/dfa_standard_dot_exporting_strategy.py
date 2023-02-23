@@ -4,7 +4,7 @@ from pythautomata.base_types.symbolic_state import SymbolicState
 from graphviz import Digraph
 
 
-class StandardDotExportingStrategy(ModelExportingStrategy):
+class DfaStandardDotExportingStrategy(ModelExportingStrategy):
 
     def export(self, model, path=None, encoding=None):
         graph = self.create_graph(model)

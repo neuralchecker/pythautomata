@@ -8,7 +8,8 @@ class ImageExportingStrategyWithoutHoleState(ModelExportingStrategy):
     Exports pdf with automaton image not plotting the hole state.
     Hole state should be assigned, otherwise if there is a real hole state it will still be plotted.
     '''
-    def export(self, model, path=None):   
+
+    def export(self, model, path=None):
         graph = self._create_graph(model)
         path = self.get_path_for(path, model)
         graph.render(path, cleanup=True)
@@ -19,8 +20,8 @@ class ImageExportingStrategyWithoutHoleState(ModelExportingStrategy):
 
         finalStates = filter(lambda state: state.is_final, model.states)
         graph.attr('node', shape='doublecircle')
-        
-        model_has_one_state = len(model.states)==1
+
+        model_has_one_state = len(model.states) == 1
         for state in finalStates:
             if state != model.hole or model_has_one_state:
                 graph.node(state.name)
@@ -31,8 +32,10 @@ class ImageExportingStrategyWithoutHoleState(ModelExportingStrategy):
             for symbol, destinationStates in state.transitions.items():
                 for destinationState in destinationStates:
                     if destinationState != model.hole or model_has_one_state:
-                        transitions.setdefault((state.name, destinationState.name), set())
-                        transitions[(state.name, destinationState.name)].add(str(symbol))
+                        transitions.setdefault(
+                            (state.name, destinationState.name), set())
+                        transitions[(state.name, destinationState.name)].add(
+                            str(symbol))
             for key, symbols in transitions.items():
                 state_from, state_to = key
                 label = self._get_label_for(symbols, model.alphabet)
@@ -43,7 +46,7 @@ class ImageExportingStrategyWithoutHoleState(ModelExportingStrategy):
             nodeName = 'start' + str(index)
             graph.node(nodeName)
             graph.edge(nodeName, initialState.name)
-        
+
         return graph
 
     def _get_label_for(self, symbols: list, alphabet):

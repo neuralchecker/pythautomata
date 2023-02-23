@@ -1,10 +1,8 @@
 from graphviz import Digraph
-from os import makedirs
-from os.path import isdir
-from pathlib import Path
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 
 
-class StandardDotMMExportingStrategy:
+class MooreStandardDotExportingStrategy(ModelExportingStrategy):
 
     def export(self, model, path=None, encoding=None):
         graph = self.create_graph(model)
@@ -25,7 +23,8 @@ class StandardDotMMExportingStrategy:
 
         for state in model.states:
             label = "{ %s | %s }" % (state.name, state.value.value)
-            graph.node(state.name, shape='record', style='rounded', label=label)
+            graph.node(state.name, shape='record',
+                       style='rounded', label=label)
 
         for state in model.states:
             for symbol, destinationStates in state.transitions.items():
@@ -33,12 +32,3 @@ class StandardDotMMExportingStrategy:
                     graph.edge(state.name, destinationState.name, str(symbol))
 
         return graph
-
-    def get_path_for(self, path: str, model):
-        if path is None:
-            name = model._name
-            path = "output_models/" + \
-                ("" if name is None else f"{name}")
-        if not isdir(path):
-            makedirs(path)
-        return Path(path, "Standard %s" % (model._name))

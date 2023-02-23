@@ -1,15 +1,19 @@
-from genericpath import isdir
-from os import makedirs
-from pathlib import Path
+from symtable import Symbol
 from graphviz import Digraph
 
+from pythautomata.abstract.model_exporting_strategy import ModelExportingStrategy
 
-class ImageExportingMMStrategy():
-    
+
+class MooreDotExportingStrategy(ModelExportingStrategy):
     def export(self, model, path=None):
         graph = self.create_graph(model)
         path = self.get_path_for(path, model)
-        graph.render(path, cleanup=True)
+        path = str(path) + '.dot'
+
+        dot_code = graph.source
+
+        with open(path, "w+", encoding="utf-8") as f:
+            f.write(dot_code)
 
     def create_graph(self, model):
         graph = Digraph('moore_machine')
@@ -22,8 +26,10 @@ class ImageExportingMMStrategy():
             transitions = dict()
             for symbol, destinationStates in state.transitions.items():
                 for destinationState in destinationStates:
-                    transitions.setdefault((state.name, destinationState.name), set())
-                    transitions[(state.name, destinationState.name)].add(str(symbol))
+                    transitions.setdefault(
+                        (state.name, destinationState.name), set())
+                    transitions[(state.name, destinationState.name)].add(
+                        str(symbol))
 
             for (state_from, state_to), symbols in transitions.items():
                 label = self._get_label_for(symbols, model._input_alphabet)
@@ -45,12 +51,3 @@ class ImageExportingMMStrategy():
             complement = set(map(str, alphabet.symbols)) - set(symbols)
             label = ", ".join(sorted(complement))
             return f"Σ - {{{label}}}"
-
-    def get_path_for(self, path: str, model):
-        name = model._name
-        if path is None:
-            path = "output_models/" + \
-                ("" if name is None else f"{name}")
-        if not isdir(path):
-            makedirs(path)
-        return Path(path, name)
