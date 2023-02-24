@@ -45,7 +45,7 @@ class MooreMachineAutomaton():
             state.add_hole_transition(hole)
 
         self._name = 'Moore Machine - ' + str(uuid.uuid4().hex) if name is None else name
-        self._input_alphabet = input_alphabet
+        self._alphabet = input_alphabet
         self._output_alphabet = output_alphabet
         self.initial_state = initial_state
         self._set_hole(hole)
@@ -61,11 +61,14 @@ class MooreMachineAutomaton():
     def reset(self):
         self._actual_state = self.initial_state
 
-    def last_symbol(self, sequence: Sequence) -> Symbol: 
+    def last_symbol(self, sequence: Sequence) -> Symbol:
         actual_state = self.initial_state
         for symbol in sequence.value:
             actual_state = actual_state.next_state_for(symbol)
         return actual_state.value
+
+    def process_query(self, sequence: Sequence) -> Symbol:
+        return self.last_symbol(sequence)
 
     def transduce(self, sequence: Sequence) -> Sequence:
         actual_state = self.initial_state

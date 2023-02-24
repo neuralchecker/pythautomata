@@ -18,7 +18,7 @@ class RandomWalkMMComparisonStrategy:
         return self.get_counterexample_between(mm1, mm2) is None
 
     def get_counterexample_between(self, mm1, mm2) -> Optional[Sequence]:
-        if mm1._input_alphabet != mm2._input_alphabet:
+        if mm1._alphabet != mm2._alphabet:
             raise ValueError("Alphabets are not equivalent.")
 
         steps = 0
@@ -28,7 +28,7 @@ class RandomWalkMMComparisonStrategy:
         equivalent_output = self.equivalent_output(
             mm1.last_symbol(counter_example), mm2.last_symbol(counter_example))
 
-        symbols = list(mm1._input_alphabet.symbols)
+        symbols = list(mm1._alphabet.symbols)
         symbols.sort()
 
         while equivalent_output and steps < self._number_steps:

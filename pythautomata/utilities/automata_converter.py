@@ -235,7 +235,7 @@ class AutomataConverter():\
 
         hole_state = MealyState("Hole")
 
-        return MealyMachine(moore_machine._input_alphabet, moore_machine._output_alphabet,
+        return MealyMachine(moore_machine._alphabet, moore_machine._output_alphabet,
                             initial_state,
                             set(states.values()), MealyMachineComparisonStrategy(),
                             name=name, hole=hole_state)

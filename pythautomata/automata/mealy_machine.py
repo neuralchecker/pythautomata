@@ -40,7 +40,7 @@ class MealyMachine:
 
         self._name = ("Mealy Machine - " + str(uuid.uuid4().hex)
                       if name is None else name)
-        self._input_alphabet = input_alphabet
+        self._alphabet = input_alphabet
         self._output_alphabet = output_alphabet
         self.initial_state = initial_state
         self._set_hole(hole)
@@ -75,6 +75,9 @@ class MealyMachine:
             output = actual_state.outputs[symbol]
             actual_state = actual_state.next_state_for(symbol)
         return output
+
+    def process_query(self, sequence: Sequence) -> Symbol:
+        return self.last_symbol(sequence)
 
     def transduce(self, sequence: Sequence) -> Sequence:
         actual_state = self.initial_state

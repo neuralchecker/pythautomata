@@ -35,6 +35,10 @@ class FiniteAutomaton(ABC):
     @property
     def alphabet(self) -> Alphabet:
         return self._alphabet
+    
+    @property
+    def _output_alphabet(self):
+        return [True, False]
 
     @property
     @abstractmethod
