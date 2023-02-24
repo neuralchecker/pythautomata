@@ -1,6 +1,6 @@
 import unittest
 from pythautomata.utilities import pdfa_metrics
-from pythautomata.utilities.sequence_generator import SequenceGenerator
+from pythautomata.utilities.uniform_length_sequence_generator import UniformLengthSequenceGenerator
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
 
 
@@ -9,7 +9,7 @@ class TestPDFAMetrics(unittest.TestCase):
     def test_same_pdfa(self):
         pdfa1 = WeightedTomitasGrammars.get_automaton_3()
         pdfa2 = pdfa1
-        sg = SequenceGenerator(pdfa1.alphabet, 20, 42)
+        sg = UniformLengthSequenceGenerator(pdfa1.alphabet, 20, 42)
         test_sequences = sg.generate_words(500)
         m1 = pdfa_metrics.log_probability_error(pdfa1, pdfa2, test_sequences)
         m2 = pdfa_metrics.wer_avg(pdfa1, pdfa2, test_sequences)
@@ -31,7 +31,7 @@ class TestPDFAMetrics(unittest.TestCase):
     def test_different_pdfa(self):
         pdfa1 = WeightedTomitasGrammars.get_automaton_3()
         pdfa2 = WeightedTomitasGrammars.get_automaton_7()
-        sg = SequenceGenerator(pdfa1.alphabet, 20, 42)
+        sg = UniformLengthSequenceGenerator(pdfa1.alphabet, 20, 42)
         test_sequences = sg.generate_words(500)
         m1 = pdfa_metrics.log_probability_error(pdfa1, pdfa2, test_sequences)
         m2 = pdfa_metrics.wer_avg(pdfa1, pdfa2, test_sequences)
