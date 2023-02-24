@@ -53,6 +53,9 @@ class NondeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
                 return True
         return False
 
+    def process_query(self, sequence: Sequence) -> bool:
+        return self.accepts(sequence)
+
     @property
     def initial_states(self) -> frozenset:
         return self._initial_states

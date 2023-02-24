@@ -11,7 +11,7 @@ class MooreMachineComparisonStrategy():
         return self.get_counterexample_between(automaton1, automaton2) is None
 
     def get_counterexample_between(self, mma1: MooreMachineAutomaton, mma2: MooreMachineAutomaton) -> Optional[Sequence]:
-        if mma1._input_alphabet != mma2._input_alphabet:
+        if mma1._alphabet != mma2._alphabet:
             raise ValueError("Input alphabets are not equivalent.")
         if mma1._output_alphabet != mma2._output_alphabet:
             raise ValueError("Output alphabets are not equivalent.")
@@ -27,7 +27,7 @@ class MooreMachineComparisonStrategy():
             pair = pairsToVisit[0]
             if pair[0].value != pair[1].value:
                 return sequenceForPairs[pair]
-            for symbol in mma1._input_alphabet.symbols:
+            for symbol in mma1._alphabet.symbols:
                 self._process_equivalence_iteration_with(symbol, pairsToVisit,
                                                          visitedPairs, sequenceForPairs)
             pairsToVisit.remove(pair)

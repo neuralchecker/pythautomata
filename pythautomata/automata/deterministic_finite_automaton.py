@@ -64,6 +64,9 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
             actual_state = actual_state.next_state_for(symbol)
         return actual_state.is_final
 
+    def process_query(self, sequence: Sequence) -> bool:
+        return self.accepts(sequence)
+
     @property
     def initial_states(self) -> frozenset:
         return frozenset([self.initial_state])

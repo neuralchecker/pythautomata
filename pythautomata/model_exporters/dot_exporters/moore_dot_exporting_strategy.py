@@ -32,7 +32,7 @@ class MooreDotExportingStrategy(ModelExportingStrategy):
                         str(symbol))
 
             for (state_from, state_to), symbols in transitions.items():
-                label = self._get_label_for(symbols, model._input_alphabet)
+                label = self._get_label_for(symbols, model._alphabet)
                 graph.edge(state_from, state_to, label)
 
         graph.attr('node', shape='point')
