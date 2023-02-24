@@ -28,7 +28,6 @@ from pythautomata.tests.test_wfa_exporting import TestWFAExporting
 
 
 def get_all_tests():
-    return [TestWFAExporting]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,

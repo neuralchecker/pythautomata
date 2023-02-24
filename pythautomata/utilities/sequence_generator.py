@@ -6,9 +6,10 @@ from pythautomata.base_types.symbol import Symbol
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.alphabet import Alphabet
 from typing import List
+from abc import ABC, abstractmethod
 
 
-class SequenceGenerator:
+class SequenceGenerator(ABC):
 
     def __init__(self, alphabet: Alphabet, max_seq_length: int, random_seed: int = 21, min_seq_length: int = 0):
         self._alphabet = alphabet
@@ -20,18 +21,9 @@ class SequenceGenerator:
     def reset_seed(self):
         seed(self._seed)
 
+    @abstractmethod
     def generate_word(self, length):
-        if length > self._max_seq_length:
-            raise AssertionError("Param length cannot exceed max_seq_length")
-
-        value = []
-        list_symbols = list(self._alphabet.symbols)
-        list_symbols.sort()
-        for _ in range(length):
-            position = randint(0, len(list_symbols) - 1)
-            symbol = list_symbols[position]
-            value.append(symbol)
-        return Sequence(value)
+        raise NotImplementedError
 
     def generate_words(self, number_of_words: int):
         result = np.empty(number_of_words, dtype=Sequence)
@@ -69,21 +61,6 @@ class SequenceGenerator:
         return Sequence(value)
 
     def pad_sequences(self, words: List[Sequence], padding_symbol: Symbol, max_len=None, padding_type='post'):
-        padded_sequences = list(map(lambda x: self.pad(x, padding_symbol, max_len, padding_type), words))
+        padded_sequences = list(map(lambda x: self.pad(
+            x, padding_symbol, max_len, padding_type), words))
         return padded_sequences
-
-    def generate_all_words_up_to_max_length(self):
-        ret = [Sequence([])]
-        list_symbols = list(self._alphabet.symbols)
-        list_symbols.sort()
-        for counter in range(self._max_seq_length):
-            ret_aux = ret.copy()
-            for i in range(len(ret)):
-                for symbol in list_symbols:
-                    if len(ret[i].value) >= counter:
-                        value = list(ret[i].value)
-                        value.append(symbol)
-                        extension = Sequence(value)
-                        ret_aux.append(extension)
-            ret = ret_aux
-        return ret
