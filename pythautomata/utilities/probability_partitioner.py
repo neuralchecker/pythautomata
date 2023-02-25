@@ -19,9 +19,11 @@ class ProbabilityPartitioner(ABC):
     def _get_partition(self, probability_vector):
         raise NotImplementedError
 
-    @abstractmethod
     def are_in_same_partition(self, probability_vector1, probability_vector2):
-        raise NotImplementedError
+        assert (len(probability_vector1) == len(probability_vector2))
+        partition1 = self.get_partition(probability_vector1)
+        partition2 = self.get_partition(probability_vector2)
+        return np.all(np.equal(partition1, partition2))
 
 
 class QuantizationProbabilityPartitioner(ProbabilityPartitioner):
@@ -49,12 +51,6 @@ class QuantizationProbabilityPartitioner(ProbabilityPartitioner):
     def _get_partition(self, probability_vector):
         return np.fromiter((self._get_interval(xi) for xi in probability_vector), dtype=int)
 
-    def are_in_same_partition(self, probability_vector1, probability_vector2):
-        assert (len(probability_vector1) == len(probability_vector2))
-        partition1 = self.get_partition(probability_vector1)
-        partition2 = self.get_partition(probability_vector2)
-        return np.all((abs(partition1 - partition2) == 0))
-
 
 class TopKProbabilityPartitioner(ProbabilityPartitioner):
 
@@ -69,8 +65,15 @@ class TopKProbabilityPartitioner(ProbabilityPartitioner):
         ranks[ranks != -1] = 1
         return ranks
 
-    def are_in_same_partition(self, probability_vector1, probability_vector2):
-        assert (len(probability_vector1) == len(probability_vector2))
-        partition1 = self.get_partition(probability_vector1)
-        partition2 = self.get_partition(probability_vector2)
-        return np.all(np.equal(partition1, partition2))
+
+class RankingPartitioner(ProbabilityPartitioner):
+
+    def __init__(self, k) -> None:
+        self.k = k
+        super().__init__()
+
+    def _get_partition(self, probability_vector):
+        order = (np.array(probability_vector)*-1).argsort()
+        ranks = order.argsort()
+        ranks[ranks >= self.k] = -1
+        return ranks
