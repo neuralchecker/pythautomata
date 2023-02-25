@@ -37,6 +37,10 @@ class FiniteAutomaton(ABC):
         return self._alphabet
 
     @property
+    def output_alphabet(self):
+        return [True, False]
+
+    @property
     @abstractmethod
     def hole(self):
         raise NotImplementedError

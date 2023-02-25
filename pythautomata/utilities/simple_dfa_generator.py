@@ -2,7 +2,7 @@ from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 import random
-from pythautomata.model_exporters.image_exporting_strategy import ImageExportingStrategy
+from pythautomata.model_exporters.image_exporters.dfa_pdf_image_exporting_strategy import DfaPdfExportingStrategy as ImageExportingStrategy
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 
 

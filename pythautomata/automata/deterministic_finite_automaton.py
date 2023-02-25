@@ -64,6 +64,9 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
             actual_state = actual_state.next_state_for(symbol)
         return actual_state.is_final
 
+    def process_query(self, sequence: Sequence) -> bool:
+        return self.accepts(sequence)
+
     @property
     def initial_states(self) -> frozenset:
         return frozenset([self.initial_state])
@@ -90,7 +93,8 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         self._hole.add_hole_transition(self.hole)
 
     def _verify_state(self, state: State, alphabet: Alphabet) -> None:
-        self._verify_transition_symbols_in_alphabet(state.transitions, alphabet)
+        self._verify_transition_symbols_in_alphabet(
+            state.transitions, alphabet)
         self._verify_state_is_deterministic(state)
 
     def _verify_transition_symbols_in_alphabet(
@@ -118,6 +122,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         hole = State("Hole")
         self._set_hole(hole)
         for state in self.states:
-            assert all(symbol in self.alphabet for symbol in state.transitions.keys())
+            assert all(
+                symbol in self.alphabet for symbol in state.transitions.keys())
             state.add_hole_transition(self.hole)
         self._queryable_self = self

@@ -17,7 +17,7 @@ class RandomWalkMealyMachineComparisonStrategy:
         return self.get_counterexample_between(machine1, machine2) is None
 
     def get_counterexample_between(self, machine1: MealyMachine, machine2: MealyMachine):
-        if machine1._input_alphabet != machine2._input_alphabet:
+        if machine1._alphabet != machine2._alphabet:
             raise ValueError("Input alphabets are not equivalent.")
         if machine1._output_alphabet != machine2._output_alphabet:
             raise ValueError("Output alphabets are not equivalent.")
@@ -31,7 +31,7 @@ class RandomWalkMealyMachineComparisonStrategy:
                 counter_example), machine2.last_symbol(counter_example)):
             return counter_example
 
-        symbols = list(machine1._input_alphabet.symbols)
+        symbols = list(machine1._alphabet.symbols)
         symbols.sort()
 
         while steps < self._number_steps:

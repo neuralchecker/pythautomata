@@ -1,15 +1,16 @@
 import sys
 import uuid
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.mealy_state import MealyState
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
-from pythautomata.model_exporters.standard_dot_exporting_mealy_strategy import StandardDotExportingMealyStrategy
+from pythautomata.model_exporters.standard_exporters.mealy_standard_dot_exporting_strategy import MealyStandardDotExportingStrategy
 
 
-class MealyMachine:
+class MealyMachine(FiniteAutomaton):
     """
     Implementation of Mealy Machines.
 
@@ -31,7 +32,7 @@ class MealyMachine:
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet,
                  initial_state: MealyState, states: set[MealyState], comparator,
-                 name: str = None, exporting_strategies: list = [StandardDotExportingMealyStrategy()],
+                 name: str = None, exporting_strategies: list = [MealyStandardDotExportingStrategy()],
                  hole: MealyState = MealyState("\u22A5")):
         self.states = states
         for state in self.states:
@@ -40,7 +41,7 @@ class MealyMachine:
 
         self._name = ("Mealy Machine - " + str(uuid.uuid4().hex)
                       if name is None else name)
-        self._input_alphabet = input_alphabet
+        self._alphabet = input_alphabet
         self._output_alphabet = output_alphabet
         self.initial_state = initial_state
         self._set_hole(hole)
@@ -75,6 +76,9 @@ class MealyMachine:
             output = actual_state.outputs[symbol]
             actual_state = actual_state.next_state_for(symbol)
         return output
+
+    def process_query(self, sequence: Sequence) -> Symbol:
+        return self.last_symbol(sequence)
 
     def transduce(self, sequence: Sequence) -> Sequence:
         actual_state = self.initial_state

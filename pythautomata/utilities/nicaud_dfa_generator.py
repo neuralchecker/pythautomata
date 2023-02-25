@@ -4,7 +4,7 @@ import pythautomata.utilities.simple_dfa_generator as simple_dfa_generator
 import math
 from scipy.special import lambertw
 from math import exp
-from pythautomata.model_exporters.dot_exporting_strategy import DotExportingStrategy
+from pythautomata.model_exporters.dot_exporters.dfa_dot_exporting_strategy import DfaDotExportingStrategy as DotExportingStrategy
 
 
 def generate_dfa(alphabet: Alphabet, nominal_size: int, seed: int = None, exporting_strategies: list = [DotExportingStrategy()]) -> DFA:

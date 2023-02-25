@@ -7,9 +7,9 @@ class MealyMachineComparisonStrategy:
         return self.get_counterexample_between(machine1, machine2) is None
 
     def get_counterexample_between(self, machine1: MealyMachine, machine2: MealyMachine):
-        if machine1._input_alphabet != machine2._input_alphabet:
+        if machine1._alphabet != machine2._alphabet:
             raise ValueError("Input alphabets are not equivalent.")
-        if machine1._output_alphabet != machine2._output_alphabet:
+        if machine1.output_alphabet != machine2.output_alphabet:
             raise ValueError("Output alphabets are not equivalent.")
 
         initial_pair = (machine1.initial_state, machine2.initial_state)
@@ -18,7 +18,7 @@ class MealyMachineComparisonStrategy:
         visited_pairs = set()
 
         pair = pairs_to_visit[0]
-        for symbol in machine1._input_alphabet.symbols:
+        for symbol in machine1._alphabet.symbols:
             if pair[0].outputs[symbol] != pair[1].outputs[symbol]:
                 return sequence_for_pairs[pair]
             self_next_state = min(pair[0].next_states_for(symbol))
