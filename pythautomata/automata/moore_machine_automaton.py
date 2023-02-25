@@ -57,6 +57,10 @@ class MooreMachineAutomaton(FiniteAutomaton):
         self._comparator = comparator
         self._actual_state = initial_state
 
+    @FiniteAutomaton.output_alphabet.getter
+    def output_alphabet(self):
+        return self._output_alphabet
+
     def step(self, symbol):
         self._actual_state = self._actual_state.next_state_for(symbol)
 
