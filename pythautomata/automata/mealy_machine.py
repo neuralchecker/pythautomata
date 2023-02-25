@@ -1,15 +1,16 @@
 import sys
 import uuid
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.mealy_state import MealyState
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.exceptions.non_deterministic_states_exception import NonDeterministicStatesException
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
-from pythautomata.model_exporters.standard_dot_exporting_mealy_strategy import StandardDotExportingMealyStrategy
+from pythautomata.model_exporters.standard_exporters.mealy_standard_dot_exporting_strategy import MealyStandardDotExportingStrategy
 
 
-class MealyMachine:
+class MealyMachine(FiniteAutomaton):
     """
     Implementation of Mealy Machines.
 
@@ -31,7 +32,7 @@ class MealyMachine:
 
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet,
                  initial_state: MealyState, states: set[MealyState], comparator,
-                 name: str = None, exporting_strategies: list = [StandardDotExportingMealyStrategy()],
+                 name: str = None, exporting_strategies: list = [MealyStandardDotExportingStrategy()],
                  hole: MealyState = MealyState("\u22A5")):
         self.states = states
         for state in self.states:

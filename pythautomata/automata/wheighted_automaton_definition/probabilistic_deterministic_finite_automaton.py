@@ -8,7 +8,7 @@ from pythautomata.automata.wheighted_automaton_definition.weighted_state import 
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.base_types.symbol import Symbol, SymbolStr
-from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
+from pythautomata.model_exporters.image_exporters.wfa_pdf_image_exporter import WFAImageExporter
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator
 
 

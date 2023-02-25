@@ -45,4 +45,5 @@ class WFAImageExporterWithPartitionMapper(PDFAModelExportingStrategy):
                 s_from, s_to = key
                 graph.edge(s_from, s_to, str(transitions[key]))
 
-        graph.render(self.get_path_for(path, model, file_name), cleanup=True)
+        graph.render(self.get_path_for(path, model, file_name),
+                     cleanup=True, format='pdf')
