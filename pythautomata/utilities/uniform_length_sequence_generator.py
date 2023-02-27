@@ -42,3 +42,16 @@ class UniformLengthSequenceGenerator(SequenceGenerator):
                         ret_aux.append(extension)
             ret = ret_aux
         return ret
+
+    def generate_all_words(self):
+        list_symbols = list(self._alphabet.symbols)
+        list_symbols.sort()
+        ret = [Sequence([])]
+        while len(ret) > 0:
+            result = ret.pop(0)
+            yield result
+            for symbol in list_symbols:
+                value = list(result.value)
+                value.append(symbol)
+                extension = Sequence(value)
+                ret.append(extension)
