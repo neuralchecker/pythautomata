@@ -63,7 +63,7 @@ class Sequence():
         raise UnexpectedTypeException()
 
     def __repr__(self):
-        return "ϵ" if self.value == () else "".join(map(lambda x: str(x), self.value))
+        return "ϵ" if self.value == () else ",".join(map(lambda x: str(x), self.value))
 
     def __lt__(self, other: 'Sequence') -> bool:
         if len(self.value) == len(other.value):
