@@ -2,11 +2,12 @@ from pythautomata.base_types.state import State
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.deterministic_finite_automaton import DeterministicFiniteAutomaton as DFA
 import random
-from pythautomata.model_exporters.image_exporters.dfa_pdf_image_exporting_strategy import DfaPdfExportingStrategy as ImageExportingStrategy
+from pythautomata.model_exporters.image_exporters.image_exporting_strategy import ImageExportingStrategy
+from pythautomata.model_exporters.dot_exporters.dfa_dot_exporting_strategy import DfaDotExportingStrategy
 from pythautomata.model_comparators.dfa_comparison_strategy import DFAComparisonStrategy as AutomataComparator
 
 
-def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, seed=None, exporting_strategies=[ImageExportingStrategy()]) -> DFA:
+def generate_dfa(alphabet: Alphabet, number_of_states: int = 200, seed=None, exporting_strategies=[ImageExportingStrategy(DfaDotExportingStrategy(), "pdf")]) -> DFA:
     """
     Function returning a randomly generated DFA, with random transitions to other states and equal probability of being a final state or not.
 
