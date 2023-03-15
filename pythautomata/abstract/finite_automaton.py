@@ -37,7 +37,7 @@ class FiniteAutomaton(ABC):
         return self._alphabet
     
     @property
-    def _output_alphabet(self):
+    def output_alphabet(self):
         return [True, False]
 
     @property

@@ -2,6 +2,7 @@ import sys
 import uuid
 from typing import Any
 
+from pythautomata.abstract.model import Model
 from pythautomata.base_types.moore_state import MooreState
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
@@ -12,7 +13,7 @@ from pythautomata.exceptions.non_deterministic_states_exception import NonDeterm
 from pythautomata.model_exporters.dot_exporting_mm_strategy import DotExportingMMStrategy
 from pythautomata.model_exporters.standard_dot_exporting_mm_strategy import StandardDotMMExportingStrategy
 
-class MooreMachineAutomaton():
+class MooreMachineAutomaton(Model):
     """
     Implementation of Moore Machines.
 
@@ -52,6 +53,18 @@ class MooreMachineAutomaton():
         self._exporting_strategies = exportingStrategies
         self._comparator = comparator
         self._actual_state = initial_state
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def alphabet(self) -> Alphabet:
+        return self._alphabet
+    
+    @property
+    def output_alphabet(self) -> Alphabet:
+        return self._output_alphabet
 
     def step(self, symbol):
         self._actual_state = self._actual_state.next_state_for(symbol)

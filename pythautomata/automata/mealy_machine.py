@@ -1,5 +1,6 @@
 import sys
 import uuid
+from pythautomata.abstract.model import Model
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.mealy_state import MealyState
 from pythautomata.base_types.sequence import Sequence
@@ -9,7 +10,7 @@ from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsExce
 from pythautomata.model_exporters.standard_dot_exporting_mealy_strategy import StandardDotExportingMealyStrategy
 
 
-class MealyMachine:
+class MealyMachine(Model):
     """
     Implementation of Mealy Machines.
 
@@ -55,6 +56,18 @@ class MealyMachine:
     @property
     def hole(self):
         return self._hole
+    
+    @property
+    def name(self) -> Alphabet:
+        return self._name
+
+    @property
+    def alphabet(self) -> Alphabet:
+        return self._alphabet
+
+    @property
+    def output_alphabet(self) -> Alphabet:
+        return self._output_alphabet
 
     def __eq__(self, other):
         return isinstance(other, MealyMachine) and self._comparator.are_equivalent(self, other)
