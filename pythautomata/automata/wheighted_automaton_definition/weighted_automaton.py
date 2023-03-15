@@ -8,7 +8,7 @@ from pythautomata.base_types.sequence import Sequence
 from decimal import Decimal
 
 from pythautomata.abstract.pdfa_model_exporting_strategy import PDFAModelExportingStrategy
-from pythautomata.model_exporters.wfa_image_exporter import WFAImageExporter
+from pythautomata.model_exporters.image_exporters.wfa_image_exporter import WFAImageExporter
 from pythautomata.base_types.symbol import Symbol
 from pythautomata.abstract.finite_automaton import FiniteAutomataComparator, FiniteAutomaton
 from typing import Any
@@ -154,4 +154,3 @@ class WeightedAutomaton(FiniteAutomaton):
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, WeightedAutomaton) and self._comparator.are_equivalent(self, other)
-

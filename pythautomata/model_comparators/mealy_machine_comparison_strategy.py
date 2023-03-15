@@ -9,7 +9,7 @@ class MealyMachineComparisonStrategy:
     def get_counterexample_between(self, machine1: MealyMachine, machine2: MealyMachine):
         if machine1._alphabet != machine2._alphabet:
             raise ValueError("Input alphabets are not equivalent.")
-        if machine1._output_alphabet != machine2._output_alphabet:
+        if machine1.output_alphabet != machine2.output_alphabet:
             raise ValueError("Output alphabets are not equivalent.")
 
         initial_pair = (machine1.initial_state, machine2.initial_state)

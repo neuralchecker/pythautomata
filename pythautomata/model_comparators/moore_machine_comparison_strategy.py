@@ -13,7 +13,7 @@ class MooreMachineComparisonStrategy():
     def get_counterexample_between(self, mma1: MooreMachineAutomaton, mma2: MooreMachineAutomaton) -> Optional[Sequence]:
         if mma1._alphabet != mma2._alphabet:
             raise ValueError("Input alphabets are not equivalent.")
-        if mma1._output_alphabet != mma2._output_alphabet:
+        if mma1.output_alphabet != mma2.output_alphabet:
             raise ValueError("Output alphabets are not equivalent.")
 
         # initialPairs is an arbitrary pair of states
