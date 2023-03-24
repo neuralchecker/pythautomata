@@ -4,10 +4,10 @@ from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from scipy.special import lambertw
 import pythautomata.utilities.simple_mm_generator as simple_moore_machine_generator
-from pythautomata.model_exporters.dot_exporting_mm_strategy import DotExportingMMStrategy
+from pythautomata.model_exporters.dot_exporters.moore_dot_exporting_strategy import MooreDotExportingStrategy
 
 
-def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, nominal_size: int, seed: int = None, exporting_strategies: list = [DotExportingMMStrategy()]) -> MooreMachineAutomaton:
+def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, nominal_size: int, seed: int = None, exporting_strategies: list = [MooreDotExportingStrategy()]) -> MooreMachineAutomaton:
     """
     Function returning a randomly generated Moore Machine based on: 
         Nicaud, Cyril. (2014). Random Deterministic Automata. 5-23. 10.1007/978-3-662-44522-8_2. 
