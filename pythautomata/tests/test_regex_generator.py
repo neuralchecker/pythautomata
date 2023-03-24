@@ -29,6 +29,6 @@ class TestRegexGenerator(TestCase):
     def _assert_correctness(self, regex, alphabet):
         sequence_generator = UniformLengthSequenceGenerator(alphabet, 100)
         for i in range(1, 100):
-            seq = sequence_generator.generate_word(i)
+            seq = sequence_generator.generate_single_word(i)
             regex.accepts(seq)
             self.assertTrue(True)
