@@ -20,6 +20,7 @@ recommonmark = "^0.7.1"
 sphinx-markdown-builder = "^0.5.4"
 ipykernel = "^5.5.5"
 autopep8 = "^1.5.7"
+pylint = "^2.17.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
