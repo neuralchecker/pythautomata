@@ -56,10 +56,31 @@ class SymbolStr(Symbol):
         self._value = chr(ord(self.value)+to_add)
 
     @property
-    def value(self):
+    def value(self) -> str:
         return self._value
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        return str(self.value)
+
+
+class SymbolInt(Symbol):
+    """Symbol specification using integer as a representation.
+    """
+
+    def __init__(self, value: int):
+        self._value = value
+
+    def copy(self) -> 'SymbolInt':
+        return SymbolInt(self._value)
+
+    def add_to_value(self, to_add: int) -> None:
+        self._value += to_add
+
+    @property
+    def value(self) -> int:
+        return self._value
+
+    def __repr__(self) -> str:
         return str(self.value)
 
 
