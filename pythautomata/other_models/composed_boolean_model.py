@@ -53,15 +53,12 @@ class ComposedBooleanModel(BooleanModel):
         try:
             args = map(lambda x: True, models)
             fun(*args)
-        except:
+        except TypeError:
             print("Reduction function should accept as many parameters as len(models)")
             raise
 
     def _verify_models(self, models: Any):
-        all_verify = all(map(self._check_boolean_model, models))
+        all_verify = all(map(lambda x: hasattr(x, "accepts"), models))
         if not all_verify:
             print("Make sure all the models are of the class BooleanModel")
         assert all_verify
-
-    def _check_boolean_model(self, model: Any) -> bool:
-        return type(model) == BooleanModel
