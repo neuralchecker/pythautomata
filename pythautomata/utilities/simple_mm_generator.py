@@ -3,10 +3,11 @@ from pythautomata.automata.moore_machine_automaton import MooreMachineAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.moore_state import MooreState
 from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy
-from pythautomata.model_exporters.moore_pdf_exporting_strategy import ImageExportingMMStrategy
+from pythautomata.model_exporters.image_exporters.image_exporting_strategy import ImageExportingStrategy
+from pythautomata.model_exporters.dot_exporters.moore_dot_exporting_strategy import MooreDotExportingStrategy
 
 
-def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, number_of_states: int = 200, seed: int = None, exporting_strategies: list = [ImageExportingMMStrategy()]) -> MooreMachineAutomaton:
+def generate_moore_machine(input_alphabet: Alphabet, output_alphabet: Alphabet, number_of_states: int = 200, seed: int = None, exporting_strategies: list = [ImageExportingStrategy(MooreDotExportingStrategy(), "pdf")]) -> MooreMachineAutomaton:
     """
     Function returning a randomly generated Moore Machine.
 

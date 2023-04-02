@@ -1,5 +1,7 @@
 import sys
 import uuid
+
+from pythautomata.abstract.model import Model
 from pythautomata.abstract.finite_automaton import FiniteAutomaton
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.mealy_state import MealyState
@@ -9,8 +11,7 @@ from pythautomata.exceptions.non_deterministic_states_exception import NonDeterm
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.model_exporters.standard_exporters.mealy_standard_dot_exporting_strategy import MealyStandardDotExportingStrategy
 
-
-class MealyMachine(FiniteAutomaton):
+class MealyMachine(Model, FiniteAutomaton):
     """
     Implementation of Mealy Machines.
 
@@ -56,6 +57,18 @@ class MealyMachine(FiniteAutomaton):
     @property
     def hole(self):
         return self._hole
+    
+    @property
+    def name(self) -> Alphabet:
+        return self._name
+
+    @property
+    def alphabet(self) -> Alphabet:
+        return self._alphabet
+
+    @property
+    def output_alphabet(self) -> Alphabet:
+        return self._output_alphabet
 
     def __eq__(self, other):
         return isinstance(other, MealyMachine) and self._comparator.are_equivalent(self, other)

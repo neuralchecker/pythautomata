@@ -22,21 +22,18 @@ class SequenceGenerator(ABC):
         seed(self._seed)
 
     @abstractmethod
-    def generate_word(self, length):
+    def generate_single_word(self, length):
         raise NotImplementedError
-
+    
+    @abstractmethod
     def generate_words(self, number_of_words: int):
-        result = np.empty(number_of_words, dtype=Sequence)
-        for index in range(number_of_words):
-            length = randint(self._min_seq_length, self._max_seq_length)
-            result[index] = self.generate_word(length)
-        return result
+        raise NotImplementedError
 
     def generate_words_with_padding(self, number_of_words: int, padding_symbol: Symbol):
         result = np.empty(number_of_words, dtype=Sequence)
         for index in range(number_of_words):
             length = randint(self._min_seq_length, self._max_seq_length)
-            word = self.generate_word(length)
+            word = self.generate_single_word(length)
             result[index] = self.pad(word, padding_symbol)
         return result
 
@@ -64,3 +61,32 @@ class SequenceGenerator(ABC):
         padded_sequences = list(map(lambda x: self.pad(
             x, padding_symbol, max_len, padding_type), words))
         return padded_sequences
+
+    def generate_all_words_up_to_max_length(self):
+        ret = [Sequence([])]
+        list_symbols = list(self._alphabet.symbols)
+        list_symbols.sort()
+        for counter in range(self._max_seq_length):
+            ret_aux = ret.copy()
+            for i in range(len(ret)):
+                for symbol in list_symbols:
+                    if len(ret[i].value) >= counter:
+                        value = list(ret[i].value)
+                        value.append(symbol)
+                        extension = Sequence(value)
+                        ret_aux.append(extension)
+            ret = ret_aux
+        return ret
+
+    def generate_all_words(self):
+        list_symbols = list(self._alphabet.symbols)
+        list_symbols.sort()
+        ret = [Sequence([])]
+        while len(ret) > 0:
+            result = ret.pop(0)
+            yield result
+            for symbol in list_symbols:
+                value = list(result.value)
+                value.append(symbol)
+                extension = Sequence(value)
+                ret.append(extension)

@@ -10,6 +10,6 @@ class TestMMLoading(TestCase):
     def test_1(self):
         for mm in SampleMooreMachines.get_all_automata():
             MooreStandardDotExportingStrategy().export(mm, "./output_models/tests")
-            path = './output_models/tests'+'/Standard '+mm._name+'.dot'
+            path = './output_models/tests'+'/'+mm._name+'.dot'
             loaded_mm = StandardDotMMNotationImporter.import_automata(path)
             self.assertEqual(mm, loaded_mm)
