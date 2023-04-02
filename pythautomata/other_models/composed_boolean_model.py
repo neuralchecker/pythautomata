@@ -1,11 +1,7 @@
-from collections.abc import Iterable
-from functools import reduce
-import functools
-from typing import List, Set, FrozenSet, Any
-from base_types.sequence import Sequence
-from base_types.alphabet import Alphabet
-from abstract.boolean_model import BooleanModel
-from inspect import signature
+from typing import Any
+from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.alphabet import Alphabet
+from pythautomata.abstract.boolean_model import BooleanModel
 
 
 class ComposedBooleanModel(BooleanModel):
