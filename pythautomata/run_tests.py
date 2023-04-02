@@ -8,7 +8,7 @@ from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMoore
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
 from pythautomata.tests.test_dfa_serialization import TestDFASerialization
-from pythautomata.tests.test_DFA_generators import TestDFAGenerators
+from pythautomata.tests.test_dfa_generators import TestDFAGenerators
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
@@ -27,6 +27,7 @@ from pythautomata.tests.test_mm_loading import TestMMLoading
 from pythautomata.tests.test_mealy_exporting import TestMealyExporting
 from pythautomata.tests.test_wfa_exporting import TestWFAExporting
 from pythautomata.tests.test_mealy_loading import TestMealyLoading
+from pythautomata.tests.test_composed_boolean_model import TestComposedBooleanModel
 from pythautomata.tests.test_moore_generators import TestMooreGenerators
 
 
@@ -37,7 +38,7 @@ def get_all_tests():
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
             TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
             TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-            TestMealyLoading, TestMooreGenerators]
+            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators]
 
 
 def run():
