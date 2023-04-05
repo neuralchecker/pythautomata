@@ -40,7 +40,7 @@ def get_all_tests():
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
             TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
             TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators]
+            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestFastPDFAConverter]
 
 
 def run():
