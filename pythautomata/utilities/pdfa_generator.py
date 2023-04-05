@@ -11,7 +11,7 @@ from typing import Any
 
 
 def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator(),
-                  distributions: int = None, max_shift: float = 0) -> ProbabilisticDeterministicFiniteAutomaton:
+                  distributions: int = None, max_shift: float = 0, terminal_symbol: str = '$') -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
     Distributions is a predefined integer that defines the number of different distributions states may have (infinite if None)
@@ -23,6 +23,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
     comparator : FiniteAutomataComparator
     distributions : int
     max_shift: float
+    terminal_symbol: str
 
     Returns
     -------
@@ -43,7 +44,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
             __add_transitions(alphabet_length, state,
                               wfa_states_dict, probability_vector=distribution)
 
-    terminal_symbol = SymbolStr('$')
+    terminal_symbol = SymbolStr(terminal_symbol)
     return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol,
                                                      comparator)
 
