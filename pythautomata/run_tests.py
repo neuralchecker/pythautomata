@@ -29,16 +29,18 @@ from pythautomata.tests.test_wfa_exporting import TestWFAExporting
 from pythautomata.tests.test_mealy_loading import TestMealyLoading
 from pythautomata.tests.test_composed_boolean_model import TestComposedBooleanModel
 from pythautomata.tests.test_moore_generators import TestMooreGenerators
+from pythautomata.tests.test_fast_pdfa_converter import TestFastPDFAConverter
 
 
 def get_all_tests():
+    return [TestFastPDFAConverter]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
             TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
             TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
             TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators]
+            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestFastPDFAConverter]
 
 
 def run():
