@@ -50,6 +50,10 @@ class FastProbabilisticDeterministicFiniteAutomaton():
         while len(remaining) > 0:
             product = product * \
                 self.probability_function[actual_state][remaining[0]]
+            if remaining[0] == self.terminal_symbol:
+                assert len(
+                    remaining) == 1, "Terminal symbol should be the last symbol of the sequence"
+                return product
             actual_state = self.transition_function[actual_state][remaining[0]]
             remaining = remaining[1:]
         return product

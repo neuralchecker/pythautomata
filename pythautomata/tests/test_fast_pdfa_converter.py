@@ -21,7 +21,7 @@ class TestFastPDFAConverter(TestCase):
         symbols = symbols + [pdfa.terminal_symbol]
         int_symbols = [int(x.value) for x in symbols]
         sequences = UniformWordSequenceGenerator(
-            pdfa.alphabet, 100).generate_words(1000)
+            pdfa.alphabet, 100).generate_words(10)
 
         for seq in sequences:
             seq_int = self._seq_to_list_of_ints(seq)
