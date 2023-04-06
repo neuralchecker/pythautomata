@@ -33,7 +33,6 @@ from pythautomata.tests.test_fast_pdfa_converter import TestFastPDFAConverter
 
 
 def get_all_tests():
-    return [TestFastPDFAConverter]
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
             TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
             TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
