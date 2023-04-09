@@ -55,6 +55,4 @@ class ComposedBooleanModel(BooleanModel):
 
     def _verify_models(self, models: Any):
         all_verify = all(map(lambda x: hasattr(x, "accepts"), models))
-        if not all_verify:
-            print("Make sure all the models are of the class BooleanModel")
-        assert all_verify
+        assert all_verify, "Make sure all the models are of the class BooleanModel"
