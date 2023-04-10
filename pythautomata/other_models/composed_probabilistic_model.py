@@ -56,10 +56,10 @@ class ComposedProbabilisticModel(ProbabilisticModel):
             assert model.terminal_symbol == self.terminal_symbol, "All models should share the terminal symbol"
 
     def sequence_probability(self, sequence: Sequence) -> float:
-        return self._reduction_function(map(lambda x: x.sequence_probability(sequence), self._models))
+        return self._reduction_function(*map(lambda x: x.sequence_probability(sequence), self._models))
 
     def log_sequence_probability(self, sequence: Sequence) -> float:
         raise NotImplementedError
 
     def last_token_probability(self, sequence: Sequence) -> float:
-        return self._reduction_function(map(lambda x: x.last_token_probability(sequence), self._models))
+        return self._reduction_function(*map(lambda x: x.last_token_probability(sequence), self._models))
