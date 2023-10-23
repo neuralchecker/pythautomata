@@ -51,17 +51,14 @@ class TestAutomataConvertor(TestCase):
         self.assertEqual(converted_mealy_machine,
                          expected_converted_mealy_machine)
         
-    def test_conversion_6(self):
+    def test_minimal_conversion(self):
         machine = SampleMooreMachines.get_minimizable_for_mealy_moore_1()
-        #for a in machine.alphabet:
-        print(machine.alphabet)
+        
         converted_mealy_machine = AutomataConverter.\
             convert_moore_machine_to_minimal_mealy_machine(machine)
-        
-        #for state in converted_mealy_machine.states:
-            #print(state.transitions)
 
         expected_converted_mealy_machine = SampleMealyMachines.get_minimized_mealy_1()
+
         self.assertEqual(converted_mealy_machine,
                          expected_converted_mealy_machine)
         

@@ -253,33 +253,31 @@ class AutomataConverter():\
         """
         initial_state: MealyState = None
         states: dict[tuple, MealyState] = {}
-        mealy_table: dict[tuple, str] = {}
+        mealy_table: dict[tuple, tuple[str, str]] = {}
         state_map: dict[str, str] = {}
 
-        ordered_alphabet = list(moore_machine.alphabet)
+        ordered_alphabet = list(moore_machine.alphabet.symbols)
 
         for state in moore_machine.states:
             transition_list = []
             for symbol in ordered_alphabet:
                 next_state = state.transitions[symbol].pop()
-                transition_list.append((symbol, next_state.value, next_state.name))
+                transition_list.append((symbol, next_state.value))
             transition_tuple = tuple(transition_list)
             if transition_tuple not in mealy_table:
-                mealy_table[transition_tuple] = state.name
+                mealy_table[transition_tuple] = (state.name, next_state.name)
                 state_map[state.name] = state.name
             else:
-                state_map[state.name] = mealy_table[transition_tuple]
+                state_map[state.name] = mealy_table[transition_tuple][0]
 
-        for name in mealy_table.values():
+        for name, _ in mealy_table.values():
             states[name] = MealyState(name)
 
-        print(mealy_table)
-
-        for state_transitions, name in mealy_table.items():
-            for symbol, output, next_state_moore in state_transitions:
-                print(symbol, output, next_state, 'pepe')
+        for state_transitions, state_info in mealy_table.items():
+            name, next_state_moore = state_info
+            for symbol, output in state_transitions:
                 state = states[name]
-                next_state = state_map[next_state_moore]
+                next_state = states[state_map[next_state_moore]]
                 state.add_transition(symbol, next_state, output)
 
         initial_state = states[state_map[moore_machine.initial_state.name]]

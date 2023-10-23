@@ -185,7 +185,7 @@ class SampleMooreMachines:
         output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
 
         state0 = MooreState("Q0", output_alphabet['N'])
-        state1 = MooreState("Q1", output_alphabet['Y'])
+        state1 = MooreState("Q1", output_alphabet['N'])
         state2 = MooreState("Q2", output_alphabet['Y'])
 
         state0.add_transition(input_alphabet['T'], state1)
