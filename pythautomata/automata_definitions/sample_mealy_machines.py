@@ -68,6 +68,30 @@ class SampleMealyMachines:
         hole_state = MealyState(name="hole")
 
         return MealyMachine(binaryAlphabet, alphabet, stateA,
-                            set([stateA, stateB]
-                                ), MealyMachineComparisonStrategy(),
-                            name="Mealy machine implementation of Tomita's grammar 2 automaton", hole=hole_state)
+                            set([stateA, stateB]),
+                            MealyMachineComparisonStrategy(),
+                            name="Mealy machine implementation of Tomita's grammar 2 automaton",
+                            hole=hole_state)
+    
+    @staticmethod
+    def get_minimized_mealy_1():
+        alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
+
+        binaryAlphabet = Alphabet(frozenset((SymbolStr('H'), SymbolStr('T'))))
+        heads = binaryAlphabet['H']
+        tails = binaryAlphabet['T']
+
+        state0 = MealyState("q0")
+        state1 = MealyState("q1")
+        state0.add_transition(heads, state0, alphabet['N'])
+        state0.add_transition(tails, state1, alphabet['N'])
+        state1.add_transition(heads, state0, alphabet['N'])
+        state1.add_transition(tails, state1, alphabet['Y'])
+
+        hole_state = MealyState(name="hole")
+
+        return MealyMachine(binaryAlphabet, alphabet, state0,
+                            set([state0, state1]),
+                            MealyMachineComparisonStrategy(),
+                            name="Minimiezed mealy machine example",
+                            hole=hole_state)
