@@ -1,4 +1,5 @@
 import random
+from pythautomata.abstract.finite_automaton import FiniteAutomaton
 
 class StatePrefixRandomWalkComparisonStrategy:
 
@@ -9,10 +10,12 @@ class StatePrefixRandomWalkComparisonStrategy:
     def are_equivalent(self, model1, model2):
         return self.get_counterexample(model1, model2) is None
 
-    def get_counterexample(self, hypothesis, oracle):
+    def get_counterexample(self, hypothesis: FiniteAutomaton, oracle):
+        access_strings = []
         for state in hypothesis.states:
-            prefix = self.get_access_string(hypothesis, state)
+            access_strings.append(hypothesis.get_access_string(state))
 
+        for prefix in access_strings:
             suffix = ""
             for _ in range(self.steps):
                 suffix += random.choice(hypothesis.alphabet)

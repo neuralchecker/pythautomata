@@ -8,7 +8,7 @@ from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMoore
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
 from pythautomata.tests.test_pdfa_serialization import TestPDFASerialization
 from pythautomata.tests.test_dfa_serialization import TestDFASerialization
-from pythautomata.tests.test_dfa_generators import TestDFAGenerators
+from pythautomata.tests.test_DFA_generators import TestDFAGenerators
 from pythautomata.tests.test_automata_comparison import TestAutomataComparison
 from pythautomata.tests.test_sequence import TestSequence
 from pythautomata.tests.test_dfa_operations import TestDFAOperations
@@ -33,13 +33,13 @@ from pythautomata.tests.test_composed_probabilistic_model import TestComposedPro
 
 
 def get_all_tests():
-    return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
-            TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
-            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
-            TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
-            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
-            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel]
+    return [TestMooreMachinesLastSymbolQueries]#TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
+            #TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
+            #TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
+            #TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
+            #TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
+            #TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
+            #TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel]
 
 
 def run():

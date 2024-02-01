@@ -5,6 +5,7 @@ from typing import Any, Optional
 
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
+from pythautomata.base_types.symbol import SymbolStr
 
 ExecutionState = namedtuple("ExecutionState", "state sequence")
 
@@ -64,6 +65,33 @@ class FiniteAutomaton(ABC):
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, FiniteAutomaton) and self._comparator.are_equivalent(self, other)
+    
+    def get_access_string(self, target):
+        initial_state = list(self.initial_states)[0]
+        if target == initial_state:
+            return Sequence([])
+        
+        explored_states = set()
+        queue = [(initial_state, [])]
+
+        while queue:
+            actual_state, seq = queue.pop(0)
+            if actual_state not in explored_states:
+                neighbours = set()
+                for symbol, next_states in actual_state.transitions.items():
+                    seq_copy = seq.copy()
+                    seq_copy.append(SymbolStr(symbol))
+                    next_state = list(next_states)[0]
+                    if next_state == target:
+                        return Sequence(seq_copy)
+
+                    if next_state not in neighbours:
+                        neighbours.add(next_state)
+                        queue.append((next_state, seq_copy))
+                    
+            explored_states.add(actual_state)
+
+        return Sequence([])
 
     def export(self, path=None) -> None:
         for strategy in self._exporting_strategies:
