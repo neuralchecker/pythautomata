@@ -96,6 +96,7 @@ class SampleMealyMachines:
                             name="Minimized mealy machine example",
                             hole=hole_state)
 
+    @staticmethod
     def get_minimized_mealy_2():
         input_alphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
         output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))

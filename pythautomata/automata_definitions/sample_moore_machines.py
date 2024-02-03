@@ -202,7 +202,8 @@ class SampleMooreMachines:
                                      MooreMachineComparison(),
                                      name="Sample Moore Machine 1",
                                      hole=hole_state)
-    
+
+    @staticmethod    
     def get_minimizable_for_mealy_moore_2():
         input_alphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
         output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
