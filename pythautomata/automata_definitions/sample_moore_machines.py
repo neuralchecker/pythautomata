@@ -178,3 +178,57 @@ class SampleMooreMachines:
                                      MooreMachineComparison(),
                                      name="MMA implementation of Tomita's grammar 2 automaton",
                                      hole=hole_state)
+    
+    @staticmethod
+    def get_minimizable_for_mealy_moore_1():
+        input_alphabet = Alphabet(frozenset((SymbolStr('T'), SymbolStr('H'))))
+        output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
+
+        state0 = MooreState("Q0", output_alphabet['N'])
+        state1 = MooreState("Q1", output_alphabet['N'])
+        state2 = MooreState("Q2", output_alphabet['Y'])
+
+        state0.add_transition(input_alphabet['T'], state1)
+        state0.add_transition(input_alphabet['H'], state0)
+        state1.add_transition(input_alphabet['T'], state2)
+        state1.add_transition(input_alphabet['H'], state0)
+        state2.add_transition(input_alphabet['T'], state2)
+        state2.add_transition(input_alphabet['H'], state0)
+
+        hole_state = MooreState("Hole")
+
+        return MooreMachineAutomaton(input_alphabet, output_alphabet, state0,
+                                     set([state0, state1, state2]),
+                                     MooreMachineComparison(),
+                                     name="Sample Moore Machine 1",
+                                     hole=hole_state)
+
+    @staticmethod    
+    def get_minimizable_for_mealy_moore_2():
+        input_alphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
+
+        state0 = MooreState("Q0", output_alphabet['N'])
+        state1 = MooreState("Q1", output_alphabet['N'])
+        state2 = MooreState("Q2", output_alphabet['N'])
+        state3 = MooreState("Q3", output_alphabet['N'])
+        state4 = MooreState("Q4", output_alphabet['Y'])
+
+        state0.add_transition(input_alphabet['0'], state1)
+        state0.add_transition(input_alphabet['1'], state0)
+        state1.add_transition(input_alphabet['0'], state1)
+        state1.add_transition(input_alphabet['1'], state2)
+        state2.add_transition(input_alphabet['0'], state3)
+        state2.add_transition(input_alphabet['1'], state0)
+        state3.add_transition(input_alphabet['0'], state1)
+        state3.add_transition(input_alphabet['1'], state4)
+        state4.add_transition(input_alphabet['0'], state3)
+        state4.add_transition(input_alphabet['1'], state0)
+
+        hole_state = MooreState("Hole")
+
+        return MooreMachineAutomaton(input_alphabet, output_alphabet, state0,
+                                        set([state0, state1, state2, state3, state4]),
+                                        MooreMachineComparison(),
+                                        name="Sample Moore Machine 2",
+                                        hole=hole_state)
