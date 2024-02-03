@@ -253,7 +253,7 @@ class AutomataConverter():\
         """
         initial_state: MealyState = None
         states: dict[tuple, MealyState] = {}
-        mealy_table: dict[tuple, tuple[str, str]] = {}
+        mealy_table: dict[tuple, str] = {}
         state_map: dict[str, str] = {}
 
         ordered_alphabet = list(moore_machine.alphabet.symbols)
@@ -262,22 +262,24 @@ class AutomataConverter():\
             transition_list = []
             for symbol in ordered_alphabet:
                 next_state = state.transitions[symbol].pop()
-                transition_list.append((symbol, next_state.value))
+                transition_list.append((symbol, next_state.value, next_state.name))
             transition_tuple = tuple(transition_list)
             if transition_tuple not in mealy_table:
-                mealy_table[transition_tuple] = (state.name, next_state.name)
+                mealy_table[transition_tuple] = state.name
                 state_map[state.name] = state.name
             else:
-                state_map[state.name] = mealy_table[transition_tuple][0]
+                state_map[state.name] = mealy_table[transition_tuple]
 
-        for name, _ in mealy_table.values():
+        for name in mealy_table.values():
             states[name] = MealyState(name)
 
-        for state_transitions, state_info in mealy_table.items():
-            name, next_state_moore = state_info
-            for symbol, output in state_transitions:
-                state = states[name]
-                next_state = states[state_map[next_state_moore]]
+        for state_transitions, state_name in mealy_table.items():
+            for symbol, output, moore_next_state in state_transitions:
+                state = states[state_name]
+                # We store the next moore state, which has to be mapped to the mealy state
+                # Using the state_map. This cannot be done earlier because we need to compelete the mealy table
+                # in order to know all unique Mealy states and which moore states they represent.
+                next_state = states[state_map[moore_next_state]]
                 state.add_transition(symbol, next_state, output)
 
         initial_state = states[state_map[moore_machine.initial_state.name]]

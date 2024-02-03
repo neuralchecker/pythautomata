@@ -27,8 +27,8 @@ class RandomWalkMealyMachineComparisonStrategy:
         machine1.reset()
         machine2.reset()
         if not self.equivalent_output(
-            machine1.last_symbol(
-                counter_example), machine2.last_symbol(counter_example)):
+            machine1.last_symbol(counter_example), 
+            machine2.last_symbol(counter_example)):
             return counter_example
 
         symbols = list(machine1._alphabet.symbols)

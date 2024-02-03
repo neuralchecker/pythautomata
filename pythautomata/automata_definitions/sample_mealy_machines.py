@@ -93,5 +93,31 @@ class SampleMealyMachines:
         return MealyMachine(binaryAlphabet, alphabet, state0,
                             set([state0, state1]),
                             MealyMachineComparisonStrategy(),
-                            name="Minimiezed mealy machine example",
+                            name="Minimized mealy machine example",
+                            hole=hole_state)
+
+    def get_minimized_mealy_2():
+        input_alphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
+        output_alphabet = Alphabet(frozenset((SymbolStr('N'), SymbolStr('Y'))))
+
+        state0 = MealyState("q0")
+        state1 = MealyState("q1")
+        state2 = MealyState("q2")
+        state3 = MealyState("q3")
+
+        state0.add_transition(input_alphabet['0'], state1, output_alphabet['N'])
+        state0.add_transition(input_alphabet['1'], state0, output_alphabet['N'])
+        state1.add_transition(input_alphabet['0'], state1, output_alphabet['N'])
+        state1.add_transition(input_alphabet['1'], state2, output_alphabet['N'])
+        state2.add_transition(input_alphabet['0'], state3, output_alphabet['N'])
+        state2.add_transition(input_alphabet['1'], state0, output_alphabet['N'])
+        state3.add_transition(input_alphabet['0'], state1, output_alphabet['N'])
+        state3.add_transition(input_alphabet['1'], state2, output_alphabet['Y'])
+
+        hole_state = MealyState(name="hole")
+
+        return MealyMachine(input_alphabet, output_alphabet, state0,
+                            set([state0, state1, state2, state3]),
+                            MealyMachineComparisonStrategy(),
+                            name="Minimized mealy machine example 2",
                             hole=hole_state)
