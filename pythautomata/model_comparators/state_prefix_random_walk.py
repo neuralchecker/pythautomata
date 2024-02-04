@@ -11,11 +11,9 @@ class StatePrefixRandomWalkComparisonStrategy:
         return self.get_counterexample(model1, model2) is None
 
     def get_counterexample(self, hypothesis: FiniteAutomaton, oracle):
-        access_strings = []
         for state in hypothesis.states:
-            access_strings.append(hypothesis.get_access_string(state))
+            prefix = hypothesis.get_access_string(state)
 
-        for prefix in access_strings:
             suffix = ""
             for _ in range(self.steps):
                 suffix += random.choice(hypothesis.alphabet)
