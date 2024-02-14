@@ -239,3 +239,56 @@ class AutomataConverter():\
                             initial_state,
                             set(states.values()), MealyMachineComparisonStrategy(),
                             name=name, hole=hole_state)
+    
+    @staticmethod
+    def convert_moore_machine_to_minimal_mealy_machine(moore_machine: MooreMachine) -> MealyMachine:
+        """
+        Converts a given moore machine into a mealy machine.
+
+        Args:
+            moore_machine (MooreMachine): Input moore machine.
+
+        Returns:
+            MealyMachine: MealyMachine equivalent to the inputted MooreMachine.
+        """
+        initial_state: MealyState = None
+        states: dict[tuple, MealyState] = {}
+        mealy_table: dict[tuple, str] = {}
+        state_map: dict[str, str] = {}
+
+        ordered_alphabet = list(moore_machine.alphabet.symbols)
+
+        for state in moore_machine.states:
+            transition_list = []
+            for symbol in ordered_alphabet:
+                next_state = state.transitions[symbol].pop()
+                transition_list.append((symbol, next_state.value, next_state.name))
+            transition_tuple = tuple(transition_list)
+            if transition_tuple not in mealy_table:
+                mealy_table[transition_tuple] = state.name
+                state_map[state.name] = state.name
+            else:
+                state_map[state.name] = mealy_table[transition_tuple]
+
+        for name in mealy_table.values():
+            states[name] = MealyState(name)
+
+        for state_transitions, state_name in mealy_table.items():
+            for symbol, output, moore_next_state in state_transitions:
+                state = states[state_name]
+                # We store the next moore state, which has to be mapped to the mealy state
+                # Using the state_map. This cannot be done earlier because we need to compelete the mealy table
+                # in order to know all unique Mealy states and which moore states they represent.
+                next_state = states[state_map[moore_next_state]]
+                state.add_transition(symbol, next_state, output)
+
+        initial_state = states[state_map[moore_machine.initial_state.name]]
+
+        name = None if moore_machine._name == None else "MooreMachine_"+moore_machine._name
+
+        hole_state = MealyState("Hole")
+
+        return MealyMachine(moore_machine._alphabet, moore_machine.output_alphabet,
+                            initial_state,
+                            set(states.values()), MealyMachineComparisonStrategy(),
+                            name=name, hole=hole_state)

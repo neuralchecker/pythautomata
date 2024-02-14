@@ -86,7 +86,7 @@ class MealyMachine(Model, FiniteAutomaton):
 
     def last_symbol(self, sequence: Sequence) -> Symbol:
         actual_state = self.initial_state
-        output = Symbol()
+        output = None
         for symbol in sequence.value:
             output = actual_state.outputs[symbol]
             actual_state = actual_state.next_state_for(symbol)
