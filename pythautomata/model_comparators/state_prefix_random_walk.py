@@ -18,7 +18,9 @@ class StatePrefixRandomWalkComparisonStrategy:
         symbols.sort()
         
         for state in hypothesis.states:
-            prefix = hypothesis.get_access_string(state)
+            prefix = state.access_string
+            if prefix is None:
+                prefix = hypothesis.get_access_string(state)
 
             suffix = Sequence()
             for _ in range(self.steps):

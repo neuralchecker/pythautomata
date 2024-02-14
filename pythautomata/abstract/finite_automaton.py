@@ -17,8 +17,10 @@ class FiniteAutomaton(ABC):
     _alphabet: Alphabet
     _exporting_strategies: list
 
-    def __init__(self, comparator: 'FiniteAutomataComparator'):
+    def __init__(self, comparator: 'FiniteAutomataComparator', calculate_access_strings: bool = False):
         self._comparator = comparator
+        if calculate_access_strings:
+            self.calculate_access_strings()
 
     @property
     def name(self) -> str:
@@ -65,6 +67,10 @@ class FiniteAutomaton(ABC):
 
     def find_first_difference_with(self, other: Any) -> Optional[Sequence]:
         return self.comparator.get_counterexample_between(self, other)
+    
+    def calculate_access_strings(self):
+        for state in self.states:
+            state.access_string = self.get_access_string(state)
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, FiniteAutomaton) and self._comparator.are_equivalent(self, other)

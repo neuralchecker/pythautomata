@@ -22,6 +22,7 @@ class MooreState:
         self.value = value
         self.transitions: dict[Symbol, set['MooreState']] = {}
         self._is_deterministic: bool = True
+        self.access_string = None
 
     @property
     def is_deterministic(self) -> bool:

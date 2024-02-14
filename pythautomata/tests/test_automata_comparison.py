@@ -277,10 +277,29 @@ class TestAutomataComparison(TestCase):
                 if i == j:
                     self.assertTrue(comparison_strategy1.are_equivalent(
                         mergedAutomata[i], mergedAutomata[j].clone()))
+                    
+    def test_equivalence_state_prefix_random_walk_for_dfa_with_access_strings(self):
+        mergedAutomata = list(chain(TomitasGrammars.get_all_automata(True)))
+        comparison_strategy1 = StatePrefixRandomWalk(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata)):
+                if i == j:
+                    self.assertTrue(comparison_strategy1.are_equivalent(
+                        mergedAutomata[i], mergedAutomata[j].clone()))
 
     def test_equivalence_state_prefix_random_walk_for_mm(self):
         mergedAutomata = list(chain(SampleMooreMachines.get_all_automata()))
         mergedAutomata2 = list(chain(SampleMooreMachines.get_all_automata()))
+        comparison_strategy = RandomWalkMMComparisonStrategy(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata2)):
+                if i == j:
+                    self.assertTrue(comparison_strategy.are_equivalent(
+                        mergedAutomata[i], mergedAutomata2[j]))
+
+    def test_equivalence_state_prefix_random_walk_for_mm_with_access_strings(self):
+        mergedAutomata = list(chain(SampleMooreMachines.get_all_automata(True)))
+        mergedAutomata2 = list(chain(SampleMooreMachines.get_all_automata(True)))
         comparison_strategy = RandomWalkMMComparisonStrategy(1000, 0.01)
         for i in range(len(mergedAutomata)):
             for j in range(len(mergedAutomata2)):

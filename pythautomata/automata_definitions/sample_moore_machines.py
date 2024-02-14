@@ -55,15 +55,15 @@ class SampleMooreMachines:
         return 'c'
 
     @staticmethod
-    def get_all_automata():
+    def get_all_automata(calculate_access_strings: bool = False):
         return [
-            SampleMooreMachines.get_3_states_automaton(),
-            SampleMooreMachines.get_tomitas_automaton_1(),
-            SampleMooreMachines.get_tomitas_automaton_2(),
+            SampleMooreMachines.get_3_states_automaton(calculate_access_strings),
+            SampleMooreMachines.get_tomitas_automaton_1(calculate_access_strings),
+            SampleMooreMachines.get_tomitas_automaton_2(calculate_access_strings),
         ]
 
     @staticmethod
-    def get_3_states_automaton():
+    def get_3_states_automaton(calculate_access_strings = False):
         a = abAlphabet[SampleMooreMachines.get_a_symbol()]
         b = abAlphabet[SampleMooreMachines.get_b_symbol()]
 
@@ -82,7 +82,9 @@ class SampleMooreMachines:
         state2.add_transition(b, state1)
 
         return MooreMachineAutomaton(abAlphabet, abcAlphabet, state0,
-                                     set([state0, state1, state2]), MooreMachineComparison(), "3 States Moore Machine")
+                                     set([state0, state1, state2]), MooreMachineComparison(),
+                                     "3 States Moore Machine", 
+                                     calculate_access_strings=calculate_access_strings)
 
     @staticmethod
     def get_3_states_automaton_wrong_alphabet():
@@ -131,7 +133,7 @@ class SampleMooreMachines:
                                      MooreMachineComparison(), "3 States Moore Machine")
 
     @staticmethod
-    def get_tomitas_automaton_1():
+    def get_tomitas_automaton_1(calculate_access_strings = False):
         alphabet = Alphabet(frozenset((SymbolStr('False'), SymbolStr('True'))))
 
         binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
@@ -150,10 +152,11 @@ class SampleMooreMachines:
         return MooreMachineAutomaton(binaryAlphabet, alphabet, stateA,
                                      set([stateA, stateB]
                                          ), MooreMachineComparison(),
-                                     name='2 States Moore Machine', hole=hole_state)
+                                     name='2 States Moore Machine', hole=hole_state,
+                                     calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_tomitas_automaton_2():
+    def get_tomitas_automaton_2(calculate_access_strings = False):
         boolean_alphabet = Alphabet(
             frozenset((SymbolStr('False'), SymbolStr('True'))))
 
@@ -177,4 +180,4 @@ class SampleMooreMachines:
                                      set([stateA, stateB, stateC]),
                                      MooreMachineComparison(),
                                      name="MMA implementation of Tomita's grammar 2 automaton",
-                                     hole=hole_state)
+                                     hole=hole_state, calculate_access_strings=calculate_access_strings)

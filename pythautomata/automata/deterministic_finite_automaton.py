@@ -44,6 +44,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         name: str = None,
         exportingStrategies: list = [EncodedFileExportingStrategy()],
         hole: State = State("Hole"),
+        calculate_access_strings: bool = False
     ):
         self.states = states
         for state in self.states:
@@ -56,7 +57,7 @@ class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
         self._set_hole(hole)
         self._exporting_strategies = exportingStrategies
         self._actual_state = self.initial_state
-        super(DeterministicFiniteAutomaton, self).__init__(comparator)
+        super(DeterministicFiniteAutomaton, self).__init__(comparator, calculate_access_strings)
 
     def accepts(self, sequence: Sequence) -> bool:
         actual_state = self.initial_state
