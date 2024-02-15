@@ -24,6 +24,7 @@ class State:
         self.is_final = is_final
         self.transitions: dict[Symbol, set['State']] = {}
         self._is_deterministic: bool = True
+        self.access_string = None
 
     @property
     def is_deterministic(self) -> bool:

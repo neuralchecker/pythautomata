@@ -34,12 +34,12 @@ from pythautomata.tests.test_composed_probabilistic_model import TestComposedPro
 
 def get_all_tests():
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
-            TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
-            TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
-            TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
-            TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
-            TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-            TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel]
+                TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
+                TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
+                TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
+                TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
+                TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
+                TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel]
 
 
 def run():

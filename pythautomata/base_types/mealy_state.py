@@ -23,6 +23,7 @@ class MealyState:
         self.transitions: dict[Symbol, set('MealyState')] = {}
         self.outputs: dict[Symbol, Symbol] = {}
         self._is_deterministic: bool = True
+        self.access_string = None
 
     @property
     def is_deterministic(self) -> bool:

@@ -1,10 +1,11 @@
+import random
 from unittest import TestCase
 
 from pythautomata.base_types.sequence import Sequence
 from pythautomata.automata_definitions.sample_moore_machines import SampleMooreMachines
 from pythautomata.base_types.symbol import SymbolStr
-
-
+from pythautomata.utilities import simple_mm_generator
+from pythautomata.base_types.alphabet import Alphabet
 
 class TestMooreMachinesLastSymbolQueries(TestCase):
 
@@ -29,3 +30,4 @@ class TestMooreMachinesLastSymbolQueries(TestCase):
         expected_result = SymbolStr(SampleMooreMachines.get_c_symbol())
 
         return self.assertEqual(expected_result, res)
+    

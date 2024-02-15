@@ -24,7 +24,10 @@ from pythautomata.model_comparators.random_walk_comparison_strategy import \
     RandomWalkComparisonStrategy
 from pythautomata.model_comparators.hopcroft_karp_comparison_strategy import \
     HopcroftKarpComparisonStrategy as HopcroftKarpComparison
-from pythautomata.model_comparators.random_walk_mm_comparison_strategy import RandomWalkMMComparisonStrategy
+from pythautomata.model_comparators.random_walk_mm_comparison_strategy import \
+    RandomWalkMMComparisonStrategy
+from pythautomata.model_comparators.state_prefix_random_walk import \
+    StatePrefixRandomWalkComparisonStrategy as StatePrefixRandomWalk
 from pythautomata.utilities.automata_converter import AutomataConverter
 from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 from pythautomata.model_comparators.wfa_quantization_comparison_strategy import WFAQuantizationComparator
@@ -265,6 +268,44 @@ class TestAutomataComparison(TestCase):
                             comparison_strategy.are_equivalent(mergedAutomata[i], mergedAutomata2[j]))
                     except:
                         pass
+
+    def test_equivalence_state_prefix_random_walk_for_dfa(self):
+        mergedAutomata = list(chain(TomitasGrammars.get_all_automata()))
+        comparison_strategy1 = StatePrefixRandomWalk(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata)):
+                if i == j:
+                    self.assertTrue(comparison_strategy1.are_equivalent(
+                        mergedAutomata[i], mergedAutomata[j].clone()))
+                    
+    def test_equivalence_state_prefix_random_walk_for_dfa_with_access_strings(self):
+        mergedAutomata = list(chain(TomitasGrammars.get_all_automata(True)))
+        comparison_strategy1 = StatePrefixRandomWalk(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata)):
+                if i == j:
+                    self.assertTrue(comparison_strategy1.are_equivalent(
+                        mergedAutomata[i], mergedAutomata[j].clone()))
+
+    def test_equivalence_state_prefix_random_walk_for_mm(self):
+        mergedAutomata = list(chain(SampleMooreMachines.get_all_automata()))
+        mergedAutomata2 = list(chain(SampleMooreMachines.get_all_automata()))
+        comparison_strategy = RandomWalkMMComparisonStrategy(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata2)):
+                if i == j:
+                    self.assertTrue(comparison_strategy.are_equivalent(
+                        mergedAutomata[i], mergedAutomata2[j]))
+
+    def test_equivalence_state_prefix_random_walk_for_mm_with_access_strings(self):
+        mergedAutomata = list(chain(SampleMooreMachines.get_all_automata(True)))
+        mergedAutomata2 = list(chain(SampleMooreMachines.get_all_automata(True)))
+        comparison_strategy = RandomWalkMMComparisonStrategy(1000, 0.01)
+        for i in range(len(mergedAutomata)):
+            for j in range(len(mergedAutomata2)):
+                if i == j:
+                    self.assertTrue(comparison_strategy.are_equivalent(
+                        mergedAutomata[i], mergedAutomata2[j]))
 
     def test_are_equivalent_mealy(self):
         machine1 = SampleMealyMachines.get_3_states_mealy_machine()
