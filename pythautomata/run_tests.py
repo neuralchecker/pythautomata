@@ -30,7 +30,7 @@ from pythautomata.tests.test_mealy_loading import TestMealyLoading
 from pythautomata.tests.test_composed_boolean_model import TestComposedBooleanModel
 from pythautomata.tests.test_moore_generators import TestMooreGenerators
 from pythautomata.tests.test_composed_probabilistic_model import TestComposedProbabilisticModel
-
+from pythautomata.tests.test_sequence_generator import TestSequenceGenerator
 
 def get_all_tests():
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
@@ -39,7 +39,7 @@ def get_all_tests():
                 TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
                 TestPDFALastTokenQueries, TestMooreMachinesLastSymbolQueries, TestDFAToMooreMachine,
                 TestMMLoading, TestMMExporting, TestProbabilisticFilterModel, TestMealyExporting, TestWFAExporting,
-                TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel]
+                TestMealyLoading, TestComposedBooleanModel, TestMooreGenerators, TestComposedProbabilisticModel,TestSequenceGenerator]
 
 
 def run():
