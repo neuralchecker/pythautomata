@@ -16,10 +16,10 @@ class UniformWordSequenceGenerator(SequenceGenerator):
         self._probs = {x:self._prob_by_word_length(x) for x in range(min_seq_length, max_seq_length)}
     
     def generate_words(self, number_of_words: int):
-        result = np.empty(number_of_words, dtype=Sequence)
-        for index in range(number_of_words):
+        result =[]
+        for _ in range(number_of_words):
             length = self._select_random_length()
-            result[index] = self.generate_single_word(length)
+            result.append(self.generate_single_word(length))
         return result
 
     def generate_single_word(self, length):

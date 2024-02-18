@@ -1,4 +1,3 @@
-import numpy as np
 from random import seed
 from random import randint
 
@@ -15,10 +14,10 @@ class UniformLengthSequenceGenerator(SequenceGenerator):
         super().__init__(alphabet, max_seq_length, random_seed, min_seq_length)
     
     def generate_words(self, number_of_words: int):
-        result = np.empty(number_of_words, dtype=Sequence)
-        for index in range(number_of_words):
+        result = []
+        for _ in range(number_of_words):
             length = randint(self._min_seq_length, self._max_seq_length)
-            result[index] = self.generate_single_word(length)
+            result.append(self.generate_single_word(length))
         return result
 
     def generate_single_word(self, length):

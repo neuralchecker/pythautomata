@@ -1,4 +1,3 @@
-import numpy as np
 from random import seed
 from random import randint
 
@@ -30,11 +29,11 @@ class SequenceGenerator(ABC):
         raise NotImplementedError
 
     def generate_words_with_padding(self, number_of_words: int, padding_symbol: Symbol):
-        result = np.empty(number_of_words, dtype=Sequence)
-        for index in range(number_of_words):
+        result = []
+        for _ in range(number_of_words):
             length = randint(self._min_seq_length, self._max_seq_length)
             word = self.generate_single_word(length)
-            result[index] = self.pad(word, padding_symbol)
+            result.append(self.pad(word, padding_symbol))
         return result
 
     def pad(self, word: Sequence, padding_symbol: Symbol, max_len=None, padding_type='post'):
