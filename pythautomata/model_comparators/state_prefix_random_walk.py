@@ -6,14 +6,14 @@ from pythautomata.base_types.sequence import Sequence
 
 class StatePrefixRandomWalkComparisonStrategy:
 
-    def  __init__(self, number_of_steps, reset_probability):
-        self.steps = number_of_steps
+    def  __init__(self, number_steps, reset_probability):
+        self.steps = number_steps
         self.reset_prob = reset_probability
 
     def are_equivalent(self, model1, model2):
-        return self.get_counterexample(model1, model2) is None
+        return self.get_counterexample_between(model1, model2) is None
 
-    def get_counterexample(self, hypothesis: FiniteAutomaton, oracle):
+    def get_counterexample_between(self, hypothesis: FiniteAutomaton, oracle):
         symbols = list(hypothesis.alphabet.symbols)
         symbols.sort()
         
