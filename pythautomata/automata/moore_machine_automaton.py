@@ -40,7 +40,8 @@ class MooreMachineAutomaton(Model, FiniteAutomaton):
                  comparator, name: str = None,
                  exportingStrategies: list = [
                      MooreDotExportingStrategy(), MooreStandardDotExportingStrategy()],
-                 hole: MooreState = MooreState('\u22A5')):
+                 hole: MooreState = MooreState('\u22A5'),
+                 calculate_access_strings: bool = False):
 
         self.states = states
         for state in self.states:
@@ -56,6 +57,7 @@ class MooreMachineAutomaton(Model, FiniteAutomaton):
         self._exporting_strategies = exportingStrategies
         self._comparator = comparator
         self._actual_state = initial_state
+        super(MooreMachineAutomaton, self).__init__(comparator, calculate_access_strings)
 
     @property
     def name(self):

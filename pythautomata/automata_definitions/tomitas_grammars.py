@@ -47,7 +47,7 @@ class TomitasGrammars:
     """
 
     @staticmethod
-    def get_all_automata():
+    def get_all_automata(calculate_access_strings: bool = False):
         """
         Method returning a list of all automata of the class
 
@@ -57,17 +57,17 @@ class TomitasGrammars:
             all automata defined in the class
         """
         return [
-            TomitasGrammars.get_automaton_1(),
-            TomitasGrammars.get_automaton_2(),
-            TomitasGrammars.get_automaton_3(),
-            TomitasGrammars.get_automaton_4(),
-            TomitasGrammars.get_automaton_5(),
-            TomitasGrammars.get_automaton_6(),
-            TomitasGrammars.get_automaton_7()
+            TomitasGrammars.get_automaton_1(calculate_access_strings),
+            TomitasGrammars.get_automaton_2(calculate_access_strings),
+            TomitasGrammars.get_automaton_3(calculate_access_strings),
+            TomitasGrammars.get_automaton_4(calculate_access_strings),
+            TomitasGrammars.get_automaton_5(calculate_access_strings),
+            TomitasGrammars.get_automaton_6(calculate_access_strings),
+            TomitasGrammars.get_automaton_7(calculate_access_strings)
         ]
 
     @staticmethod
-    def get_automaton_1():
+    def get_automaton_1(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 1 from the paper
 
@@ -87,10 +87,12 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateA,
-                                            set([stateA, stateB]), comparator, "Tomita's grammar 1 automaton")
+                                            set([stateA, stateB]), comparator, 
+                                            "Tomita's grammar 1 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_2():
+    def get_automaton_2(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 2 from the paper
 
@@ -114,10 +116,12 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateA,
-                                            set([stateA, stateB, stateC]), comparator, "Tomita's grammar 2 automaton")
+                                            set([stateA, stateB, stateC]), comparator, 
+                                            "Tomita's grammar 2 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_3():
+    def get_automaton_3(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 3 from the paper
 
@@ -149,10 +153,11 @@ class TomitasGrammars:
                                             set([stateQ1, stateQ2,
                                                 stateQ3, stateQ4, stateQ5]),
                                             comparator,
-                                            "Tomita's grammar 3 automaton")
+                                            "Tomita's grammar 3 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_4():
+    def get_automaton_4(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 4 from the paper
 
@@ -179,10 +184,12 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 4 automaton")
+                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator,
+                                            "Tomita's grammar 4 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_5():
+    def get_automaton_5(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 5 from the paper
 
@@ -208,10 +215,12 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator, "Tomita's grammar 5 automaton")
+                                            set([stateQ1, stateQ2, stateQ3, stateQ4]), comparator,
+                                            "Tomita's grammar 5 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_6():
+    def get_automaton_6(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 6 from the paper
 
@@ -234,10 +243,12 @@ class TomitasGrammars:
 
         comparator = DFAComparator()
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
-                                            set([stateQ1, stateQ2, stateQ3]), comparator, "Tomita's grammar 6 automaton")
+                                            set([stateQ1, stateQ2, stateQ3]), comparator, 
+                                            "Tomita's grammar 6 automaton",
+                                            calculate_access_strings=calculate_access_strings)
 
     @staticmethod
-    def get_automaton_7():
+    def get_automaton_7(calculate_access_strings: bool = False):
         """
         Method with specification of the automaton 7 from the paper
 
@@ -267,4 +278,5 @@ class TomitasGrammars:
         return DeterministicFiniteAutomaton(binaryAlphabet, stateQ1,
                                             set([stateQ1, stateQ2, stateQ3,
                                                 stateQ4, stateQ5]), comparator,
-                                            "Tomita's grammar 7 automaton")
+                                            "Tomita's grammar 7 automaton",
+                                            calculate_access_strings=calculate_access_strings)

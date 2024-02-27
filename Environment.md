@@ -5,14 +5,14 @@
 - Debian, Ubuntu and derivatives: `apt install python3.9`
 - Rhel and Fedora: `dnf install python3`
 - Arch and Manjaro: `pacman -Sy python3`
-- MacOS and Linux with *homebrew* installed: `brew install python`
-- Windows: visit https://www.python.org/downloads/
+- MacOS and Linux with homebrew installed: `brew install python`
+- Windows: visit <https://www.python.org/downloads/>
 
 ## Pip
+
 - *nix: `curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
 - `python3 get-pip.py`
 - Windows: `python get-pip.py`
-
 
 ## Poetry
 
@@ -47,10 +47,5 @@
 
 ## Run Tests
 
-```
+bash
 poetry run python pythautomata/run_tests.py
-```
-
-
-
-

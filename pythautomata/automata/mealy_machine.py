@@ -34,7 +34,8 @@ class MealyMachine(Model, FiniteAutomaton):
     def __init__(self, input_alphabet: Alphabet, output_alphabet: Alphabet,
                  initial_state: MealyState, states: set[MealyState], comparator,
                  name: str = None, exporting_strategies: list = [MealyStandardDotExportingStrategy()],
-                 hole: MealyState = MealyState("\u22A5")):
+                 hole: MealyState = MealyState("\u22A5"),
+                 calculate_access_strings: bool = False):
         self.states = states
         for state in self.states:
             self._verify_state(state, input_alphabet, output_alphabet)
@@ -49,6 +50,7 @@ class MealyMachine(Model, FiniteAutomaton):
         self._exporting_strategies = exporting_strategies
         self._comparator = comparator
         self._actual_state = initial_state
+        super(MealyMachine, self).__init__(comparator, calculate_access_strings)
 
     @property
     def initial_states(self) -> frozenset:
@@ -84,7 +86,7 @@ class MealyMachine(Model, FiniteAutomaton):
 
     def last_symbol(self, sequence: Sequence) -> Symbol:
         actual_state = self.initial_state
-        output = Symbol()
+        output = None
         for symbol in sequence.value:
             output = actual_state.outputs[symbol]
             actual_state = actual_state.next_state_for(symbol)
