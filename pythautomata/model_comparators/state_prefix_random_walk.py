@@ -30,7 +30,7 @@ class StatePrefixRandomWalkComparisonStrategy:
                 if hypothesis.process_query(prefix+suffix) != oracle.process_query(prefix+suffix):
                     return prefix+suffix
 
-                if random.choices([True, False], [self.reset_prob, 1-self.reset_prob]):
+                if random.random() <= self.reset_prob:
                     suffix = Sequence()
                 
         return None
