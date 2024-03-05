@@ -1,4 +1,3 @@
-import numpy as np
 import random
 import math
 
@@ -52,5 +51,4 @@ class UniformWordSequenceGenerator(SequenceGenerator):
     def _select_random_length(self):
         length = random.choices(list(self._probs.keys()), weights = self._probs.values(),k=1)[0]
         return length
-
     

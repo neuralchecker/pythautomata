@@ -11,11 +11,12 @@ from typing import Any
 
 
 def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator(),
-                  distributions: int = None, max_shift: float = 0, terminal_symbol: str = '$') -> ProbabilisticDeterministicFiniteAutomaton:
+                  distributions: int = None, max_shift: float = 0, terminal_symbol: str = '$', zero_probability: int = 0) -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
     Distributions is a predefined integer that defines the number of different distributions states may have (infinite if None)
     And shift is a float definig the ammount of random noise that may be added to such predefined distributions (only used when distributions != None).
+    Zero probability is a number that indicates the chances of a transition probability being 0 (zero).
 
     Parameters
     ----------
@@ -24,6 +25,7 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
     distributions : int
     max_shift: float
     terminal_symbol: str
+    zero_probability: int
 
     Returns
     -------
@@ -35,9 +37,9 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
                        in dfa.states}
     if distributions is None:
         for state in dfa.states:
-            __add_transitions(alphabet_length, state, wfa_states_dict)
+            __add_transitions(alphabet_length, state, wfa_states_dict, zero_probability = zero_probability)
     else:
-        pool = __generate_pool_of_distributions(alphabet_length, distributions)
+        pool = __generate_pool_of_distributions(alphabet_length, distributions, zero_probability)
         for state in dfa.states:
             distribution = random.choice(pool)
             __add_shift(distribution, max_shift)
@@ -49,10 +51,10 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
                                                      comparator)
 
 
-def __generate_pool_of_distributions(alphabet_length, distributions):
+def __generate_pool_of_distributions(alphabet_length, distributions, zero_probability):
     result = []
     for i in range(distributions):
-        dist = __generate_random_probability_vector(alphabet_length)
+        dist = __generate_random_probability_vector(alphabet_length, zero_probability)
         result.append(dist)
     return result
 
@@ -78,23 +80,23 @@ def __dfa_state_to_pdfa_state(name, initial):
     return wfa_state
 
 
-def __generate_random_probability_vector(alphabet_length):
-    final_prob = __get_prob(0)
+def __generate_random_probability_vector(alphabet_length, zero_probability):
+    final_prob = __get_prob(0, zero_probability)
     total_prob = final_prob
     probs = []
     for i in range(alphabet_length):
         prob = round(1.0 - total_prob, 5) if i == alphabet_length - \
-            1 else __get_prob(total_prob)
+            1 else __get_prob(total_prob, zero_probability)
         probs.append(prob)
         total_prob += prob
     probs.append(final_prob)
     return probs
 
 
-def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, WeightedState], probability_vector=None):
+def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, WeightedState], probability_vector=None, zero_probability = 0):
     wfa_state = wfa_states_dict[state.name]
     if probability_vector is None:
-        probs = __generate_random_probability_vector(alphabet_length)
+        probs = __generate_random_probability_vector(alphabet_length, zero_probability)
     else:
         probs = probability_vector
     for i, (symbol, next_state) in enumerate(state.transitions.items()):
@@ -104,6 +106,8 @@ def __add_transitions(alphabet_length, state, wfa_states_dict: dict[Any, Weighte
     wfa_state.final_weight = probs[-1]
 
 
-def __get_prob(total_prob):
-    prob = random.triangular(0.0, 1.0 - total_prob)
+def __get_prob(total_prob, zero_probability):
+    if random.random() < zero_probability:
+        return 0.0
+    prob = random.triangular(0.0, 1.0 - total_prob)    
     return round(prob, 5)

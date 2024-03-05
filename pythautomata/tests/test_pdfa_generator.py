@@ -51,3 +51,21 @@ class TestPDFAGenerator(TestCase):
         pdfa = pdfa_generator.pdfa_from_dfa(
             dfa, distributions=1, max_shift=0.1)
         self.assertEqual(pdfa, pdfa)
+
+    def test_10(self):
+        dfa = TomitasGrammars.get_automaton_7()
+        pdfa = pdfa_generator.pdfa_from_dfa(
+            dfa, distributions=1, max_shift=0.1, zero_probability=0.2)
+        self.assertEqual(pdfa, pdfa)
+    
+    def test_11(self):
+        dfa = TomitasGrammars.get_automaton_5()
+        pdfa = pdfa_generator.pdfa_from_dfa(
+            dfa, distributions=1, max_shift=0.1, zero_probability=0.5)
+        self.assertEqual(pdfa, pdfa)
+    
+    def test_12(self):
+        dfa = TomitasGrammars.get_automaton_5()
+        pdfa = pdfa_generator.pdfa_from_dfa(
+            dfa, distributions=1, max_shift=0.1, zero_probability=1)
+        self.assertEqual(pdfa, pdfa)
