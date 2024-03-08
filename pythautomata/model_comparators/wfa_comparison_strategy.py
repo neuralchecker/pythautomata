@@ -8,19 +8,20 @@ from pythautomata.automata.wheighted_automaton_definition.weighted_state import 
 
 class WFAComparator(FiniteAutomataComparator):
     """
-    Class containing a WFA Comparator Strategy based on next symbol distributions and a quantization parameter.
+    Abstract class containing a WFA Comparator Strategy based on next symbol distributions.
 
     Methods
     -------
     are_equivalent: bool
-        returns true iif wfa1 is equivalent to wfa2 according to which partitions the distributions over next symbols belong.
+        returns true iif wfa1 is equivalent to wfa2 according to the state equivalence definition.
 
     get_counterexample_between: Sequence
-        returns a Sequence where the next token weights differ (or belong to different partitions)
+        returns a Sequence where the next token weights differ (or belong to different partitions).
     """
 
-    def __init__(self) -> None:
+    def __init__(self, omit_zero_transitions = False) -> None:
         super().__init__()
+        self._omit_zero_transitions = omit_zero_transitions
 
     def are_equivalent(self, wfa1, wfa2) -> bool:
         return self.get_counterexample_between(wfa1, wfa2) is None
@@ -90,6 +91,11 @@ class WFAComparator(FiniteAutomataComparator):
 
     def _process_equivalence_iteration_with(self, symbol, pairs_to_visit, visited_pairs, sequence_for_pairs):
         pair = pairs_to_visit[0]
+        if self._omit_zero_transitions:
+            if min(pair[0].transitions_set[symbol]).weight == 0 and min(pair[1].transitions_set[symbol]).weight == 0:
+                return
+            assert min(pair[0].transitions_set[symbol]).weight != 0 and min(pair[1].transitions_set[symbol]).weight != 0, "States should be different by this symbol, because one of them is zero."
+
         self_next_state = min(pair[0].next_states_for(symbol))
         other_next_state = min(pair[1].next_states_for(symbol))
         next_pair = (self_next_state, other_next_state)

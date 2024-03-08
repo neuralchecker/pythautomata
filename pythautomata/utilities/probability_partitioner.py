@@ -51,6 +51,36 @@ class QuantizationProbabilityPartitioner(ProbabilityPartitioner):
     def _get_partition(self, probability_vector):
         return np.fromiter((self._get_interval(xi) for xi in probability_vector), dtype=int)
 
+class QuantizationProbabilityPartitionerPlus(ProbabilityPartitioner):
+    """
+    Class implementing a ProbabilityPartitioner.
+    Identical to QuantizationProbabilityPartitioner but considers elements that are zero as a different interval. 
+    This means that distributions should have the same support to be in the same partition.
+    """
+    def __init__(self, number_of_partitions) -> None:
+        super().__init__()
+        self._partitions = number_of_partitions
+
+    def _get_interval(self, value):
+        assert (value >= 0 and value <= 1)
+        limits = np.linspace(0, 1, self._partitions+1)
+        if value == 1:
+            return self._partitions
+        if value == 0:
+            return 0
+        positions = list(range(len(limits)-1))
+        mid_element = int(len(limits)/2)
+        while len(positions) > 1:
+            if value >= limits[mid_element]:
+                positions = positions[int(len(positions)/2):]
+            else:
+                positions = positions[:int(len(positions)/2)]
+            mid_element = positions[int(len(positions)/2)]
+        assert (len(positions) == 1)
+        return positions[0]+1
+
+    def _get_partition(self, probability_vector):
+        return np.fromiter((self._get_interval(xi) for xi in probability_vector), dtype=int)
 
 class TopKProbabilityPartitioner(ProbabilityPartitioner):
 
