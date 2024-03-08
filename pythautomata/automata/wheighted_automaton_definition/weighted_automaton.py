@@ -54,6 +54,7 @@ class WeightedAutomaton(FiniteAutomaton):
             self._name = name
         self._terminal_symbol = terminal_symbol
         self._alphabet = alphabet
+        assert len(weighted_states) == len(set([x.name for x in weighted_states])), "States should have unique names in the states set"
         self.weighted_states = weighted_states
         self._exporting_strategies = export_strategies
 

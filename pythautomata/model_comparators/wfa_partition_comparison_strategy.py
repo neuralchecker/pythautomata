@@ -11,14 +11,14 @@ class WFAPartitionComparator(WFAComparator):
     Methods
     -------   
     are_equivalent: bool
-        returns true iif wfa1 is equivalent to wfa2 according to arg max criterion
+        returns true iif wfa1 is equivalent to wfa2 according to the congruence defined by the probability partitioner
 
     get_counterexample_between: Sequence
-        returns a Sequence where the arg max of next token weights differ
+        returns a Sequence where the partition of the probability distribution vectors differ
     """
 
-    def __init__(self, partitioner: ProbabilityPartitioner) -> None:
-        super().__init__()
+    def __init__(self, partitioner: ProbabilityPartitioner, omit_zero_transitions = False) -> None:
+        super().__init__(omit_zero_transitions)
         self._partitioner = partitioner
 
     def _get_probability_distribution(self, state: WeightedState):
@@ -36,8 +36,6 @@ class WFAPartitionComparator(WFAComparator):
 
     def equivalent_output(self, observation1, observation2) -> bool:
         raise NotImplemented
-        return pdfa_utils.have_same_argmax(observation1, observation2)
-
+        
     def equivalent_values(self, value1, value2):
         raise NotImplemented
-        return abs(value1 - value2) <= self.tolerance

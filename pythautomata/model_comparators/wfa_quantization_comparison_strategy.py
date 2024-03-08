@@ -1,6 +1,6 @@
 from pythautomata.model_comparators.wfa_comparison_strategy import WFAComparator
 from pythautomata.utilities import pdfa_utils
-
+from warnings import warn
 
 class WFAQuantizationComparator(WFAComparator):
     """
@@ -16,6 +16,7 @@ class WFAQuantizationComparator(WFAComparator):
     """
 
     def __init__(self, partitions: float) -> None:
+        warn('This class is deprecated', DeprecationWarning, stacklevel=2)
         super().__init__()
         self.partitions = partitions
         self._partition_cache = dict()

@@ -15,6 +15,8 @@ from pythautomata.automata_definitions.other_automata import OtherAutomata
 from pythautomata.automata_definitions.sample_mealy_machines import SampleMealyMachines
 from pythautomata.automata_definitions.tomitas_grammars import TomitasGrammars
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
+from pythautomata.automata_definitions.weighted_tomitas_grammars_with_zero_transitions import WeightedTomitasGrammarsWithZeroTransitions
+from pythautomata.automata_definitions.zero_transitions_examples import ZeroTransitionsExamples
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.symbolic_state import SymbolicState
@@ -31,7 +33,9 @@ from pythautomata.model_comparators.state_prefix_random_walk import \
 from pythautomata.utilities.automata_converter import AutomataConverter
 from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
 from pythautomata.model_comparators.wfa_quantization_comparison_strategy import WFAQuantizationComparator
+from pythautomata.model_comparators.wfa_partition_comparison_strategy import WFAPartitionComparator
 from pythautomata.automata_definitions.sample_moore_machines import SampleMooreMachines
+from utilities.probability_partitioner import QuantizationProbabilityPartitioner
 
 
 class TestAutomataComparison(TestCase):
@@ -204,6 +208,73 @@ class TestAutomataComparison(TestCase):
         for wfa in weightedTomitasAutomata:
             assert (comparator.are_equivalent(wfa, wfa))
 
+    def test_wfa_quantization_partition_equivalence_reflexiveness(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner)
+        for wfa in weightedTomitasAutomata:
+            assert (comparator.are_equivalent(wfa, wfa))
+    
+    
+    def test_wfa_quantization_partition_equivalence_reflexiveness_omit_zero_transitions(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata() 
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner, True)
+        for wfa in weightedTomitasAutomata:
+            assert (comparator.are_equivalent(wfa, wfa))
+    
+    def test_wfa_quantization_partition_equivalence_reflexiveness_omit_zero_transitions_false_case(self):
+        weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner, True)
+        for i in range(len(weightedTomitasAutomata)):
+            for j in range(len(weightedTomitasAutomata)):
+                if i != j:
+                    wfa1 = weightedTomitasAutomata[i]
+                    wfa2 = weightedTomitasAutomata[j]
+                    assert (not comparator.are_equivalent(wfa1, wfa2))
+    
+    def test_wfa_quantization_partition_equivalence_reflexiveness_on_weighted_tomitas_grammars_w_zero_transitions(self):
+        weightedTomitasAutomata = WeightedTomitasGrammarsWithZeroTransitions.get_all_automata() + ZeroTransitionsExamples.get_all_automata()
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner)
+        for wfa in weightedTomitasAutomata:
+            assert (comparator.are_equivalent(wfa, wfa))
+    
+    
+    def test_wfa_quantization_partition_equivalence_reflexiveness_omit_zero_transitions_on_weighted_tomitas_grammars_w_zero_transitions(self):
+        weightedTomitasAutomata = WeightedTomitasGrammarsWithZeroTransitions.get_all_automata() + ZeroTransitionsExamples.get_all_automata()
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner, True)
+        for wfa in weightedTomitasAutomata:
+            assert (comparator.are_equivalent(wfa, wfa))
+    
+    def test_wfa_quantization_partition_equivalence_reflexiveness_omit_zero_transitions_on_weighted_tomitas_grammars_w_zero_transitions(self):
+        weightedTomitasAutomata = WeightedTomitasGrammarsWithZeroTransitions.get_all_automata()
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparator = WFAPartitionComparator(partitioner, True)
+        for i in range(len(weightedTomitasAutomata)):
+            for j in range(len(weightedTomitasAutomata)):
+                if i != j:
+                    wfa1 = weightedTomitasAutomata[i]
+                    wfa2 = weightedTomitasAutomata[j]
+                    assert (not comparator.are_equivalent(wfa1, wfa2))
+    
+    def test_wfa_quantization_partition_equivalence_w_zero_transitions_examples(self):
+        partitioner = QuantizationProbabilityPartitioner(100)
+        comparatorOmitZero = WFAPartitionComparator(partitioner, True)
+        comparatorStandard = WFAPartitionComparator(partitioner)
+        wfa1 =  ZeroTransitionsExamples.get_automaton_1()
+        wfa2 =  ZeroTransitionsExamples.get_automaton_2()
+        wfa3 =  ZeroTransitionsExamples.get_automaton_3()
+        assert comparatorOmitZero.are_equivalent(wfa1, wfa2)
+        assert not comparatorStandard.are_equivalent(wfa1, wfa2)
+        assert not comparatorOmitZero.are_equivalent(wfa1, wfa3)
+        assert not comparatorStandard.are_equivalent(wfa1, wfa3)
+        assert not comparatorOmitZero.are_equivalent(wfa2, wfa3)
+        assert not comparatorStandard.are_equivalent(wfa2, wfa3)
+
+       
     def test_wfa_quantization_equivalence_false_case(self):
         weightedTomitasAutomata = WeightedTomitasGrammars.get_all_automata()
         comparator = WFAQuantizationComparator(100)
