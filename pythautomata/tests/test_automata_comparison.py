@@ -342,7 +342,7 @@ class TestAutomataComparison(TestCase):
 
     def test_equivalence_state_prefix_random_walk_for_dfa(self):
         mergedAutomata = list(chain(TomitasGrammars.get_all_automata()))
-        comparison_strategy1 = StatePrefixRandomWalk(1000, 0.01)
+        comparison_strategy1 = StatePrefixRandomWalk(1000)
         for i in range(len(mergedAutomata)):
             for j in range(len(mergedAutomata)):
                 if i == j:
@@ -351,7 +351,7 @@ class TestAutomataComparison(TestCase):
                     
     def test_equivalence_state_prefix_random_walk_for_dfa_with_access_strings(self):
         mergedAutomata = list(chain(TomitasGrammars.get_all_automata(True)))
-        comparison_strategy1 = StatePrefixRandomWalk(1000, 0.01)
+        comparison_strategy1 = StatePrefixRandomWalk(1000)
         for i in range(len(mergedAutomata)):
             for j in range(len(mergedAutomata)):
                 if i == j:
