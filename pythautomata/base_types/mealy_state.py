@@ -1,4 +1,5 @@
 from pythautomata.base_types.symbol import Symbol
+from pythautomata.base_types.sequence import Sequence
 from pythautomata.exceptions.none_state_exception import NoneStateException
 
 
@@ -18,12 +19,12 @@ class MealyState:
         It is used as default when a symbol is not present as transition key.
     """
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, access_string: Sequence = None):
         self.name = name
         self.transitions: dict[Symbol, set('MealyState')] = {}
         self.outputs: dict[Symbol, Symbol] = {}
         self._is_deterministic: bool = True
-        self.access_string = None
+        self.access_string = access_string
 
     @property
     def is_deterministic(self) -> bool:
