@@ -1,4 +1,5 @@
 from .symbol import Symbol
+from pythautomata.base_types.sequence import Sequence
 from pythautomata.exceptions.none_state_exception import NoneStateException
 
 class State:
@@ -19,12 +20,12 @@ class State:
     
     hole: 'State'
 
-    def __init__(self, name: str, is_final: bool = False):
+    def __init__(self, name: str, is_final: bool = False, access_string: Sequence = None):
         self.name = name
         self.is_final = is_final
         self.transitions: dict[Symbol, set['State']] = {}
         self._is_deterministic: bool = True
-        self.access_string = None
+        self.access_string = access_string
 
     @property
     def is_deterministic(self) -> bool:

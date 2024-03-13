@@ -1,4 +1,5 @@
 from pythautomata.base_types.symbol import Symbol
+from pythautomata.base_types.sequence import Sequence
 from pythautomata.exceptions.none_state_exception import NoneStateException
 
 class MooreState:
@@ -17,12 +18,12 @@ class MooreState:
         It is used as default when a symbol is not present as transition key.
     """
 
-    def __init__(self, name: str, value: Symbol = ""):
+    def __init__(self, name: str, value: Symbol = "", access_string: Sequence = None):
         self.name = name
         self.value = value
         self.transitions: dict[Symbol, set['MooreState']] = {}
         self._is_deterministic: bool = True
-        self.access_string = None
+        self.access_string = access_string
 
     @property
     def is_deterministic(self) -> bool:
