@@ -48,7 +48,9 @@ class WeightedState:
         symbols = list()
         weights = list()
         next_states = list()
-        for symbol, weighted_transition_set in self.transitions_set.items():
+        #ordered_transition_set = list(self.transitions_set.items())
+        ordered_transition_set = sorted(self.transitions_set.items(), key=lambda x: x[0])
+        for symbol, weighted_transition_set in ordered_transition_set:
             for weighted_transition in weighted_transition_set:
                 symbols.append(symbol)
                 weights.append(weighted_transition.weight)
