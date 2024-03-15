@@ -2,7 +2,7 @@ from unittest import TestLoader, TestSuite, TextTestRunner
 import os
 import sys
 
-from pythautomata.tests.test_minimizer import TestMinimizer
+from pythautomata.tests.test_minimizer import TestMinimizers
 from pythautomata.tests.test_automata_convertor import TestAutomataConvertor
 from pythautomata.tests.test_moore_machines_last_symbol_queries import TestMooreMachinesLastSymbolQueries
 from pythautomata.tests.test_pdfa_generator import TestPDFAGenerator
@@ -33,7 +33,7 @@ from pythautomata.tests.test_composed_probabilistic_model import TestComposedPro
 from pythautomata.tests.test_sequence_generator import TestSequenceGenerator
 
 def get_all_tests():    
-    return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizer,
+    return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizers,
                 TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
                 TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
                 TestPDFASerialization, TestDFASerialization, TestPDFAMetrics, TestPDFAOperations,
