@@ -18,7 +18,7 @@ class TestSequenceGenerator(TestCase):
         uniformLengthGenerator = UniformLengthSequenceGenerator(abcAlphabet, 10, 30, 0)
         uniformWordGenerator = UniformWordSequenceGenerator(abcAlphabet, 10, 30, 0)
         gudingWDFAGenerator = GuidingWDFASequenceGenerator(guide, 10, 30, 0.3)
-        gudingPDFAGenerator = GuidingPDFASequenceGenerator(guide, 1, 30, 0.3)
+        gudingPDFAGenerator = GuidingPDFASequenceGenerator(guide, 10, 30, 0.3)
         generators = [uniformLengthGenerator, uniformWordGenerator, gudingWDFAGenerator, gudingPDFAGenerator] 
         for generator in generators:
             generator.generate_words(100)

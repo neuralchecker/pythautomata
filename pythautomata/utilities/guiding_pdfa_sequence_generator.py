@@ -29,19 +29,20 @@ class GuidingPDFASequenceGenerator(SequenceGenerator):
     
     def generate_single_word(self, length):
         word = Sequence()
-        first_state = list(filter(lambda x: x.initial_weight ==
-                       1, self.pdfa.weighted_states))[0]
+        first_state = list(filter(lambda x: x.initial_weight == 1, self.pdfa.weighted_states))[0]
         symbols, weights, next_states = first_state.get_all_symbol_weights()
         next_symbol = self._sort_valid_symbol(symbols, weights)
-        while next_symbol != self.pdfa.terminal_symbol and (length is None or len(word) < length):
+        terminal_state = False
+        while next_symbol != self.pdfa.terminal_symbol and (length is not None or len(word) <= length) and not terminal_state:
             word += next_symbol
             i = symbols.index(next_symbol)
             next_state = next_states[i]
             symbols, weights, next_states = next_state.get_all_symbol_weights()
             next_symbol = self._sort_valid_symbol(symbols, weights)
-            
             if next_symbol == self.pdfa.terminal_symbol:
                 word += next_symbol
+                terminal_state = True
             else:
                 length += 1
+        print(len(word))
         return word
