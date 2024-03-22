@@ -32,7 +32,7 @@ from pythautomata.tests.test_moore_generators import TestMooreGenerators
 from pythautomata.tests.test_composed_probabilistic_model import TestComposedProbabilisticModel
 from pythautomata.tests.test_sequence_generator import TestSequenceGenerator
 
-def get_all_tests():    
+def get_all_tests(): 
     return [TestDFALoading, TestDFAExporting, TestSimpleDFAGenerator, TestMinimizers,
                 TestAutomataConvertor, TestDFAGenerators, TestAutomataComparison, TestSequence,
                 TestDFAOperations, TestAutomataDefinitions, TestPDFAGenerator, TestRegexGenerator,
