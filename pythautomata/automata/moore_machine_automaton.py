@@ -14,7 +14,7 @@ from pythautomata.exceptions.non_deterministic_states_exception import NonDeterm
 from pythautomata.model_exporters.standard_exporters.moore_standard_dot_exporting_strategy import MooreStandardDotExportingStrategy
 from pythautomata.model_exporters.dot_exporters.moore_dot_exporting_strategy import MooreDotExportingStrategy
 
-class MooreMachineAutomaton(Model, FiniteAutomaton):
+class MooreMachineAutomaton(Model, FiniteAutomaton[MooreState]):
     """
     Implementation of Moore Machines.
 

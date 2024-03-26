@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import sys
 from collections import namedtuple
-from typing import Any, Optional, Union
+from typing import Any, Optional, Generic, TypeVar
 
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.base_types.sequence import Sequence
@@ -13,7 +13,8 @@ from pythautomata.base_types.mealy_state import MealyState
 ExecutionState = namedtuple("ExecutionState", "state sequence")
 
 
-class FiniteAutomaton(ABC):
+S = TypeVar("S")
+class FiniteAutomaton(ABC, Generic[S]):
     _alphabet: Alphabet
     _exporting_strategies: list
 
@@ -75,7 +76,7 @@ class FiniteAutomaton(ABC):
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, FiniteAutomaton) and self._comparator.are_equivalent(self, other)
     
-    def get_access_string(self, target: Union[State, MooreState, MealyState]) -> Sequence:
+    def get_access_string(self, target: S) -> Sequence:
         initial_state = list(self.initial_states)[0]
         if target == initial_state:
             return Sequence([])

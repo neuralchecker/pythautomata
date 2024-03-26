@@ -11,7 +11,7 @@ from pythautomata.exceptions.non_deterministic_states_exception import NonDeterm
 from pythautomata.exceptions.unknown_symbols_exception import UnknownSymbolsException
 from pythautomata.model_exporters.standard_exporters.mealy_standard_dot_exporting_strategy import MealyStandardDotExportingStrategy
 
-class MealyMachine(Model, FiniteAutomaton):
+class MealyMachine(Model, FiniteAutomaton[MealyState]):
     """
     Implementation of Mealy Machines.
 

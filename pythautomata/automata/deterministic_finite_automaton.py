@@ -23,7 +23,7 @@ from pythautomata.utilities.encoded_string_importer import EncodedStringImporter
 from pythautomata.utilities.encoded_file_importer import EncodedFileImporter
 
 
-class DeterministicFiniteAutomaton(FiniteAutomaton, BooleanModel):
+class DeterministicFiniteAutomaton(FiniteAutomaton[State], BooleanModel):
     """
     Implementation of DFA.
 
