@@ -31,6 +31,8 @@ def _get_representative_word(pdfa: PDFA):
         i = symbols.index(next_symbol)
         next_state = next_states[i]
         symbols, weights, next_states = next_state.get_all_symbol_weights()
+        if np.sum(weights)!=1:
+            weights = weights/np.sum(weights)
         next_symbol = np.random.choice(symbols, p=weights)
     return word
 
