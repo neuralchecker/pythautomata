@@ -9,24 +9,27 @@ from pythautomata.base_types.moore_state import MooreState
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy as MooreMachineComparison
+import math
 
 
-
-def get_representative_sample(pdfa: PDFA, sample_size: int):
+def get_representative_sample(pdfa: PDFA, sample_size: int, max_length: int = None):
     assert (sample_size >= 0)
     sample = list()
+    if max_length is None:
+        max_length = math.inf
     for i in range(sample_size):
-        sample.append(_get_representative_word(pdfa))
+        sample.append(_get_representative_word(pdfa, max_length))
     return sample
 
 
-def _get_representative_word(pdfa: PDFA):
+def _get_representative_word(pdfa: PDFA, max_length: int):
     word = Sequence()
     first_state = list(filter(lambda x: x.initial_weight ==
                        1, pdfa.weighted_states))[0]
     symbols, weights, next_states = first_state.get_all_symbol_weights()
     next_symbol = np.random.choice(symbols, p=weights)
-    while next_symbol != pdfa.terminal_symbol:
+    total_length = 0
+    while next_symbol != pdfa.terminal_symbol and total_length < max_length:
         word += next_symbol
         i = symbols.index(next_symbol)
         next_state = next_states[i]
@@ -34,6 +37,7 @@ def _get_representative_word(pdfa: PDFA):
         if np.sum(weights)!=1:
             weights = weights/np.sum(weights)
         next_symbol = np.random.choice(symbols, p=weights)
+        total_length+=1
     return word
 
 

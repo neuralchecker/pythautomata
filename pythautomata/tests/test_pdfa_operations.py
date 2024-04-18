@@ -47,6 +47,12 @@ class TestPDFAOperations(TestCase):
     def test_7(self):
         pdfa = WeightedTomitasGrammars.get_automaton_7()
         self.assertRaises(AssertionError, get_representative_sample, pdfa, -1)
+    
+    def test_8(self):
+        pdfa = WeightedTomitasGrammars.get_automaton_6()
+        sample = get_representative_sample(pdfa, 100, 5)
+        self.assertTrue(max([len(x) for x in sample])==5)
+        self.assertTrue(True)
 
     def test_pdfa_is_minimal(self):
         for pdfa in WeightedTomitasGrammars.get_all_automata():            
