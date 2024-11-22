@@ -107,3 +107,39 @@ class RankingPartitioner(ProbabilityPartitioner):
         ranks = order.argsort()
         ranks[ranks >= self.k] = -1
         return ranks
+
+class TopKProbabilityPartitionerPlus(ProbabilityPartitioner):
+    def __init__(self, k) -> None:
+        self.k = k
+        super().__init__()
+
+    def _get_partition(self, probability_vector):
+        probability_vector = np.array(probability_vector)
+        order = (-probability_vector).argsort()  # Sort descending
+        support_mask = probability_vector > 0   # Identify the support
+        top_k_mask = np.zeros_like(probability_vector, dtype=int)
+        top_k_mask[order[:self.k]] = 1  # Mark the top-k elements
+        
+        # Combine top-k and support information
+        partition = top_k_mask * support_mask.astype(int)
+        return partition
+
+class RankingPartitionerPlus(ProbabilityPartitioner):
+    def __init__(self, k) -> None:
+        self.k = k
+        super().__init__()
+
+    def _get_partition(self, probability_vector):
+        probability_vector = np.array(probability_vector)
+        order = (-probability_vector).argsort()  # Sort descending
+        support_mask = probability_vector > 0   # Identify the support
+        ranks = np.full_like(probability_vector, -1, dtype=int)  # Initialize as -1
+        
+        # Assign ranks only within the support
+        for idx, value in enumerate(order):
+            if idx < self.k:
+                ranks[value] = idx + 1  # Rank within top-k
+            elif support_mask[value]:
+                ranks[value] = idx + 1  # Rank within full support
+        
+        return ranks
