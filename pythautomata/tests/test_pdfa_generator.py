@@ -81,5 +81,5 @@ class TestPDFAGenerator(TestCase):
             mediumAlphabet, 200)
         dfa = generated_automata
         pdfa = pdfa_generator.pdfa_from_dfa(
-            dfa, distributions=100, max_shift=0.3, zero_probability=0.5, make_absorbent=True)
+            dfa, distributions=100, max_shift=0.3, zero_probability=0.5)
         self.assertEqual(pdfa, pdfa)

@@ -1,13 +1,15 @@
 from unittest import TestCase
 
 from pythautomata.automata_definitions.weighted_tomitas_grammars import WeightedTomitasGrammars
-from pythautomata.utilities.pdfa_operations import get_representative_sample, check_is_minimal
+from pythautomata.utilities.pdfa_operations import get_representative_sample, check_is_minimal, make_absorbent
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.automata.wheighted_automaton_definition.probabilistic_deterministic_finite_automaton import \
     ProbabilisticDeterministicFiniteAutomaton as PDFA
 from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 from pythautomata.model_comparators.wfa_tolerance_comparison_strategy import WFAToleranceComparator
+from pythautomata.utilities import nicaud_dfa_generator
+from pythautomata.utilities.pdfa_generator import pdfa_from_dfa
 binaryAlphabet = Alphabet(frozenset((SymbolStr('0'), SymbolStr('1'))))
 zero = binaryAlphabet['0']
 one = binaryAlphabet['1']
@@ -97,3 +99,16 @@ class TestPDFAOperations(TestCase):
 
     def test_pdfa_is_not_minimal(self):
         assert not check_is_minimal(self.get_not_minimal_pdfa())
+
+    def test_make_absorbent(self):
+        symbols = []
+        for i in range(5):
+            symbols.append(SymbolStr(str(i)))
+        mediumAlphabet = Alphabet(frozenset(symbols))
+        generated_automata = nicaud_dfa_generator.generate_dfa(
+            mediumAlphabet, 1000)
+        dfa = generated_automata
+        pdfa = pdfa_from_dfa(
+            dfa, distributions=1000, max_shift=0.3, zero_probability=0.99)        
+        pdfa2 = make_absorbent(pdfa)
+        assert len(pdfa2.weighted_states) <= len(pdfa.weighted_states)+1
