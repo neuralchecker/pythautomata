@@ -11,13 +11,15 @@ from typing import Any
 
 
 def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataComparator = WFAToleranceComparator(),
-                  distributions: int = None, max_shift: float = 0, terminal_symbol: str = '$', zero_probability: int = 0) -> ProbabilisticDeterministicFiniteAutomaton:
+                  distributions: int = None, max_shift: float = 0, terminal_symbol: str = '$', zero_probability: int = 0, make_absorbent: bool = False, absorbent_epsilon: float = 0.02) -> ProbabilisticDeterministicFiniteAutomaton:
     """
     Function that transforms a DFA to a PDFA with random probability distributions for each state.
     Distributions is a predefined integer that defines the number of different distributions states may have (infinite if None)
     And shift is a float definig the ammount of random noise that may be added to such predefined distributions (only used when distributions != None).
     Zero probability is a number that indicates the chances of a transition probability being 0 (zero).
-
+    Make_absorbent is a boolean that indicates if the automaton should be absorbent or not, that is, transitions with probability 0 are directed to the HOLE state.
+    Absorbent_epsilon is a float that indicates the threshold for a transition to be considered 0 (zero).
+    
     Parameters
     ----------
     dfa : DeterministicFiniteAutomaton
@@ -26,6 +28,8 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
     max_shift: float
     terminal_symbol: str
     zero_probability: int
+    make_absorbent: bool
+    absorbent_epsilon: float
 
     Returns
     -------
@@ -47,6 +51,27 @@ def pdfa_from_dfa(dfa: DeterministicFiniteAutomaton, comparator: FiniteAutomataC
                               wfa_states_dict, probability_vector=distribution)
 
     terminal_symbol = SymbolStr(terminal_symbol)
+
+    if make_absorbent:
+        symbols = list(dfa.alphabet.symbols)
+        symbols.sort()
+        added_transitions = 0
+        hole = WeightedState("HOLE", 0, 1, terminal_symbol=terminal_symbol)
+
+        for symbol in symbols:
+            hole.add_transition(symbol, hole, 0)
+
+        for state in wfa_states_dict.values():
+            symbols, weights, next_states = state.get_all_symbol_weights()
+            for symbol, weight in zip(symbols, weights):
+                if abs(weight) < absorbent_epsilon and symbol != terminal_symbol:
+                    state.transitions_set[symbol] = set()
+                    state.transitions_list[symbol] = list()
+                    state.add_transition(symbol, hole, 0)
+                    added_transitions +=1
+        if added_transitions > 0:
+            wfa_states_dict[hole.name] = hole
+
     return ProbabilisticDeterministicFiniteAutomaton(dfa.alphabet, set(wfa_states_dict.values()), terminal_symbol,
                                                      comparator)
 
