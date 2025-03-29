@@ -9,6 +9,7 @@ from pythautomata.base_types.moore_state import MooreState
 from pythautomata.base_types.symbol import SymbolStr
 from pythautomata.base_types.alphabet import Alphabet
 from pythautomata.model_comparators.moore_machine_comparison_strategy import MooreMachineComparisonStrategy as MooreMachineComparison
+from pythautomata.automata.wheighted_automaton_definition.weighted_state import WeightedState
 import math
 
 
@@ -72,3 +73,59 @@ def check_is_minimal(pdfa: PDFA):
 
     #Compare sizes
     return len(minimal_machine.states) == len(moore_machine.states)
+
+
+def make_absorbent(pdfa: PDFA,  epsilon: float = 0.02):
+    """
+    Make the PDFA absorbent by adding a hole state and make zero probabilities transitions got to it.
+
+    Parameters
+    ----------
+    pdfa : ProbabilisticDeterministicFiniteAutomaton
+        The PDFA to be made absorbent.
+    epsilon : float, optional
+        The threshold for considering a transition weight as zero, by default 0.02
+
+    Returns
+    -------
+    ProbabilisticDeterministicFiniteAutomaton
+        The modified PDFA with an absorbent state.
+    """
+    
+    symbols = list(pdfa.alphabet.symbols)
+    symbols.sort()
+    added_transitions = 0
+    terminal_symbol = pdfa.terminal_symbol
+
+    hole = WeightedState("HOLE", 0, 1, terminal_symbol=terminal_symbol)
+
+    for symbol in symbols:
+        hole.add_transition(symbol, hole, 0)
+    
+    new_weighted_states = pdfa.weighted_states.copy()
+
+    for state in new_weighted_states:
+        symbols, weights, next_states = state.get_all_symbol_weights()
+        for symbol, weight in zip(symbols, weights):
+            if abs(weight) < epsilon and symbol != terminal_symbol:
+                state.transitions_set[symbol] = set()
+                state.transitions_list[symbol] = list()
+                state.add_transition(symbol, hole, 0)
+                added_transitions +=1
+    if added_transitions > 0:
+        new_weighted_states.add(hole)
+
+    visited_states = set()
+    states_to_visit = [pdfa.get_first_state()]    
+    while states_to_visit:
+        state = states_to_visit.pop(0)
+        visited_states.add(state)
+        for symbol in pdfa.alphabet.symbols:
+            next_state = min(state.next_states_for(symbol))
+            if next_state and next_state not in visited_states:                
+                states_to_visit.append(next_state)
+    for state in pdfa.weighted_states:
+        if state not in visited_states:
+            new_weighted_states.remove(state)
+    
+    return PDFA(pdfa.alphabet, new_weighted_states, pdfa.terminal_symbol, pdfa.comparator, pdfa.name+"_absorbent")
